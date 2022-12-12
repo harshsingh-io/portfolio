@@ -1,6 +1,6 @@
 {
   "name": "react-portfolio-website-1",
-  "homepage": "https:/harshsingh-io.github.io/portfolio",
+  "homepage": "https://harshsingh-io.github.io/portfolio",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -16,7 +16,6 @@
     "swiper": "^8.4.5",
     "web-vitals": "^2.1.4"
   },
-  
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
