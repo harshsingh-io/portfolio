@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/harshsingh-io.github.io/portfolio/static/css/main.1475fa98.css",
-    "main.js": "/harshsingh-io.github.io/portfolio/static/js/main.7232ffc9.js",
-    "static/media/harsh-about.png": "/harshsingh-io.github.io/portfolio/static/media/harsh-about.4783f46ce5583bffd8a3.png",
-    "static/media/meo.png": "/harshsingh-io.github.io/portfolio/static/media/meo.e8ab0efa9d930fd21890.png",
-    "static/media/P2.png": "/harshsingh-io.github.io/portfolio/static/media/P2.85dd5d3c16a8cb35bd36.png",
-    "static/media/P3.png": "/harshsingh-io.github.io/portfolio/static/media/P3.3dc14e328d0de693c129.png",
-    "static/media/P4.png": "/harshsingh-io.github.io/portfolio/static/media/P4.f83b76fc62c7afc1dbb5.png",
-    "static/media/P5.png": "/harshsingh-io.github.io/portfolio/static/media/P5.4769acb30ee90441462a.png",
-    "static/media/P1.png": "/harshsingh-io.github.io/portfolio/static/media/P1.bd404f71e81681e01fe4.png",
-    "static/media/P6.png": "/harshsingh-io.github.io/portfolio/static/media/P6.c361fdbee1aa43ca78de.png",
-    "static/media/resume.pdf": "/harshsingh-io.github.io/portfolio/static/media/resume.c76005890ed0b7c7847b.pdf",
-    "index.html": "/harshsingh-io.github.io/portfolio/index.html",
-    "main.1475fa98.css.map": "/harshsingh-io.github.io/portfolio/static/css/main.1475fa98.css.map",
-    "main.7232ffc9.js.map": "/harshsingh-io.github.io/portfolio/static/js/main.7232ffc9.js.map"
+    "main.css": "/portfolio/static/css/main.1475fa98.css",
+    "main.js": "/portfolio/static/js/main.1fe9c329.js",
+    "static/media/harsh-about.png": "/portfolio/static/media/harsh-about.4783f46ce5583bffd8a3.png",
+    "static/media/meo.png": "/portfolio/static/media/meo.e8ab0efa9d930fd21890.png",
+    "static/media/P2.png": "/portfolio/static/media/P2.85dd5d3c16a8cb35bd36.png",
+    "static/media/P3.png": "/portfolio/static/media/P3.3dc14e328d0de693c129.png",
+    "static/media/P4.png": "/portfolio/static/media/P4.f83b76fc62c7afc1dbb5.png",
+    "static/media/P5.png": "/portfolio/static/media/P5.4769acb30ee90441462a.png",
+    "static/media/P1.png": "/portfolio/static/media/P1.bd404f71e81681e01fe4.png",
+    "static/media/P6.png": "/portfolio/static/media/P6.c361fdbee1aa43ca78de.png",
+    "static/media/resume.pdf": "/portfolio/static/media/resume.c76005890ed0b7c7847b.pdf",
+    "index.html": "/portfolio/index.html",
+    "main.1475fa98.css.map": "/portfolio/static/css/main.1475fa98.css.map",
+    "main.1fe9c329.js.map": "/portfolio/static/js/main.1fe9c329.js.map"
   },
   "entrypoints": [
     "static/css/main.1475fa98.css",
-    "static/js/main.7232ffc9.js"
+    "static/js/main.1fe9c329.js"
   ]
 }
