@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/harshsingh-io.github.io/portfolio/static/css/main.1475fa98.css",
-    "main.js": "/harshsingh-io.github.io/portfolio/static/js/main.1df85621.js",
+    "main.js": "/harshsingh-io.github.io/portfolio/static/js/main.7232ffc9.js",
     "static/media/harsh-about.png": "/harshsingh-io.github.io/portfolio/static/media/harsh-about.4783f46ce5583bffd8a3.png",
     "static/media/meo.png": "/harshsingh-io.github.io/portfolio/static/media/meo.e8ab0efa9d930fd21890.png",
     "static/media/P2.png": "/harshsingh-io.github.io/portfolio/static/media/P2.85dd5d3c16a8cb35bd36.png",
@@ -13,10 +13,10 @@
     "static/media/resume.pdf": "/harshsingh-io.github.io/portfolio/static/media/resume.c76005890ed0b7c7847b.pdf",
     "index.html": "/harshsingh-io.github.io/portfolio/index.html",
     "main.1475fa98.css.map": "/harshsingh-io.github.io/portfolio/static/css/main.1475fa98.css.map",
-    "main.1df85621.js.map": "/harshsingh-io.github.io/portfolio/static/js/main.1df85621.js.map"
+    "main.7232ffc9.js.map": "/harshsingh-io.github.io/portfolio/static/js/main.7232ffc9.js.map"
   },
   "entrypoints": [
     "static/css/main.1475fa98.css",
-    "static/js/main.1df85621.js"
+    "static/js/main.7232ffc9.js"
   ]
 }
