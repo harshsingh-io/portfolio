@@ -1,22 +1,26 @@
 {
   "files": {
     "main.css": "/portfolio/static/css/main.1475fa98.css",
-    "main.js": "/portfolio/static/js/main.1fe9c329.js",
-    "static/media/harsh-about.png": "/portfolio/static/media/harsh-about.4783f46ce5583bffd8a3.png",
-    "static/media/meo.png": "/portfolio/static/media/meo.e8ab0efa9d930fd21890.png",
-    "static/media/P2.png": "/portfolio/static/media/P2.85dd5d3c16a8cb35bd36.png",
-    "static/media/P3.png": "/portfolio/static/media/P3.3dc14e328d0de693c129.png",
-    "static/media/P4.png": "/portfolio/static/media/P4.f83b76fc62c7afc1dbb5.png",
-    "static/media/P5.png": "/portfolio/static/media/P5.4769acb30ee90441462a.png",
-    "static/media/P1.png": "/portfolio/static/media/P1.bd404f71e81681e01fe4.png",
-    "static/media/P6.png": "/portfolio/static/media/P6.c361fdbee1aa43ca78de.png",
+    "main.js": "/portfolio/static/js/main.5506ac0c.js",
+    "static/media/P2.webp": "/portfolio/static/media/P2.8aa5670737d32b8cc2c8.webp",
+    "static/media/harsh-about.webp": "/portfolio/static/media/harsh-about.7f98d77fefdef11372d6.webp",
+    "static/media/P3.webp": "/portfolio/static/media/P3.7df849135f510e31ad2f.webp",
+    "static/media/P5.webp": "/portfolio/static/media/P5.5c912ab1d041df7f967a.webp",
+    "static/media/meo.webp": "/portfolio/static/media/meo.b636be5833cbdf70e45f.webp",
     "static/media/resume.pdf": "/portfolio/static/media/resume.c76005890ed0b7c7847b.pdf",
+    "static/media/P6.webp": "/portfolio/static/media/P6.4e1bf73a402048f0298a.webp",
+    "static/media/P4.webp": "/portfolio/static/media/P4.12e81f7b0f77be9a41c4.webp",
+    "static/media/P1.webp": "/portfolio/static/media/P1.b27798ebf6efc0c2f1d7.webp",
+    "static/media/avatar3.webp": "/portfolio/static/media/avatar3.f2c23b7cd59cedd9836b.webp",
+    "static/media/avatar1.webp": "/portfolio/static/media/avatar1.942d080c5870f8f903fd.webp",
+    "static/media/avatar4.webp": "/portfolio/static/media/avatar4.4e872e803081ddf44742.webp",
+    "static/media/avatar2.webp": "/portfolio/static/media/avatar2.d2d8b7f0a7bdf9d3c457.webp",
     "index.html": "/portfolio/index.html",
     "main.1475fa98.css.map": "/portfolio/static/css/main.1475fa98.css.map",
-    "main.1fe9c329.js.map": "/portfolio/static/js/main.1fe9c329.js.map"
+    "main.5506ac0c.js.map": "/portfolio/static/js/main.5506ac0c.js.map"
   },
   "entrypoints": [
     "static/css/main.1475fa98.css",
-    "static/js/main.1fe9c329.js"
+    "static/js/main.5506ac0c.js"
   ]
 }
