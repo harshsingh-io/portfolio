@@ -1,6 +1,6 @@
 import React from 'react'
 import './about.css'
-import ME from '../../assets/harsh-about.png'
+import ME from '../../assets/harsh-about.webp'
 import{FaAward} from 'react-icons/fa'
 import{FiUsers} from 'react-icons/fi'
 import{GoProject} from 'react-icons/go'

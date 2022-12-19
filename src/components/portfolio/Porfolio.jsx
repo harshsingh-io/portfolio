@@ -1,11 +1,11 @@
 import React from 'react'
 import './portfolio.css'
-import CALCI from "../../assets/P1.png"
-import QUIZIE from "../../assets/P5.png"
-import WORKOUT from "../../assets/P3.png"
-import HAPPYPLACE from "../../assets/P2.png"
-import WEATHER from "../../assets/P4.png"
-import TRELLO from "../../assets/P6.png"
+import CALCI from "../../assets/P1.webp"
+import QUIZIE from "../../assets/P5.webp"
+import WORKOUT from "../../assets/P3.webp"
+import HAPPYPLACE from "../../assets/P2.webp"
+import WEATHER from "../../assets/P4.webp"
+import TRELLO from "../../assets/P6.webp"
 
 const data = [
 
