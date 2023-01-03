@@ -13,6 +13,7 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",
     "react-scripts": "^5.0.1",
+    "save": "^2.9.0",
     "swiper": "^8.4.5",
     "web-vitals": "^2.1.4"
   },
