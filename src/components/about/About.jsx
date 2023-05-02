@@ -36,12 +36,15 @@ const About = () => {
             </article>
           </div>
           <p>
-          Hello, My name is Harsh Singh, and I'm a Computer Science and Engineerin Student under-graduate with a strong interest in software development and problem solving. I've been recognised for my academic achievements as well as my ability to collaborate and communicate effectively with team members throughout my academic career.
-          
+          Hello, My name is Harsh Singh, and I'm a Computer Science and Engineerin Student under-graduate with a strong interest in software development and problem solving. I've been recognised for my academic achievements as well as my ability to collaborate and communicate effectively with team members throughout my academic career. 
+          </p>
+          <p>
           In respective field, I collaborated as an Android developer, building mobile applications with technologies such as the Android SDK, XML, Kotlin, and Java. In addition, I've developed my abilities in web development with HTML and Cascading Style Sheets, and I'm well-versed in data structures and algorithms. My experience has allowed me to hone my teamwork, problem-solving, and communication abilities.
-          
+          </p>
+          <p>
           Looking ahead, I'm excited to continue enhancing my software development skills and exploring new opportunities in fields such as machine learning, cloud computing, and data science. I'm looking for an entry-level position that will challenge me and provide opportunities for advancement.
-          
+          </p>
+          <p>
           If you'd like to connect with me or acquire more about my profession, please don't hesitate to contact me. My contact information is available on my profile.
           </p>
 
