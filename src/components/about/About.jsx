@@ -45,7 +45,7 @@ const About = () => {
           Looking ahead, I'm excited to continue enhancing my software development skills and exploring new opportunities in fields such as machine learning, cloud computing, and data science. I'm looking for an entry-level position that will challenge me and provide opportunities for advancement.
           </p>
           <p>
-          If you'd like to connect with me or acquire more about my profession, please don't hesitate to contact me. My contact information is available on my profile.
+          If you'd like to connect with me or acquire more about my profession, please don't hesitate to contact me. My contact information is available below.
           </p>
 
           <a href="#contact" className="btn btn-primary">Let's Talk</a>
