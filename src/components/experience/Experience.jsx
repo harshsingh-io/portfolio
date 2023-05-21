@@ -8,68 +8,68 @@ const Experience = () => {
       <h2>My Experience</h2>
 
       <div className="container experience__container">
-      <div className="experience__frontend">
-          <h3>Frontend Development</h3>
+      <div className="experience__android">
+          <h3>Android Development</h3>
           <div className="experience__content">
           <article className='experience__details'>
               <BsPatchCheckFill className='experience__details-icon' />
               <div>
-                <h4>HTML</h4>
+                <h4>XML</h4>
                 <small className='text-light'>Experienced</small>
               </div>
             </article>
             <article className='experience__details'>
               <BsPatchCheckFill className='experience__details-icon' />
               <div>
-                <h4>CSS</h4>
+                <h4>Kotlin</h4>
                 <small className='text-light'>Intermediate</small>
               </div>
             </article>
             <article className='experience__details'>
               <BsPatchCheckFill className='experience__details-icon' />
               <div>
-                <h4>Javascript</h4>
+                <h4>Android SDK</h4>
                 <small className='text-light'>Experienced</small>
               </div>
             </article>
             <article className='experience__details'>
               <BsPatchCheckFill className='experience__details-icon' />
               <div>
-                <h4>React</h4>
+                <h4>Layouts</h4>
                 <small className='text-light'>Intermediate</small>
               </div>
             </article>
           </div>
         </div>
         <div className="experience__backend">
-          <h3>Backend Development</h3>
+          <h3>Tools And Tech Stacks</h3>
           <div className="experience__content">
           <article className='experience__details'>
               <BsPatchCheckFill className='experience__details-icon' />
               <div>
-                <h4>Node JS</h4>
+                <h4>Git & Github</h4>
                 <small className='text-light'>Basic</small>
               </div>
             </article>
             <article className='experience__details'>
               <BsPatchCheckFill className='experience__details-icon' />
               <div>
-                <h4>MongoDB</h4>
+                <h4>Version Control</h4>
                 <small className='text-light'>Basic</small>
               </div>
             </article>
             <article className='experience__details'>
               <BsPatchCheckFill className='experience__details-icon' />
               <div>
-                <h4>Bootstrap</h4>
-                <small className='text-light'>Experienced</small>
+                <h4>AWS Essentials</h4>
+                <small className='text-light'>Basic</small>
               </div>
             </article>
             <article className='experience__details'>
               <BsPatchCheckFill className='experience__details-icon' />
               <div>
-                <h4>PHP</h4>
-                <small className='text-light'>Basic</small>
+                <h4>DSA And OOPs</h4>
+                <small className='text-light'>Intermediate</small>
               </div>
             </article>
           </div>

@@ -18,23 +18,28 @@ const Services = () => {
             <ul className='service__list'>
             <li>
                 <BiCheck className='service__list-icon' />
-                <p>Designing</p>
+                <p>Develop high-quality Android apps using Kotlin.
+</p>
               </li>
               <li>
                 <BiCheck className='service__list-icon' />
-                <p>Development</p>
+                <p>Create user-friendly and engaging Android apps.
+</p>
               </li>
               <li>
                 <BiCheck className='service__list-icon' />
-                <p>Enhancement</p>
+                <p>Solve complex problems using Android app development.
+</p>
               </li>
               <li>
                 <BiCheck className='service__list-icon' />
-                <p>I integrate the developed apps with the back-end web service</p>
+                <p>Debug and test Android apps to ensure they are reliable and bug-free.
+</p>
               </li>
               <li>
                 <BiCheck className='service__list-icon' />
-                <p>All supported Android OS</p>
+                <p>Use version control software to track changes to Android app code.
+</p>
               </li>
             </ul>
           </article>
@@ -47,23 +52,23 @@ const Services = () => {
             <ul className='service__list'>
             <li>
                 <BiCheck className='service__list-icon' />
-                <p>In-depth understanding of DSA</p>
+                <p>Contribute to open source projects related to data structures and algorithms.</p>
               </li>
               <li>
                 <BiCheck className='service__list-icon' />
-                <p>OOPs Concept</p>
+                <p>Write blog posts or articles about data structures and algorithms.</p>
               </li>
               <li>
                 <BiCheck className='service__list-icon' />
-                <p>Learning skills quickly</p>
+                <p>Work on personal projects that use data structures and algorithms.</p>
               </li>
               <li>
                 <BiCheck className='service__list-icon' />
-                <p>Excellent analytical problem solving communication and inter-personal skills</p>
+                <p>Analyze the time and space complexity of algorithms.</p>
               </li>
               <li>
                 <BiCheck className='service__list-icon' />
-                <p>Experience with Object Oriented programmings such as core Java SE, including Collections API, threads, multithreading,</p>
+                <p>Present at conferences or meetups about data structures and algorithms.</p>
               </li>
             </ul>
           </article>
@@ -76,23 +81,23 @@ const Services = () => {
             <ul className='service__list'>
             <li>
                 <BiCheck className='service__list-icon' />
-                <p>C</p>
+                <p>C(Academics)</p>
               </li>
               <li>
                 <BiCheck className='service__list-icon' />
-                <p>Java</p>
+                <p>Java(Experienced)</p>
               </li>
               <li>
                 <BiCheck className='service__list-icon' />
-                <p>CPP</p>
+                <p>CPP(Academics)</p>
               </li>
               <li>
                 <BiCheck className='service__list-icon' />
-                <p>Kotlin</p>
+                <p>Kotlin(Android Development)</p>
               </li>
               <li>
                 <BiCheck className='service__list-icon' />
-                <p>Python</p>
+                <p>Python(Basics)</p>
               </li>
             </ul>
           </article>

@@ -9,6 +9,7 @@ import TRELLO from "../../assets/P6.webp"
 
 const data = [
 
+  /*
   {
     id:1,
     image: TRELLO,
@@ -36,7 +37,7 @@ const data = [
     title: 'This is a Workout App',
     github: 'https://github.com/harshsingh-io/calculator',
     demo: 'https://github.com/harshsingh-io/raw/raw/main/calcidemo.mp4'
-  },
+  },*/
   {
     id:5,
     image: QUIZIE,
