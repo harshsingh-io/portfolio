@@ -42,8 +42,8 @@ const data = [
     id:5,
     image: QUIZIE,
     title: 'This is a Quiz App',
-    github: 'https://github.com/harshsingh-io/calculator',
-    demo: 'https://github.com/harshsingh-io/raw/raw/main/calcidemo.mp4'
+    github: 'https://github.com/harshsingh-io/quizie',
+    demo: '#'
   },
   {
     id:6,
