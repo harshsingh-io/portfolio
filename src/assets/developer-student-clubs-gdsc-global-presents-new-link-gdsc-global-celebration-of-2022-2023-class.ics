@@ -1,0 +1,21 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Bevy Labs//Bevy//
+BEGIN:VEVENT
+SUMMARY:NEW LINK - GDSC Global Celebration of 2022- 2023 Class
+DTSTART;VALUE=DATE-TIME:20230531T130000Z
+DTEND;VALUE=DATE-TIME:20230531T143000Z
+DTSTAMP;VALUE=DATE-TIME:20230531T140643Z
+UID:2023-05-31T14:06:43.635824/Bevy
+DESCRIPTION:Due to issues with the platform\, we are hosting today's netwo
+ rking event for all members of the community to celebrate the end of class
+  22-23. Please join us for the opportunity to network with other GDSC memb
+ ers to make new connections from around the globe! We look forward to see 
+ you there!\n\nVirtual event URL: https://gdsc.community.dev/j/se7p7qhkd35g
+ s/8fed47dc-aad0-4681-8f67-8043ee1112c3/
+ORGANIZER;CN="GDSC Event Platform":MAILTO:noreply@gdsc.community.dev
+PRIORITY:5
+URL:https://gdsc.community.dev/j/se7p7qhkd35gs/8fed47dc-aad0-4681-8f67-804
+ 3ee1112c3/
+END:VEVENT
+END:VCALENDAR
