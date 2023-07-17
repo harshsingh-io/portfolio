@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/portfolio/static/css/main.cc9684c8.css",
-    "main.js": "/portfolio/static/js/main.27949194.js",
+    "main.js": "/portfolio/static/js/main.bc3c54ef.js",
     "static/media/P2.webp": "/portfolio/static/media/P2.8aa5670737d32b8cc2c8.webp",
     "static/media/harsh-about.webp": "/portfolio/static/media/harsh-about.7f98d77fefdef11372d6.webp",
     "static/media/P3.webp": "/portfolio/static/media/P3.7df849135f510e31ad2f.webp",
@@ -10,6 +10,7 @@
     "static/media/resume.pdf": "/portfolio/static/media/resume.be82dde9b422e2477460.pdf",
     "static/media/P6.webp": "/portfolio/static/media/P6.4e1bf73a402048f0298a.webp",
     "static/media/mayurbhaia.webp": "/portfolio/static/media/mayurbhaia.0f687853e8f05e10504e.webp",
+    "static/media/doodleit.webp": "/portfolio/static/media/doodleit.6b39142f6ec500e0d965.webp",
     "static/media/P4.webp": "/portfolio/static/media/P4.12e81f7b0f77be9a41c4.webp",
     "static/media/aishwarbhaia.webp": "/portfolio/static/media/aishwarbhaia.6f95299783befe231b70.webp",
     "static/media/P1.webp": "/portfolio/static/media/P1.b27798ebf6efc0c2f1d7.webp",
@@ -17,10 +18,10 @@
     "static/media/mokshadi.webp": "/portfolio/static/media/mokshadi.72fe1fd0a8878a734148.webp",
     "index.html": "/portfolio/index.html",
     "main.cc9684c8.css.map": "/portfolio/static/css/main.cc9684c8.css.map",
-    "main.27949194.js.map": "/portfolio/static/js/main.27949194.js.map"
+    "main.bc3c54ef.js.map": "/portfolio/static/js/main.bc3c54ef.js.map"
   },
   "entrypoints": [
     "static/css/main.cc9684c8.css",
-    "static/js/main.27949194.js"
+    "static/js/main.bc3c54ef.js"
   ]
 }
