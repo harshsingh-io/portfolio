@@ -3,6 +3,7 @@ import './portfolio.css'
 import CALCI from "../../assets/P1.webp"
 import QUIZIE from "../../assets/P5.webp"
 import WORKOUT from "../../assets/P3.webp"
+import DOODLEIT from"../../assets/doodleit.webp"
 import HAPPYPLACE from "../../assets/P2.webp"
 import WEATHER from "../../assets/P4.webp"
 import TRELLO from "../../assets/P6.webp"
@@ -30,23 +31,30 @@ const data = [
     title: 'This is a Happy Place App',
     github: 'https://github.com/harshsingh-io/calculator',
     demo: 'https://github.com/harshsingh-io/raw/raw/main/calcidemo.mp4'
-  },
+  }, */
   {
     id:4,
     image: WORKOUT,
     title: 'This is a Workout App',
-    github: 'https://github.com/harshsingh-io/calculator',
+    github: 'https://github.com/harshsingh-io/BodySync',
     demo: 'https://github.com/harshsingh-io/raw/raw/main/calcidemo.mp4'
-  },*/
+  },
   {
     id:5,
+    image: DOODLEIT,
+    title: 'This is a Drawing App',
+    github: 'https://github.com/harshsingh-io/DoodleIt',
+    demo: 'https://github.com/harshsingh-io/raw/raw/main/calcidemo.mp4'
+  },
+  {
+    id:6,
     image: QUIZIE,
     title: 'This is a Quiz App',
     github: 'https://github.com/harshsingh-io/quizie',
     demo: '#'
   },
   {
-    id:6,
+    id:7,
     image: CALCI,
     title: 'This is a Calculator',
     github: 'https://github.com/harshsingh-io/calculator',
