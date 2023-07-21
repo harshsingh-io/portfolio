@@ -7,7 +7,7 @@ import{FaTwitterSquare} from 'react-icons/fa'
 const Footer = () => {
   return (
     <footer>
-      <a href="https://codenemy.blogspot.com/" className='footer__logo'>CODENEMY</a>
+      <a href="https://codeenemy.hashnode.dev/" className='footer__logo'>CODENEMY</a>
 
       <ul className="permalinks">
         <li><a href="#">Home</a></li>
