@@ -2,11 +2,20 @@ import React from 'react'
 import './contact.css'
 import {MdOutlineEmail} from 'react-icons/md'
 import{FaWhatsapp} from 'react-icons/fa'
+import { useEffect, useState } from 'react'
+import AnimatedLetters from '../AnimatedLetters'
 import{TbBrandTelegram} from 'react-icons/tb'
 import { useRef } from 'react';
 import emailjs from 'emailjs-com'
 
 const Contact = () => {
+  const [letterClass, setLetterClass] = useState('text-animate')
+
+  useEffect(() => {
+    return setTimeout(() => {
+      setLetterClass('text-animate-hover')
+    }, 3000)
+  }, [])
   const form = useRef();
   const sendEmail = (e) => {
     e.preventDefault();
@@ -16,14 +25,24 @@ const Contact = () => {
   };
   return (
     <section id='contact'>
-      <h5>Get In Touch</h5>
-      <h2>Contact Me</h2>
+      <h5><AnimatedLetters
+  letterClass={letterClass}
+  strArray={['G', 'e', 't', ' ', 'I', 'n', ' ', 'T', 'o', 'u', 'c', 'h']}
+  idx={15}
+/>
+</h5>
+      <h2><AnimatedLetters
+  letterClass={letterClass}
+  strArray={['C', 'o', 'n', 't', 'a', 'c', 't', ' ', 'M', 'e']}
+  idx={15}
+/>
+</h2>
       <div className="container contact__container">
         <div className="contact__options">
           <article className="contact__option">
             <MdOutlineEmail className='contact__option-icon'/>
             <h4>Email</h4>
-            <h5>harshsingh704888@gmail.com</h5>
+            <h4>harshsingh704888@gmail.com</h4>
             <a href="mailto:harshsingh704888@gmail.com">SEND A MESSAGE</a>
           </article>
           <article className="contact__option">

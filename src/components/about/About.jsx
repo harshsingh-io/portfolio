@@ -1,14 +1,31 @@
 import React from 'react'
 import './about.css'
+import { useEffect, useState } from 'react'
+import AnimatedLetters from '../AnimatedLetters'
 import ME from '../../assets/harsh-about.webp'
 import{FaAward} from 'react-icons/fa'
 import{FiUsers} from 'react-icons/fi'
 import{GoProject} from 'react-icons/go'
 const About = () => {
+  const [letterClass, setLetterClass] = useState('text-animate')
+
+  useEffect(() => {
+    return setTimeout(() => {
+      setLetterClass('text-animate-hover')
+    }, 3000)
+  }, [])
   return (
     <section id='about'>
-      <h5>Get To Know</h5>
-      <h2>About Me</h2>
+      <h5><AnimatedLetters
+              letterClass={letterClass}
+              strArray={['G','e','t',' ','T','o',' ','K','n','o','w']}
+              idx={15}
+            /></h5>
+      <h2> <AnimatedLetters
+              letterClass={letterClass}
+              strArray={['A', 'b', 'o', 'u', 't', ' ', 'm', 'e']}
+              idx={15}
+            /></h2>
 
       <div className="container about__container">
         <div className='about__me'>
@@ -22,12 +39,12 @@ const About = () => {
             <article className="about__card">
               <FaAward className='about__icon'/>
               <h5>Experience</h5>
-              <small>No Work Experience</small>
+              <small>3 months</small>
             </article>
             <article className="about__card">
               <FiUsers className='about__icon'/>
-              <h5>Clients</h5>
-              <small>0 Clients</small>
+              <h5>Contributions</h5>
+              <small>15+ Contributions</small>
             </article>
             <article className="about__card">
               <GoProject className='about__icon'/>
@@ -35,18 +52,10 @@ const About = () => {
               <small>5+</small>
             </article>
           </div>
-          <p>
-          Hello, My name is Harsh Singh, and I'm a Computer Science and Engineering Student under-graduate with a strong interest in software development and problem solving. I've been recognised for my academic achievements as well as my ability to collaborate and communicate effectively with team members throughout my academic career. 
-          </p>
-          <p>
-          In respective field, I collaborated as an Android developer, building mobile applications with technologies such as the Android SDK, XML, Kotlin, and Java. In addition, I've developed my abilities in web development with HTML and Cascading Style Sheets, and I'm well-versed in data structures and algorithms. My experience has allowed me to hone my teamwork, problem-solving, and communication abilities.
-          </p>
-          <p>
-          Looking ahead, I'm excited to continue enhancing my software development skills and exploring new opportunities in fields such as machine learning, cloud computing, and data science. I'm looking for an entry-level position that will challenge me and provide opportunities for advancement.
-          </p>
-          <p>
-          If you'd like to connect with me or acquire more about my profession, please don't hesitate to contact me. My contact information is available below.
-          </p>
+          <p>I am an aspiring software engineer with a passion for building innovative and user-friendly applications. I have strong skills in Java, Kotlin, Android development, and data structures and algorithms. I am also an active open-source contributor and have a proven track record of delivering high-quality work.</p>
+          <p>In my previous role as an Android Lead for Google Developer Student Clubs Bhopal, I successfully executed 3 tech events with an average participation of 550+ students. I also managed a team of 10 volunteers, which increased the coding club's membership by more than 500 within a week.</p>
+          <p>I am currently working on two open-source projects: a project management application that uses Firebase Firestore to store data in the cloud, and a workout application that allows users to track their workouts, set goals, and receive feedback.</p>
+<p>I am eager to apply my skills and experience to a challenging software engineering internship where I can learn and grow. I am also passionate about making a positive impact on the world through technology.</p>
 
           <a href="#contact" className="btn btn-primary">Let's Talk</a>
         </div>

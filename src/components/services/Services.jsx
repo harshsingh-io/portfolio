@@ -1,13 +1,32 @@
 import React from 'react'
 import './services.css'
+import { useEffect, useState } from 'react'
+import AnimatedLetters from '../AnimatedLetters'
 import {BiCheck} from 'react-icons/bi'
 
 const Services = () => {
+  const [letterClass, setLetterClass] = useState('text-animate')
+
+  useEffect(() => {
+    return setTimeout(() => {
+      setLetterClass('text-animate-hover')
+    }, 3000)
+  }, [])
   return (
     <section id='services'>
       <section id='services'>
-        <h5>What I Offer</h5>
-        <h2>Services</h2>
+        <h5><AnimatedLetters
+  letterClass={letterClass}
+  strArray={['W', 'h', 'a', 't', ' ', 'I', ' ', 'O', 'f', 'f', 'e', 'r']}
+  idx={15}
+/>
+</h5>
+        <h2><AnimatedLetters
+  letterClass={letterClass}
+  strArray={['S', 'e', 'r', 'v', 'i', 'c', 'e', 's']}
+  idx={15}
+/>
+</h2>
 
         <div className="container services__container">
           <article className='services'>

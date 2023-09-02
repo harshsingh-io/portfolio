@@ -1,4 +1,6 @@
 import React from 'react'
+import { useEffect, useState } from 'react'
+import AnimatedLetters from '../AnimatedLetters'
 import './portfolio.css'
 import CALCI from "../../assets/P1.webp"
 import QUIZIE from "../../assets/P5.webp"
@@ -64,10 +66,27 @@ const data = [
 ]
 
 const Porfolio = () => {
+  const [letterClass, setLetterClass] = useState('text-animate')
+
+  useEffect(() => {
+    return setTimeout(() => {
+      setLetterClass('text-animate-hover')
+    }, 3000)
+  }, [])
   return (
     <section id='portfolio'>
-      <h5>My Recent Work</h5>
-      <h2>Portfolio</h2>
+      <h5><AnimatedLetters
+  letterClass={letterClass}
+  strArray={['M', 'y', ' ', 'R', 'e', 'c', 'e', 'n', 't', ' ', 'W', 'o', 'r', 'k']}
+  idx={15}
+/>
+</h5>
+      <h2><AnimatedLetters
+  letterClass={letterClass}
+  strArray={['P', 'o', 'r', 't', 'f', 'o', 'l', 'i', 'o']}
+  idx={15}
+/>
+</h2>
       <div className="container portfolio__container">
         {
           data.map(({id, image, title, github, demo}) => {

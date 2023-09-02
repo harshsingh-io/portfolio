@@ -1,4 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+@import 'animate.css';
+
+@font-face {
+    font-family: "Helvetica Neue";
+    src: url('./assets/fonts/helvetica-neu.ttf') format('ttf');
+}
+@font-face {
+    font-family: "La Belle Aurore";
+    src: url('./assets/fonts/LaBelleAurore.woff2') format('woff2');
+}
+@font-face {
+    font-family: "Coolvetica";
+    src: url('./assets/fonts/CoolveticaRg-Regular.woff2') format('woff2');
+}
+input,
+textarea {
+    font-family: 'Helvetica Neue';
+}
 *{
     margin: 0;
     padding: 0;
@@ -50,6 +68,12 @@ body{
 .container{
     width: var(--container-width-lg);
     margin: 0 auto;
+    opacity: 0;
+    z-index: 1;
+    transform-style: preserve-3d;
+    animation: fadeIn 1s forwards;
+    animation-delay: 1s;
+
 }
 
 h1,

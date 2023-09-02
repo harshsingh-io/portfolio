@@ -1,5 +1,7 @@
 import React from 'react'
 import './testimonials.css'
+import { useEffect, useState } from 'react'
+import AnimatedLetters from '../AnimatedLetters'
 import AVTR1 from '../../assets/mayurbhaia.webp'
 import AVTR2 from '../../assets/adityabhaia.webp'
 import AVTR3 from '../../assets/aishwarbhaia.webp'
@@ -37,10 +39,27 @@ const data = [
   },
 ]
 const Testimonials = () => {
+  const [letterClass, setLetterClass] = useState('text-animate')
+
+  useEffect(() => {
+    return setTimeout(() => {
+      setLetterClass('text-animate-hover')
+    }, 3000)
+  }, [])
   return (
     <section id='testimonials'>
-      <h5>What Seniors Said</h5>
-      <h2>Appreciation</h2>
+      <h5><AnimatedLetters
+  letterClass={letterClass}
+  strArray={['W', 'h', 'a', 't', ' ', 'S', 'e', 'n', 'i', 'o', 'r', 's', ' ', 'S', 'a', 'i', 'd']}
+  idx={15}
+/>
+</h5>
+      <h2><AnimatedLetters
+  letterClass={letterClass}
+  strArray={['A', 'p', 'p', 'r', 'e', 'c', 'i', 'a', 't', 'i', 'o', 'n']}
+  idx={15}
+/>
+</h2>
 
       <Swiper className="container testimonials__container" 
       // install Swiper modules
@@ -55,7 +74,7 @@ const Testimonials = () => {
           <div className="client__avatar">
             <img src={avatar} alt="Avatar One" />
           </div>
-          <h5 className='client__name'>{name}</h5>
+          <h4 className='client__name'>{name}</h4>
             <small className='client__review'>
               {review}
            </small>
