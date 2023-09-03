@@ -1,27 +1,30 @@
 {
   "files": {
-    "main.css": "/portfolio/static/css/main.cc9684c8.css",
-    "main.js": "/portfolio/static/js/main.69ad3576.js",
+    "main.css": "/portfolio/static/css/main.26790f4f.css",
+    "main.js": "/portfolio/static/js/main.881ca68b.js",
     "static/media/P2.webp": "/portfolio/static/media/P2.8aa5670737d32b8cc2c8.webp",
     "static/media/harsh-about.webp": "/portfolio/static/media/harsh-about.7f98d77fefdef11372d6.webp",
     "static/media/P3.webp": "/portfolio/static/media/P3.7df849135f510e31ad2f.webp",
     "static/media/P5.webp": "/portfolio/static/media/P5.5c912ab1d041df7f967a.webp",
     "static/media/meo.webp": "/portfolio/static/media/meo.2307053726da54b46115.webp",
-    "static/media/resume.pdf": "/portfolio/static/media/resume.077444327fa0485451c0.pdf",
+    "static/media/Harsh_Singh_Resume.pdf": "/portfolio/static/media/Harsh_Singh_Resume.019391bbe4465f45f436.pdf",
     "static/media/P6.webp": "/portfolio/static/media/P6.4e1bf73a402048f0298a.webp",
     "static/media/mayurbhaia.webp": "/portfolio/static/media/mayurbhaia.0f687853e8f05e10504e.webp",
     "static/media/doodleit.webp": "/portfolio/static/media/doodleit.6b39142f6ec500e0d965.webp",
     "static/media/P4.webp": "/portfolio/static/media/P4.12e81f7b0f77be9a41c4.webp",
     "static/media/aishwarbhaia.webp": "/portfolio/static/media/aishwarbhaia.6f95299783befe231b70.webp",
+    "static/media/helvetica-neu.ttf": "/portfolio/static/media/helvetica-neu.8a19678078a6b21c8057.ttf",
     "static/media/P1.webp": "/portfolio/static/media/P1.b27798ebf6efc0c2f1d7.webp",
     "static/media/adityabhaia.webp": "/portfolio/static/media/adityabhaia.6b52043436bae3835e82.webp",
     "static/media/mokshadi.webp": "/portfolio/static/media/mokshadi.72fe1fd0a8878a734148.webp",
+    "static/media/LaBelleAurore.woff2": "/portfolio/static/media/LaBelleAurore.a83c1c58fd7e43972e4a.woff2",
+    "static/media/CoolveticaRg-Regular.woff2": "/portfolio/static/media/CoolveticaRg-Regular.7d1f3b1dd46ad6557a17.woff2",
     "index.html": "/portfolio/index.html",
-    "main.cc9684c8.css.map": "/portfolio/static/css/main.cc9684c8.css.map",
-    "main.69ad3576.js.map": "/portfolio/static/js/main.69ad3576.js.map"
+    "main.26790f4f.css.map": "/portfolio/static/css/main.26790f4f.css.map",
+    "main.881ca68b.js.map": "/portfolio/static/js/main.881ca68b.js.map"
   },
   "entrypoints": [
-    "static/css/main.cc9684c8.css",
-    "static/js/main.69ad3576.js"
+    "static/css/main.26790f4f.css",
+    "static/js/main.881ca68b.js"
   ]
 }
