@@ -12,53 +12,53 @@ import TRELLO from "../../assets/P6.webp"
 
 const data = [
 
-  /*
+  
   {
     id:1,
     image: TRELLO,
-    title: 'The Ultimate Project Management Tool',
-    github: 'https://github.com/harshsingh-io/calculator',
-    demo: 'https://github.com/harshsingh-io/raw/raw/main/calcidemo.mp4'
+    title: 'KanbanBoard: Project Management Tool',
+    github: 'https://github.com/harshsingh-io/KanbanBoard',
+    demo: 'https://github.com/harshsingh-io/KanbanBoard#preview'
   },
   {
     id:2,
     image: WEATHER,
-    title: 'This is a Weather Forcasting App',
-    github: 'https://github.com/harshsingh-io/calculator',
-    demo: 'https://github.com/harshsingh-io/raw/raw/main/calcidemo.mp4'
+    title: 'WeatherCast: Weather Forcasting App',
+    github: 'https://github.com/harshsingh-io/WeatherCast',
+    demo: 'https://github.com/harshsingh-io/WeatherCast#preview'
   },
   {
     id:3,
     image: HAPPYPLACE,
-    title: 'This is a Happy Place App',
-    github: 'https://github.com/harshsingh-io/calculator',
-    demo: 'https://github.com/harshsingh-io/raw/raw/main/calcidemo.mp4'
-  }, */
+    title: 'MemoryWhisper: HappyPlace App',
+    github: 'https://github.com/harshsingh-io/MemoryWhisper',
+    demo: 'https://github.com/harshsingh-io/MemoryWishper#preview'
+  },
   {
     id:4,
     image: WORKOUT,
-    title: 'This is a Workout App',
+    title: 'BodySync: Workout App',
     github: 'https://github.com/harshsingh-io/BodySync',
-    demo: 'https://github.com/harshsingh-io/raw/raw/main/calcidemo.mp4'
+    demo: 'https://github.com/harshsingh-io/BodySync#preview'
   },
   {
     id:5,
     image: DOODLEIT,
-    title: 'This is a Drawing App',
+    title: 'DoodleIt: Drawing App',
     github: 'https://github.com/harshsingh-io/DoodleIt',
-    demo: 'https://github.com/harshsingh-io/raw/raw/main/calcidemo.mp4'
+    demo: 'https://github.com/harshsingh-io/DoodleIt#preview'
   },
   {
     id:6,
     image: QUIZIE,
-    title: 'This is a Quiz App',
+    title: 'Quizie: Quiz App',
     github: 'https://github.com/harshsingh-io/quizie',
-    demo: '#'
+    demo: '#https://github.com/harshsingh-io/quizie#preview'
   },
   {
     id:7,
     image: CALCI,
-    title: 'This is a Calculator',
+    title: 'Calculator',
     github: 'https://github.com/harshsingh-io/calculator',
     demo: 'https://github.com/harshsingh-io/raw/raw/main/calcidemo.mp4'
   },
@@ -102,6 +102,7 @@ const Porfolio = () => {
             <a href={demo} className='btn btn-primary' target='_blank'>Live Demo</a>
           </div>
           </article>
+          
           )
         })
       }
@@ -113,6 +114,7 @@ const Porfolio = () => {
 export default Porfolio
 
 /*
+
 <article className='portfolio__item'>
           <div className="portfolio__item-image">
             <img src={TRELLO} alt='' />
@@ -123,6 +125,7 @@ export default Porfolio
             <a href="https://github.com/harshsingh-io/raw/raw/main/calcidemo.mp4" className='btn btn-primary' target='_blank'>Live Demo</a>
           </div>
         </article>
+
         <article className='portfolio__item'>
           <div className="portfolio__item-image">
             <img src={WEATHER} alt='' />
@@ -133,6 +136,7 @@ export default Porfolio
             <a href="https://github.com/harshsingh-io/raw/raw/main/calcidemo.mp4" className='btn btn-primary' target='_blank'>Live Demo</a>
           </div>
           </article>
+
         <article className='portfolio__item'>
           <div className="portfolio__item-image">
             <img src={HAPPYPLACE} alt='' />
@@ -143,6 +147,7 @@ export default Porfolio
             <a href="https://github.com/harshsingh-io/raw/raw/main/calcidemo.mp4" className='btn btn-primary' target='_blank'>Live Demo</a>
           </div>
           </article>
+
         <article className='portfolio__item'>
           <div className="portfolio__item-image">
             <img src={WORKOUT} alt='' />
@@ -153,6 +158,7 @@ export default Porfolio
             <a href="https://github.com/harshsingh-io/raw/raw/main/calcidemo.mp4" className='btn btn-primary' target='_blank'>Live Demo</a>
           </div>
           </article>
+
         <article className='portfolio__item'>
           <div className="portfolio__item-image">
             <img src={QUIZIE} alt='' />
@@ -163,6 +169,7 @@ export default Porfolio
             <a href="https://github.com/harshsingh-io/raw/raw/main/calcidemo.mp4" className='btn btn-primary' target='_blank'>Live Demo</a>
           </div>
           </article>
+
         <article className='portfolio__item'>
           <div className="portfolio__item-image">
             <img src={CALCI} alt='' />
