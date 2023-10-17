@@ -1,12 +1,12 @@
 {
   "files": {
     "main.css": "/portfolio/static/css/main.26790f4f.css",
-    "main.js": "/portfolio/static/js/main.2af318c5.js",
+    "main.js": "/portfolio/static/js/main.3937c01c.js",
     "static/media/P2.webp": "/portfolio/static/media/P2.8aa5670737d32b8cc2c8.webp",
-    "static/media/harsh-about.webp": "/portfolio/static/media/harsh-about.7f98d77fefdef11372d6.webp",
     "static/media/P3.webp": "/portfolio/static/media/P3.7df849135f510e31ad2f.webp",
     "static/media/P5.webp": "/portfolio/static/media/P5.5c912ab1d041df7f967a.webp",
     "static/media/meo.webp": "/portfolio/static/media/meo.2307053726da54b46115.webp",
+    "static/media/harsh-about.webp": "/portfolio/static/media/harsh-about.e1907b4bb0c193baac98.webp",
     "static/media/Harsh_Singh_Resume.pdf": "/portfolio/static/media/Harsh_Singh_Resume.cbbc04809fb849126c8f.pdf",
     "static/media/P6.webp": "/portfolio/static/media/P6.4e1bf73a402048f0298a.webp",
     "static/media/mayurbhaia.webp": "/portfolio/static/media/mayurbhaia.0f687853e8f05e10504e.webp",
@@ -21,10 +21,10 @@
     "static/media/CoolveticaRg-Regular.woff2": "/portfolio/static/media/CoolveticaRg-Regular.7d1f3b1dd46ad6557a17.woff2",
     "index.html": "/portfolio/index.html",
     "main.26790f4f.css.map": "/portfolio/static/css/main.26790f4f.css.map",
-    "main.2af318c5.js.map": "/portfolio/static/js/main.2af318c5.js.map"
+    "main.3937c01c.js.map": "/portfolio/static/js/main.3937c01c.js.map"
   },
   "entrypoints": [
     "static/css/main.26790f4f.css",
-    "static/js/main.2af318c5.js"
+    "static/js/main.3937c01c.js"
   ]
 }
