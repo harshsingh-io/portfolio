@@ -16,19 +16,49 @@ nav {
 }
 
 nav a {
-    background: transparent;
-    padding: 0.9rem;
-    border-radius: 50%;
-    display: flex;
-    color: var(--color-light);
-    font-size: 1.1rem;
+  width: 45px;
+  height: 45px;
+  background: transparent;
+  padding: 0.9rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  color: var(--color-light);
+  font-size: 1.1rem;
+  transition: var(--transition);
+  
 }
 
+nav a .iconname {
+  font-size: 0;
+  opacity: 0;
+  position: relative;
+  transform: translateX(-100%);
+  transition: var(--transition);
+}
 nav a:hover {
-    background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 100px;
+  width: 105px;
 }
-
+nav a:hover .iconname {
+  margin-left: 0.5rem;
+  opacity: 1;
+  font-size: 0.6rem;
+  transform: translateX(0%);
+  color: var(--color-white);
+}
 nav a.active {
-    background: var(--color-primary);
-    color: var(--color-bg);
+  background: var(--color-primary);
+  border-radius: 100px;
+  width: 105px;
+  color: var(--color-white);
+}
+nav a.active .iconname {
+  transform: translateX(0%);
+  font-size: 0.6rem;
+  margin-left: 0.5rem;
+  opacity: 1;
+  color: var(--color-white);
 }
