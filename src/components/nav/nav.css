@@ -27,7 +27,7 @@ nav a {
   color: var(--color-light);
   font-size: 1.1rem;
   transition: var(--transition);
-  
+  -webkit-tap-highlight-color: transparent;
 }
 
 nav a .iconname {
