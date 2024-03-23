@@ -13,90 +13,137 @@ const Services = () => {
     }, 3000)
   }, [])
   return (
-    <section id='services'>
-      <section id='services'>
-        <h5><AnimatedLetters
-  letterClass={letterClass}
-  strArray={['W', 'h', 'a', 't', ' ', 'I', ' ', 'O', 'f', 'f', 'e', 'r']}
-  idx={15}
-/>
-</h5>
-        <h2><AnimatedLetters
-  letterClass={letterClass}
-  strArray={['S', 'e', 'r', 'v', 'i', 'c', 'e', 's']}
-  idx={15}
-/>
-</h2>
+    <section id="services">
+      <section id="services">
+        <h5>
+          <AnimatedLetters
+            letterClass={letterClass}
+            strArray={[
+              'W',
+              'h',
+              'a',
+              't',
+              ' ',
+              'I',
+              ' ',
+              'O',
+              'f',
+              'f',
+              'e',
+              'r',
+            ]}
+            idx={15}
+          />
+        </h5>
+        <h2>
+          <AnimatedLetters
+            letterClass={letterClass}
+            strArray={['S', 'e', 'r', 'v', 'i', 'c', 'e', 's']}
+            idx={15}
+          />
+        </h2>
 
-<div className="container services__container">
-  <article className='services'>
-    <div className='service__head'>
-      <h3>Android App Development</h3>
-    </div>
+        <div className="container services__container">
+          <article className="services">
+            <div className="service__head">
+              <h3>Android Development</h3>
+            </div>
 
-    <ul className='service__list'>
-      <li>
-        <BiCheck className='service__list-icon' />
-        <p>Proficient in developing high-quality Android apps using Kotlin and Java.</p>
-      </li>
-      <li>
-        <BiCheck className='service__list-icon' />
-        <p>Create user-friendly and engaging Android applications that meet client and user needs.</p>
-      </li>
-      <li>
-        <BiCheck className='service__list-icon' />
-        <p>Expertise in Android Studio and Android SDK for efficient app development.</p>
-      </li>
-      <li>
-        <BiCheck className='service__list-icon' />
-        <p>Ability to ensure reliability and bug-free performance through comprehensive debugging and testing.</p>
-      </li>
-    </ul>
-  </article>
-  {/* End of Android App Development */}
-  <article className='services'>
-    <div className='service__head'>
-      <h3>Software Engineering</h3>
-    </div>
+            <ul className="service__list">
+              <li>
+                <BiCheck className="service__list-icon" />
+                <p>
+                  I leverage my knowledge of Kotlin and Java to build apps that
+                  seamlessly integrate with the Android ecosystem, taking full
+                  advantage of the platform's features and functionalities.
+                </p>
+              </li>
+              <li>
+                <BiCheck className="service__list-icon" />
+                <p>
+                  I prioritize user experience by designing beautiful and
+                  engaging interfaces that adhere to the latest Android design
+                  guidelines. This ensures users feel comfortable and familiar
+                  while interacting with your app.
+                </p>
+              </li>
+              <li>
+                <BiCheck className="service__list-icon" />
+                <p>
+                  I write clean, maintainable code using best practices,
+                  resulting in reliable and efficient applications that can grow
+                  and adapt to your needs.
+                </p>
+              </li>
+            </ul>
+          </article>
+          {/* End of Android App Development */}
+          <article className="services">
+            <div className="service__head">
+              <h3>Flutter Development</h3>
+            </div>
 
-    <ul className='service__list'>
-      <li>
-        <BiCheck className='service__list-icon' />
-        <p>Strong foundation in software design, problem-solving, and coding best practices.</p>
-      </li>
-      <li>
-        <BiCheck className='service__list-icon' />
-        <p>Experience working on diverse software projects, ranging from web applications to backend systems.</p>
-      </li>
-      <li>
-        <BiCheck className='service__list-icon' />
-        <p>Proficiency in a wide range of programming languages, including Java, Kotlin, C/C++, and Python.</p>
-      </li>
-    </ul>
-  </article>
-  {/* End of Software Engineering */}
-  <article className='services'>
-    <div className='service__head'>
-      <h3>Team Collaboration & Problem Solving</h3>
-    </div>
+            <ul className="service__list">
+              <li>
+                <BiCheck className="service__list-icon" />
+                <p>
+                  Leveraging Flutter's strengths, I develop stunning apps that
+                  work seamlessly on multiple platforms, saving you time and
+                  resources.
+                </p>
+              </li>
+              <li>
+                <BiCheck className="service__list-icon" />
+                <p>
+                  I specialize in crafting bespoke mobile apps tailored to your
+                  unique needs. Whether it's a social media sensation or a
+                  game-changing business tool, I'll design and implement user
+                  interfaces that are both beautiful and intuitive.
+                </p>
+              </li>
+              <li>
+                <BiCheck className="service__list-icon" />
+                <p>
+                  My commitment extends beyond launch. I provide ongoing
+                  maintenance and support to ensure your app stays bug-free,
+                  optimized for the latest devices, and secure.
+                </p>
+              </li>
+            </ul>
+          </article>
+          {/* End of Software Engineering */}
+          <article className="services">
+            <div className="service__head">
+              <h3>Team Collaboration & Problem Solving</h3>
+            </div>
 
-    <ul className='service__list'>
-      <li>
-        <BiCheck className='service__list-icon' />
-        <p>Effective collaboration within teams using tools like GitHub, Slack, and Trello.</p>
-      </li>
-      <li>
-        <BiCheck className='service__list-icon' />
-        <p>Strong communication, problem-solving skills, and a proven ability to work seamlessly with colleagues to achieve project goals.</p>
-      </li>
-      <li>
-        <BiCheck className='service__list-icon' />
-        <p>Adept at tackling complex technical challenges and providing innovative solutions, benefiting project success.</p>
-      </li>
-    </ul>
-  </article>
-  {/* End of Team Collaboration & Problem Solving */}
-
+            <ul className="service__list">
+              <li>
+                <BiCheck className="service__list-icon" />
+                <p>
+                  I use GitHub, Slack, and Trello to keep projects on track.
+                  Version control, clear communication, and organized workflows
+                  are my jam.
+                </p>
+              </li>
+              <li>
+                <BiCheck className="service__list-icon" />
+                <p>
+                  I bring strong communication and problem-solving skills to the
+                  table. We'll tackle any challenge together and find the best
+                  approach.
+                </p>
+              </li>
+              <li>
+                <BiCheck className="service__list-icon" />
+                <p>
+                  My deep technical knowledge and innovative thinking ensure I
+                  deliver effective solutions that make a real difference.
+                </p>
+              </li>
+            </ul>
+          </article>
+          {/* End of Team Collaboration & Problem Solving */}
         </div>
       </section>
     </section>

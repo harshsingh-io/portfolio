@@ -18,6 +18,7 @@ nav {
 nav a {
   width: 45px;
   height: 45px;
+  user-select: none;
   background: transparent;
   padding: 0.9rem;
   border-radius: 50%;

@@ -91,7 +91,7 @@ const Porfolio = () => {
 </h5>
       <h2><AnimatedLetters
   letterClass={letterClass}
-  strArray={['P', 'o', 'r', 't', 'f', 'o', 'l', 'i', 'o']}
+  strArray={['P', 'r', 'o', 'j', 'e', 'c', 't']}
   idx={15}
 />
 </h2>
