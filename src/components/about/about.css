@@ -18,6 +18,13 @@
     display: grid;
     place-items: center;
 }
+.btn-text {
+  color: white; /* This can be adjusted to match your design */
+  cursor: pointer;
+  margin-left: 5px;
+  display: inline-block;
+}
+
 
 .about__me-image{
     border-radius: 2rem;
@@ -25,7 +32,10 @@
     transform: rotate(10deg);
     transition: var(--transition);
 }
-
+.content-transition {
+  overflow: hidden;
+  transition: height 0.5s ease-in-out;
+}
 .about__me-image:hover{
     transform: rotate(0);
 }
