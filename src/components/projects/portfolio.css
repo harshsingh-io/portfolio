@@ -46,10 +46,15 @@
     position: relative;
     max-width: 900px;
     margin: 0 auto;
+    padding-bottom: 4rem;
+    margin-bottom: 2rem;
+    padding-left: 60px;
+    padding-right: 60px;
 }
 
 .other-project__slide {
     transition: all 0.3s ease;
+    padding-bottom: 3rem;
 }
 
 .other-project__item {
@@ -58,12 +63,12 @@
     border-radius: 1rem;
     border: 1px solid transparent;
     transition: all 0.3s ease;
-    transform: scale(0.85);
+    transform: scale(0.8);
 }
 
 /* Center slide styling */
 .swiper-slide-active .other-project__item {
-    transform: scale(1);
+    transform: scale(0.95);
     border-color: var(--color-primary);
     background: var(--color-bg-variant);
 }
@@ -122,21 +127,54 @@
 }
 
 /* Swiper Custom Styles */
-.swiper-pagination-bullet {
-    background: var(--color-primary) !important;
-    width: 6px;
-    height: 6px;
+.swiper-pagination {
+    position: relative;
+    margin-top: 2rem;
 }
 
+.swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+    background: var(--color-primary);
+    opacity: 0.5;
+    margin: 0 5px !important;
+}
+
+.swiper-pagination-bullet-active {
+    opacity: 1;
+    background: var(--color-primary);
+}
+
+/* Add custom styles for Swiper navigation arrows */
 .swiper-button-next,
 .swiper-button-prev {
     color: var(--color-primary) !important;
-    transform: scale(0.5);
+    width: 40px !important;
+    height: 40px !important;
+    background: var(--color-bg);
+    border-radius: 50%;
+    border: 1px solid var(--color-primary);
+    transform: scale(0.7);
+    top: 45% !important;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+    font-size: 20px !important;
+}
+
+.swiper-button-next {
+    right: 10px !important;
+}
+
+.swiper-button-prev {
+    left: 10px !important;
 }
 
 .swiper-button-next:hover,
 .swiper-button-prev:hover {
-    transform: scale(0.6);
+    background: var(--color-primary);
+    color: var(--color-bg) !important;
 }
 
 /* Media Queries for Medium Devices (Tablet) */

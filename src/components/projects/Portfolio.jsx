@@ -173,7 +173,7 @@ const Portfolio = () => {
       </h5>
 
       {/* Featured Projects Section */}
-      <h2 className="section-title">
+      {/* <h2 className="section-title">
         <AnimatedLetters
           letterClass={letterClass}
           strArray={[
@@ -197,8 +197,8 @@ const Portfolio = () => {
           ]}
           idx={15}
         />
-      </h2>
-      <div className="container portfolio__container featured__container">
+      </h2> */}
+      {/* <div className="container portfolio__container featured__container">
         {featuredProjects.map(({ id, image, title, github, demo }) => {
           return (
             <article key={id} className="portfolio__item featured__item">
@@ -227,31 +227,18 @@ const Portfolio = () => {
             </article>
           )
         })}
-      </div>
+      </div> */}
 
       {/* Other Projects Section with Swiper */}
-      <h2 className="section-title other-projects-title">
-        <AnimatedLetters
-          letterClass={letterClass}
-          strArray={[
-            'O',
-            't',
-            'h',
-            'e',
-            'r',
-            ' ',
-            'P',
-            'r',
-            'o',
-            'j',
-            'e',
-            'c',
-            't',
-            's',
-          ]}
-          idx={15}
-        />
-      </h2>
+      {
+        <h2 className="section-title other-projects-title">
+          <AnimatedLetters
+            letterClass={letterClass}
+            strArray={['P', 'r', 'o', 'j', 'e', 'c', 't', 's']}
+            idx={15}
+          />
+        </h2>
+      }
       <Swiper
         className="container other-projects__container"
         modules={[Pagination, Navigation]}
