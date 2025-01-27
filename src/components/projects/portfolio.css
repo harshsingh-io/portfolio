@@ -48,8 +48,6 @@
     margin: 0 auto;
     padding-bottom: 4rem;
     margin-bottom: 2rem;
-    padding-left: 60px;
-    padding-right: 60px;
 }
 
 .other-project__slide {
@@ -198,11 +196,25 @@
     }
     
     .other-project__item {
-        transform: scale(1);
+        transform: scale(0.95);
+        margin: 0 auto;
+        max-width: 280px;
     }
 
     .other-projects__container {
-        max-width: 300px;
+        padding-left: 0;
+        padding-right: 0;
+        max-width: 100%;
+    }
+
+    .swiper-slide-active .other-project__item {
+        transform: scale(1);
+    }
+
+    .project-description {
+        height: auto;
+        max-height: 3.6rem;
+        margin-bottom: 1rem;
     }
 }
 
@@ -222,26 +234,31 @@
         margin-top: 3rem;
     }
 
-    .project-description {
-        height: 3.2rem;
-        -webkit-line-clamp: 3;
-        font-size: 0.7rem;
+    .other-project__item {
+        max-width: 260px;
+        padding: 0.8rem;
     }
 
-    .other-project__item {
-        padding: 1rem;
+    .portfolio__item-image {
+        margin-bottom: 0.8rem;
     }
 
     .other-project__item h3 {
-        font-size: 0.8rem;
+        font-size: 0.9rem;
+        margin: 0.5rem 0;
+    }
+
+    .project-description {
+        font-size: 0.75rem;
+        margin-bottom: 0.8rem;
     }
 
     .other-project__item .btn {
-        padding: 0.3rem 0.6rem;
-        font-size: 0.7rem;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.75rem;
     }
 
-    .other-projects__container {
-        max-width: 280px;
+    .swiper-pagination {
+        margin-top: 1rem;
     }
 }

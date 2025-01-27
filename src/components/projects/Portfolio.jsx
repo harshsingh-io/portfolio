@@ -243,13 +243,23 @@ const Portfolio = () => {
         className="container other-projects__container"
         modules={[Pagination, Navigation]}
         spaceBetween={20}
-        slidesPerView={3}
+        slidesPerView={1}
         centeredSlides={true}
         loop={true}
         pagination={{ clickable: true }}
         navigation={true}
         initialSlide={1}
         onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+        breakpoints={{
+          768: {
+            slidesPerView: 2,
+            spaceBetween: 20,
+          },
+          1024: {
+            slidesPerView: 3,
+            spaceBetween: 20,
+          },
+        }}
       >
         {otherProjects.map(
           ({ id, image, title, github, demo, description }, index) => {
