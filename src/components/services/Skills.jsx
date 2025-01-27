@@ -65,7 +65,7 @@ const Skills = () => {
 
   const SkillBadge = ({ name, icon, isGold }) => (
     <div className="skill-badge">
-      <div className={`skill-badge__hexagon ${isGold ? 'gold' : 'silver'}`}>
+      <div className={`skill-badge__card ${isGold ? 'gold' : 'silver'}`}>
         <img src={icon} alt={name} className="skill-badge__icon" />
         <span className="skill-badge__title">{name}</span>
       </div>
