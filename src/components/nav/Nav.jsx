@@ -47,14 +47,14 @@ const Nav = () => {
         <span className="iconname">{(hover || activeNav) && 'Experience'}</span>
       </a>
       <a
-        href="#services"
+        href="#skills"
         onMouseEnter={hoverHandler}
         onMouseLeave={hoverHandler}
-        onClick={() => setActiveNav('#services')}
-        className={activeNav === '#services' ? 'active' : ''}
+        onClick={() => setActiveNav('#skills')}
+        className={activeNav === '#skills' ? 'active' : ''}
       >
         <RiServiceLine />
-        <span className="iconname">{(hover || activeNav) && 'Services'}</span>
+        <span className="iconname">{(hover || activeNav) && 'Skills'}</span>
       </a>
       <a
         href="#contact"
