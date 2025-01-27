@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/portfolio/static/css/main.91e5136b.css",
-    "main.js": "/portfolio/static/js/main.b7447b10.js",
+    "main.css": "/portfolio/static/css/main.0e4ba4b0.css",
+    "main.js": "/portfolio/static/js/main.efd440f7.js",
     "static/media/P2.webp": "/portfolio/static/media/P2.8aa5670737d32b8cc2c8.webp",
     "static/media/blueMangoLogo.webp": "/portfolio/static/media/blueMangoLogo.f1b76688197c2545f568.webp",
     "static/media/P3.webp": "/portfolio/static/media/P3.7df849135f510e31ad2f.webp",
@@ -43,11 +43,11 @@
     "static/media/flutter.svg": "/portfolio/static/media/flutter.9eec95c1fffd93cba12beaf7b24b7802.svg",
     "static/media/fastapi.svg": "/portfolio/static/media/fastapi.1536093a1656eaee7a8d589641ff2803.svg",
     "static/media/kotlin.svg": "/portfolio/static/media/kotlin.5c2458c7e947ad3bedbbaa1c75f660f8.svg",
-    "main.91e5136b.css.map": "/portfolio/static/css/main.91e5136b.css.map",
-    "main.b7447b10.js.map": "/portfolio/static/js/main.b7447b10.js.map"
+    "main.0e4ba4b0.css.map": "/portfolio/static/css/main.0e4ba4b0.css.map",
+    "main.efd440f7.js.map": "/portfolio/static/js/main.efd440f7.js.map"
   },
   "entrypoints": [
-    "static/css/main.91e5136b.css",
-    "static/js/main.b7447b10.js"
+    "static/css/main.0e4ba4b0.css",
+    "static/js/main.efd440f7.js"
   ]
 }
