@@ -1,16 +1,18 @@
 {
   "files": {
-    "main.css": "/portfolio/static/css/main.b568e089.css",
-    "main.js": "/portfolio/static/js/main.3cf6ec9f.js",
+    "main.css": "/portfolio/static/css/main.91e5136b.css",
+    "main.js": "/portfolio/static/js/main.b7447b10.js",
     "static/media/P2.webp": "/portfolio/static/media/P2.8aa5670737d32b8cc2c8.webp",
+    "static/media/blueMangoLogo.webp": "/portfolio/static/media/blueMangoLogo.f1b76688197c2545f568.webp",
     "static/media/P3.webp": "/portfolio/static/media/P3.7df849135f510e31ad2f.webp",
     "static/media/P5.webp": "/portfolio/static/media/P5.5c912ab1d041df7f967a.webp",
+    "static/media/outlier.svg": "/portfolio/static/media/outlier.fbb21f53a59a8f2f54c33dea6a1ffb4d.svg",
     "static/media/meo.webp": "/portfolio/static/media/meo.2307053726da54b46115.webp",
     "static/media/harsh-about.webp": "/portfolio/static/media/harsh-about.335f356a7ca3d9ae083a.webp",
     "static/media/P6.webp": "/portfolio/static/media/P6.4e1bf73a402048f0298a.webp",
     "static/media/mayurbhaia.webp": "/portfolio/static/media/mayurbhaia.0f687853e8f05e10504e.webp",
     "static/media/doodleit.webp": "/portfolio/static/media/doodleit.6b39142f6ec500e0d965.webp",
-    "static/media/Harsh_Singh_Resume.pdf": "/portfolio/static/media/Harsh_Singh_Resume.37d4929d945733873b0b.pdf",
+    "static/media/Google_logo_lockup_color.png": "/portfolio/static/media/Google_logo_lockup_color.bc2a20dea99bab7060c0.png",
     "static/media/P4.webp": "/portfolio/static/media/P4.12e81f7b0f77be9a41c4.webp",
     "static/media/aishwarbhaia.webp": "/portfolio/static/media/aishwarbhaia.6f95299783befe231b70.webp",
     "static/media/helvetica-neu.ttf": "/portfolio/static/media/helvetica-neu.8a19678078a6b21c8057.ttf",
@@ -20,12 +22,32 @@
     "static/media/LaBelleAurore.woff2": "/portfolio/static/media/LaBelleAurore.a83c1c58fd7e43972e4a.woff2",
     "static/media/EcoSync.webp": "/portfolio/static/media/EcoSync.785b20a7a31661612a36.webp",
     "static/media/CoolveticaRg-Regular.woff2": "/portfolio/static/media/CoolveticaRg-Regular.7d1f3b1dd46ad6557a17.woff2",
+    "static/media/agile.svg": "/portfolio/static/media/agile.0fb279b235b7b842e03fe5cff6a959d2.svg",
+    "static/media/postgresql.svg": "/portfolio/static/media/postgresql.2588ce51c243d02d2e6cbd1cff88b818.svg",
+    "static/media/persistVentures.svg": "/portfolio/static/media/persistVentures.151e72bfccead2872b4b6b9cfde0fcfd.svg",
+    "static/media/java.svg": "/portfolio/static/media/java.3f07ed8db7bcb55da497b664422bf80f.svg",
+    "static/media/aws.svg": "/portfolio/static/media/aws.51bc5aa3a3e84419e3bd8a2235a23d5d.svg",
+    "static/media/sqlalchemy.svg": "/portfolio/static/media/sqlalchemy.581ef93f54803d0d26c11c406af0c551.svg",
     "index.html": "/portfolio/index.html",
-    "main.b568e089.css.map": "/portfolio/static/css/main.b568e089.css.map",
-    "main.3cf6ec9f.js.map": "/portfolio/static/js/main.3cf6ec9f.js.map"
+    "static/media/python.svg": "/portfolio/static/media/python.60d3030b973e3a9d874e54021bb3282e.svg",
+    "static/media/amazondynamodb.svg": "/portfolio/static/media/amazondynamodb.5eac4c17e42a04a3ccd245847f183381.svg",
+    "static/media/androidstudio.svg": "/portfolio/static/media/androidstudio.e5a9e9d31b6d9acd2c2277811a8d9362.svg",
+    "static/media/docker.svg": "/portfolio/static/media/docker.0c0999b7624d2bfcb7710aa3f22b1cf2.svg",
+    "static/media/sqlite.svg": "/portfolio/static/media/sqlite.0e20b3e1c532fa997f8e7fd28bec2984.svg",
+    "static/media/cicd.svg": "/portfolio/static/media/cicd.398b543384faed1f2cc721d5441a06af.svg",
+    "static/media/android.svg": "/portfolio/static/media/android.1c3f7865901c83fda5504d10ba547fc4.svg",
+    "static/media/firebase.svg": "/portfolio/static/media/firebase.ffcf128bc13892d6266e4dc97beecf43.svg",
+    "static/media/git.svg": "/portfolio/static/media/git.8ecdc3c556e1278611a7cfbb49c857a2.svg",
+    "static/media/mqtt.svg": "/portfolio/static/media/mqtt.20443f29682efc9cdeec55285b93374e.svg",
+    "static/media/restapi.svg": "/portfolio/static/media/restapi.3cd62399320dbcd5a2d1ba841e0af39c.svg",
+    "static/media/flutter.svg": "/portfolio/static/media/flutter.9eec95c1fffd93cba12beaf7b24b7802.svg",
+    "static/media/fastapi.svg": "/portfolio/static/media/fastapi.1536093a1656eaee7a8d589641ff2803.svg",
+    "static/media/kotlin.svg": "/portfolio/static/media/kotlin.5c2458c7e947ad3bedbbaa1c75f660f8.svg",
+    "main.91e5136b.css.map": "/portfolio/static/css/main.91e5136b.css.map",
+    "main.b7447b10.js.map": "/portfolio/static/js/main.b7447b10.js.map"
   },
   "entrypoints": [
-    "static/css/main.b568e089.css",
-    "static/js/main.3cf6ec9f.js"
+    "static/css/main.91e5136b.css",
+    "static/js/main.b7447b10.js"
   ]
 }
