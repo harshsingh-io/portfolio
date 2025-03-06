@@ -13,7 +13,7 @@ const MobileShowcase = () => {
 
   // App details from your projects - using the AI Fashion App as featured
   const appDetails = {
-    name: 'AI Fashion App',
+    name: 'AI Fashion Stylist App',
     description:
       'An AI-powered fashion application that provides personalized clothing recommendations based on user preferences, body type, and current fashion trends. Features smart outfit suggestions and style assistance.',
     technologies: ['Flutter', 'TensorFlow', 'AI/ML', 'FastAPI'],
@@ -22,11 +22,16 @@ const MobileShowcase = () => {
     githubLink: 'https://github.com/yourusername/ai-fashion-app',
     websiteLink: 'https://demo.example.com/ai-fashion-app',
     screenshots: [
-      '/api/placeholder/800/600',
-      require('../../../assets/mobile-showcase/screenshot1.png'),
-      require('../../../assets/mobile-showcase/screenshot2.png'),
+      'https://github.com/harshsingh-io/lulu_stylist_app/blob/main/screenshots/1.jpg?raw=true',
+      'https://github.com/harshsingh-io/lulu_stylist_app/blob/main/screenshots/2.jpg?raw=true',
+      'https://github.com/harshsingh-io/lulu_stylist_app/blob/main/screenshots/4.jpg?raw=true',
+      'https://github.com/harshsingh-io/lulu_stylist_app/blob/main/screenshots/5.jpg?raw=true',
+      'https://github.com/harshsingh-io/lulu_stylist_app/blob/main/screenshots/6.jpg?raw=true',
+      'https://github.com/harshsingh-io/lulu_stylist_app/blob/main/screenshots/7.jpg?raw=true',
+      'https://github.com/harshsingh-io/lulu_stylist_app/blob/main/screenshots/8.jpg?raw=true',
+      'https://github.com/harshsingh-io/lulu_stylist_app/blob/main/screenshots/9.jpg?raw=true',
     ],
-    demoVideo: 'https://example.com/ai-fashion-demo.mp4',
+    demoVideoId: '1tngnYXZliwu5czziU4tnQ8ymeX5zZpxT',
   }
 
   // No need for the letter animation effect here as it's handled in the parent component
@@ -77,12 +82,14 @@ const MobileShowcase = () => {
                   {/* App screenshot or video */}
                   <div className="screen-content">
                     {showVideo ? (
-                      <video
-                        src={appDetails.demoVideo}
-                        controls
+                      <iframe
+                        src={`https://drive.google.com/file/d/${appDetails.demoVideoId}/preview`}
+                        width="100%"
+                        height="100%"
+                        allow="autoplay"
                         className="app-video"
-                        poster={appDetails.screenshots[0]}
-                      />
+                        frameBorder="0"
+                      ></iframe>
                     ) : (
                       <img
                         src={appDetails.screenshots[currentImageIndex]}
