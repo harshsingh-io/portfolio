@@ -11,28 +11,22 @@ const MobileShowcase = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [showVideo, setShowVideo] = useState(false)
 
-  // App details from your projects
+  // App details from your projects - using the AI Fashion App as featured
   const appDetails = {
-    name: 'BodySync: Workout App',
+    name: 'AI Fashion App',
     description:
-      'Your personal fitness companion with custom workout plans. Track your progress, get fitness tips, and achieve your health goals with personalized workout routines.',
-    technologies: [
-      'Kotlin',
-      'Android SDK',
-      'Room Database',
-      'MVVM Architecture',
-    ],
+      'An AI-powered fashion application that provides personalized clothing recommendations based on user preferences, body type, and current fashion trends. Features smart outfit suggestions and style assistance.',
+    technologies: ['Flutter', 'TensorFlow', 'AI/ML', 'FastAPI'],
     appStoreLink: '#',
     playStoreLink: '#',
-    githubLink: 'https://github.com/harshsingh-io/BodySync',
-    websiteLink:
-      'https://github.com/harshsingh-io/BodySync/blob/main/README.md#demo',
+    githubLink: 'https://github.com/yourusername/ai-fashion-app',
+    websiteLink: 'https://demo.example.com/ai-fashion-app',
     screenshots: [
-      require('../../../assets/P3.webp'),
+      '/api/placeholder/800/600',
       require('../../../assets/mobile-showcase/screenshot1.png'),
       require('../../../assets/mobile-showcase/screenshot2.png'),
     ],
-    demoVideo: '#',
+    demoVideo: 'https://example.com/ai-fashion-demo.mp4',
   }
 
   // No need for the letter animation effect here as it's handled in the parent component

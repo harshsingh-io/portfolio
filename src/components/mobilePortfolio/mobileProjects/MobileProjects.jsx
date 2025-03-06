@@ -17,6 +17,154 @@ const MobileProjects = () => {
 
   // Your actual projects data from Portfolio.jsx
   const projects = [
+    // Featured projects from your JSON
+    {
+      id: 'ai-fashion-app',
+      name: 'AI Fashion App',
+      shortDescription: 'Smart fashion recommendations with AI technology',
+      description:
+        'An AI-powered fashion application that provides personalized clothing recommendations based on user preferences, body type, and current fashion trends.',
+      technologies: ['React Native', 'TensorFlow', 'AI/ML', 'Node.js'],
+      appStoreLink: '#',
+      playStoreLink: '#',
+      githubLink: 'https://github.com/yourusername/ai-fashion-app',
+      websiteLink: 'https://demo.example.com/ai-fashion-app',
+      screenshots: [
+        '/api/placeholder/800/600',
+        require('../../../assets/mobile-showcase/screenshot1.png'),
+        require('../../../assets/mobile-showcase/screenshot2.png'),
+      ],
+      demoVideo: '#',
+      featured: true,
+    },
+    {
+      id: 'ai-fashion-backend',
+      name: 'AI Fashion App Backend',
+      shortDescription: 'Robust backend system for AI fashion recommendations',
+      description:
+        'The backend infrastructure for the AI Fashion App, handling user data, AI model training, fashion inventory management, and recommendation algorithms.',
+      technologies: ['Node.js', 'Express', 'MongoDB', 'TensorFlow', 'AWS'],
+      appStoreLink: '#',
+      playStoreLink: '#',
+      githubLink: 'https://github.com/yourusername/ai-fashion-backend',
+      websiteLink: 'https://demo.example.com/ai-fashion-backend',
+      screenshots: [
+        '/api/placeholder/800/600',
+        require('../../../assets/mobile-showcase/screenshot1.png'),
+        require('../../../assets/mobile-showcase/screenshot2.png'),
+      ],
+      demoVideo: '#',
+      featured: true,
+    },
+    {
+      id: 'freshness-analysis',
+      name: 'Fruit & Vegetable Freshness Analysis',
+      shortDescription: 'AI-based freshness detection for produce',
+      description:
+        'A mobile application that uses computer vision and machine learning to detect the freshness of fruits and vegetables, helping users reduce food waste and ensure quality.',
+      technologies: ['Flutter', 'TensorFlow Lite', 'Python', 'OpenCV'],
+      appStoreLink: '#',
+      playStoreLink: '#',
+      githubLink: 'https://github.com/yourusername/freshness-analysis',
+      websiteLink: 'https://demo.example.com/freshness-analysis',
+      screenshots: [
+        '/api/placeholder/800/600',
+        require('../../../assets/mobile-showcase/screenshot1.png'),
+        require('../../../assets/mobile-showcase/screenshot2.png'),
+      ],
+      demoVideo: '#',
+      featured: true,
+    },
+    {
+      id: 'ml-model-deployment',
+      name: 'ML Model Deployment',
+      shortDescription: 'Streamlined deployment of machine learning models',
+      description:
+        'A framework for efficiently deploying machine learning models to mobile and web platforms, with optimization for on-device inference and real-time predictions.',
+      technologies: [
+        'TensorFlow',
+        'Docker',
+        'Kubernetes',
+        'Flask',
+        'React Native',
+      ],
+      appStoreLink: '#',
+      playStoreLink: '#',
+      githubLink: 'https://github.com/yourusername/ml-model-deployment',
+      websiteLink: 'https://demo.example.com/ml-deployment',
+      screenshots: [
+        '/api/placeholder/800/600',
+        require('../../../assets/mobile-showcase/screenshot1.png'),
+        require('../../../assets/mobile-showcase/screenshot2.png'),
+      ],
+      demoVideo: '#',
+      featured: true,
+    },
+    {
+      id: 'tensix-website',
+      name: 'Tensix Media Softech Website',
+      shortDescription: 'Professional website for tech company',
+      description:
+        'A responsive, modern website for Tensix Media Softech, featuring company services, portfolio showcase, team profiles, and client testimonials with seamless mobile integration.',
+      technologies: ['React', 'Next.js', 'Tailwind CSS', 'Firebase'],
+      appStoreLink: '#',
+      playStoreLink: '#',
+      githubLink: 'https://github.com/yourusername/tensix-website',
+      websiteLink: 'https://demo.example.com/tensix',
+      screenshots: [
+        '/api/placeholder/800/600',
+        require('../../../assets/mobile-showcase/screenshot1.png'),
+        require('../../../assets/mobile-showcase/screenshot2.png'),
+      ],
+      demoVideo: '#',
+      featured: true,
+    },
+    {
+      id: 'empowerverse',
+      name: 'Empowerverse | Hopecore',
+      shortDescription: 'Platform for community empowerment initiatives',
+      description:
+        'A digital platform connecting communities with empowerment resources, educational content, and social initiatives through an intuitive mobile interface and engaging user experience.',
+      technologies: [
+        'React Native',
+        'Firebase',
+        'Node.js',
+        'Express',
+        'MongoDB',
+      ],
+      appStoreLink: '#',
+      playStoreLink: '#',
+      githubLink: 'https://github.com/yourusername/empowerverse',
+      websiteLink: 'https://demo.example.com/empowerverse',
+      screenshots: [
+        '/api/placeholder/800/600',
+        require('../../../assets/mobile-showcase/screenshot1.png'),
+        require('../../../assets/mobile-showcase/screenshot2.png'),
+      ],
+      demoVideo: '#',
+      featured: true,
+    },
+    {
+      id: 'testline-quiz',
+      name: 'Testline Quiz App',
+      shortDescription: 'Interactive educational quizzing platform',
+      description:
+        'An educational quiz application designed for students and educators, featuring customizable quizzes, performance analytics, and a comprehensive question bank across various subjects.',
+      technologies: ['React Native', 'Redux', 'Firebase', 'Cloud Functions'],
+      appStoreLink: '#',
+      playStoreLink: '#',
+      githubLink: 'https://github.com/yourusername/testline-quiz',
+      websiteLink: 'https://demo.example.com/testline',
+      screenshots: [
+        '/api/placeholder/800/600',
+        require('../../../assets/mobile-showcase/screenshot1.png'),
+        require('../../../assets/mobile-showcase/screenshot2.png'),
+      ],
+      demoVideo: '#',
+      featured: true,
+    },
+
+    // Your original mobile projects
     {
       id: 'bodysync',
       name: 'BodySync: Workout App',
@@ -231,10 +379,24 @@ const MobileProjects = () => {
     switch (activeTab) {
       case 'featured':
         return projects.filter((p) => p.featured)
-      case 'ios':
-        return projects.filter((p) => p.appStoreLink)
       case 'android':
-        return projects.filter((p) => p.playStoreLink)
+        return projects.filter(
+          (p) =>
+            p.technologies.includes('Android') ||
+            p.technologies.includes('Kotlin') ||
+            p.technologies.includes('Android SDK')
+        )
+      case 'ai':
+        return projects.filter(
+          (p) =>
+            p.technologies.includes('AI/ML') ||
+            p.technologies.includes('TensorFlow') ||
+            p.technologies.includes('Machine Learning') ||
+            p.technologies.includes('TensorFlow Lite') ||
+            p.name.includes('AI') ||
+            p.description.includes('AI') ||
+            p.description.includes('machine learning')
+        )
       default:
         return projects
     }
@@ -266,10 +428,10 @@ const MobileProjects = () => {
               Featured
             </button>
             <button
-              className={`tab-button ${activeTab === 'ios' ? 'active' : ''}`}
-              onClick={() => setActiveTab('ios')}
+              className={`tab-button ${activeTab === 'ai' ? 'active' : ''}`}
+              onClick={() => setActiveTab('ai')}
             >
-              iOS
+              AI/ML
             </button>
             <button
               className={`tab-button ${
