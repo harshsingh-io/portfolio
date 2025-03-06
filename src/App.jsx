@@ -5,9 +5,10 @@ import About from './components/about/About'
 import Experience from './components/experience/Experience'
 import Skills from './components/services/Skills'
 import Portfolio from './components/projects/Portfolio'
-import Testimonials from './components/testimonials/Testimonials'
+import MobilePortfolio from './components/mobilePortfolio/MobilePortfolio'
 import Contact from './components/contact/Contact'
 import Footer from './components/footer/Footer'
+
 const App = () => {
   return (
     <>
@@ -17,7 +18,7 @@ const App = () => {
       <Experience />
       <Skills />
       <Portfolio />
-      {/* <Testimonials /> */}
+      <MobilePortfolio />
       <Contact />
       <Footer />
     </>

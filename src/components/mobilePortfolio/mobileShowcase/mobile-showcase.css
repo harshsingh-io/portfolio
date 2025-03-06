@@ -1,0 +1,272 @@
+.mobile-showcase-container {
+  padding: 80px 0;
+  background: linear-gradient(to bottom, var(--color-bg), var(--color-bg-variant));
+  color: var(--color-white);
+}
+
+.container {
+  width: 85%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  font-weight: bold;
+}
+
+.showcase-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 992px) {
+  .showcase-content {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+  }
+}
+
+/* Phone mockup */
+.phone-mockup-container {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.phone-mockup {
+  position: relative;
+}
+
+.phone-frame {
+  position: relative;
+  width: 280px;
+  height: 580px;
+  background-color: #000;
+  border-radius: 36px;
+  padding: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.phone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 160px;
+  height: 24px;
+  background-color: #000;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+}
+
+.phone-screen {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  border-radius: 32px;
+  overflow: hidden;
+  position: relative;
+}
+
+.media-toggle {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.toggle-buttons {
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 24px;
+  padding: 4px;
+  backdrop-filter: blur(8px);
+  display: flex;
+}
+
+.toggle-button {
+  border: none;
+  background: transparent;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.toggle-button.active {
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+}
+
+.screen-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.app-screenshot,
+.app-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Navigation buttons */
+.image-navigation {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 16px;
+}
+
+.nav-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.nav-button:hover {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+/* Pagination dots */
+.pagination-dots {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+
+.pagination-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.pagination-dot.active {
+  background-color: var(--color-primary);
+}
+
+/* App details */
+.app-details {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 24px 32px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.app-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.app-description {
+  color: var(--color-light);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.technologies {
+  margin-bottom: 1.5rem;
+}
+
+.technologies-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.75rem;
+}
+
+.technology-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.badge {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.download-links {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.app-store-link,
+.play-store-link {
+  display: block;
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+  text-align: center;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.app-store-link:hover,
+.play-store-link:hover {
+  background-color: var(--color-white);
+  color: var(--color-bg);
+  transform: translateY(-3px);
+}
+
+.additional-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.github-link,
+.website-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--color-white);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.github-link:hover,
+.website-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--color-primary);
+}

@@ -1,0 +1,478 @@
+.mobile-projects-container {
+  padding: 80px 0;
+  background: linear-gradient(to bottom, var(--color-bg), var(--color-bg-variant));
+  color: var(--color-white);
+}
+
+.container {
+  width: 85%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.subtitle {
+  text-align: center;
+  color: var(--color-light);
+  max-width: 700px;
+  margin: 0 auto 3rem;
+  line-height: 1.6;
+}
+
+/* Tabs */
+.tabs-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.tabs {
+  display: flex;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 32px;
+  padding: 6px;
+  overflow: hidden;
+}
+
+.tab-button {
+  background: transparent;
+  border: none;
+  color: var(--color-white);
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  border-radius: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tab-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.tab-button.active {
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+}
+
+/* Projects Grid */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Project Card */
+.project-card {
+  background-color: var(--color-bg-variant);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.project-image-container {
+  position: relative;
+  aspect-ratio: 9/16;
+  max-height: 300px;
+  overflow: hidden;
+}
+
+.project-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.featured-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.project-content {
+  padding: 1.5rem;
+  flex-grow: 1;
+}
+
+.project-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.project-short-description {
+  color: var(--color-light);
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.project-technologies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 1rem;
+}
+
+.project-tech-badge {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--color-light);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+}
+
+.project-tech-badge.more {
+  background-color: transparent;
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+}
+
+.project-footer {
+  padding: 0 1.5rem 1.5rem;
+}
+
+.view-details-button {
+  width: 100%;
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.view-details-button:hover {
+  background-color: var(--color-primary-variant);
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+  padding: 1rem;
+}
+
+.modal-content {
+  background-color: var(--color-bg);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 900px;
+  max-height: 90vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.close-button {
+  background: transparent;
+  border: none;
+  color: var(--color-light);
+  cursor: pointer;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.close-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--color-white);
+}
+
+.modal-body {
+  padding: 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .modal-body {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Modal Phone */
+.modal-phone-container {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.modal-phone {
+  position: relative;
+  width: 250px;
+  height: 520px;
+  background-color: #000;
+  border-radius: 36px;
+  padding: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.phone-notch-modal {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 128px;
+  height: 20px;
+  background-color: #000;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+}
+
+.phone-screen-modal {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  border-radius: 32px;
+  overflow: hidden;
+  position: relative;
+}
+
+.media-toggle-modal {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.toggle-buttons-modal {
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 24px;
+  padding: 4px;
+  backdrop-filter: blur(8px);
+  display: flex;
+}
+
+.toggle-button-modal {
+  border: none;
+  background: transparent;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.toggle-button-modal.active {
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+}
+
+.screen-content-modal {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.app-screenshot-modal,
+.app-video-modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Modal Navigation buttons */
+.image-navigation-modal {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 16px;
+}
+
+.nav-button-modal {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.nav-button-modal:hover {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+/* Modal Pagination dots */
+.pagination-dots-modal {
+  position: absolute;
+  bottom: -32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+
+.pagination-dot-modal {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.pagination-dot-modal.active {
+  background-color: var(--color-primary);
+}
+
+/* Modal Project Details */
+.project-details-modal {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.project-description-modal {
+  color: var(--color-light);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.technologies-modal {
+  margin-bottom: 1.5rem;
+}
+
+.technologies-title-modal {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.75rem;
+}
+
+.technology-badges-modal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.badge-modal {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.download-links-modal {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 576px) {
+  .download-links-modal {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.app-store-link-modal,
+.play-store-link-modal {
+  display: block;
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+  text-align: center;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.app-store-link-modal:hover,
+.play-store-link-modal:hover {
+  background-color: var(--color-white);
+  color: var(--color-bg);
+  transform: translateY(-3px);
+}
+
+.additional-links-modal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: auto;
+}
+
+.github-link-modal,
+.website-link-modal {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--color-white);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.github-link-modal:hover,
+.website-link-modal:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--color-primary);
+}
