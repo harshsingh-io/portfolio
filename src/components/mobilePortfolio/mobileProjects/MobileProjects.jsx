@@ -137,7 +137,7 @@ const MobileProjects = () => {
       githubLink: 'https://github.com/harshsingh-io/tensixmedia',
       websiteLink: 'https://demo.example.com/tensix',
       screenshots: [
-        '/api/placeholder/800/600',
+        'https://github.com/harshsingh-io/certifications-and-achievements/blob/main/tensixmediaMockup.png?raw=true',
         require('../../../assets/mobile-showcase/screenshot1.png'),
         require('../../../assets/mobile-showcase/screenshot2.png'),
       ],
