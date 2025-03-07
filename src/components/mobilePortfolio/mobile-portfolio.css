@@ -1,0 +1,63 @@
+.mobile__tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+    gap: 1.5rem;
+  }
+  
+  .mobile__tab {
+    background: transparent;
+    padding: 0.75rem 1.2rem;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+    transition: var(--transition);
+    font-size: 1rem;
+  }
+  
+  .mobile__tab:hover {
+    background: var(--color-white);
+    color: var(--color-bg);
+    border-color: transparent;
+  }
+  
+  .mobile__tab.active {
+    background: var(--color-primary);
+    color: var(--color-bg);
+  }
+  
+  .mobile__content {
+    animation: fadeIn 1s ease;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Removing section margin from child components to use the parent section margin */
+  .mobile-showcase-container, .mobile-projects-container {
+    margin-top: 0;
+    padding-top: 0;
+  }
+  
+  /* Responsive adjustments */
+  @media screen and (max-width: 600px) {
+    .mobile__tabs {
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    
+    .mobile__tab {
+      width: 80%;
+      text-align: center;
+    }
+  }
