@@ -1,0 +1,231 @@
+:root {
+  --color-bg: #1f2038;
+  --color-bg-variant: #2d3c7ad2;
+  --color-primary: #4d7aff;
+  --color-white: #fff;
+}
+
+.skills__container {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.skills__list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.skill-badge {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  perspective: 1000px;
+}
+
+.skill-badge__card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--color-bg-variant);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  transform-style: preserve-3d;
+}
+
+.skill-badge:hover .skill-badge__card {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.skill-badge__card.gold {
+  background: linear-gradient(145deg, var(--color-primary) 0%, var(--color-bg-variant) 100%);
+  border: 2px solid var(--color-primary);
+  box-shadow: 0 5px 15px rgba(77, 122, 255, 0.2);
+}
+
+.skill-badge__card.silver {
+  background: linear-gradient(145deg, var(--color-bg-variant) 0%, var(--color-bg) 100%);
+  border: 2px solid var(--color-bg-variant);
+}
+
+.skill-badge__icon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 10px;
+  filter: brightness(0) invert(1);
+  transition: all 0.3s ease;
+}
+
+.skill-badge__title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-white);
+  text-align: center;
+  padding: 0 8px;
+  transition: all 0.3s ease;
+}
+
+/* Shine effect */
+.skill-badge__card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(255, 255, 255, 0.03),
+    transparent
+  );
+  transform: rotate(45deg);
+  transition: all 0.6s ease;
+}
+
+.skill-badge:hover .skill-badge__card::before {
+  animation: shine 1.5s infinite;
+}
+
+@keyframes shine {
+  0% {
+    transform: translateX(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) rotate(45deg);
+  }
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 1024px) {
+  .skill-badge {
+    width: 110px;
+    height: 110px;
+  }
+  
+  .skill-badge__icon {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .skill-badge {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .skill-badge__icon {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .skill-badge__title {
+    font-size: 0.75rem;
+  }
+}
+
+.skills__category {
+  width: 100%;
+  text-align: center;
+}
+
+.skills__category h3 {
+  color: var(--color-light);
+  margin-bottom: 2rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+section#skills {
+  padding: 4rem 0;
+  background: var(--color-bg);
+  background-image: url(../../assets/bg-texture.png);
+}
+
+section#skills h5 {
+  text-align: center;
+  color: var(--color-light);
+  margin-bottom: 1rem;
+}
+
+section#skills h2 {
+  text-align: center;
+  color: var(--color-primary);
+  margin-bottom: 3rem;
+}
+
+/* Animation for the title letters */
+.text-animate {
+  display: inline-block;
+  opacity: 0;
+  animation: bounceIn 1s 1s forwards;
+  min-width: 10px;
+}
+
+.text-animate-hover {
+  min-width: 10px;
+  display: inline-block;
+  animation-fill-mode: both;
+  &:hover {
+    animation: rubberBand 1s;
+    color: #ffd700;
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.1);
+  }
+  80% {
+    opacity: 1;
+    transform: scale(0.89);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes rubberBand {
+  from {
+    transform: scale3d(1, 1, 1);
+  }
+  30% {
+    transform: scale3d(1.25, 0.75, 1);
+  }
+  40% {
+    transform: scale3d(0.75, 1.25, 1);
+  }
+  50% {
+    transform: scale3d(1.15, 0.85, 1);
+  }
+  65% {
+    transform: scale3d(0.95, 1.05, 1);
+  }
+  75% {
+    transform: scale3d(1.05, 0.95, 1);
+  }
+  to {
+    transform: scale3d(1, 1, 1);
+  }
+}
