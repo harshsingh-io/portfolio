@@ -30,6 +30,10 @@
   display: flex;
   justify-content: center;
   margin-bottom: 2rem;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 10px;
 }
 
 .tabs {
@@ -38,17 +42,21 @@
   border-radius: 32px;
   padding: 6px;
   overflow: hidden;
+  white-space: nowrap;
+  min-width: min-content;
 }
 
 .tab-button {
   background: transparent;
   border: none;
   color: var(--color-white);
-  padding: 10px 20px;
-  font-size: 0.9rem;
+  padding: 8px 12px;
+  font-size: 0.85rem;
   border-radius: 24px;
   cursor: pointer;
   transition: all 0.3s ease;
+  text-align: center;
+  white-space: nowrap;
 }
 
 .tab-button:hover {
@@ -58,6 +66,26 @@
 .tab-button.active {
   background-color: var(--color-primary);
   color: var(--color-bg);
+}
+
+/* Responsive adjustments for tabs */
+@media (max-width: 767px) {
+  .tabs {
+    padding: 4px;
+  }
+  
+  .tab-button {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+  }
+}
+
+/* Extra adjustments for very small screens */
+@media (max-width: 359px) {
+  .tab-button {
+    padding: 5px 8px;
+    font-size: 0.75rem;
+  }
 }
 
 /* Projects Grid */
@@ -204,28 +232,33 @@
 }
 
 .modal-title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 0 0 15px 0;
+  color: var(--text-primary);
+  line-height: 1.2;
 }
 
 .close-button {
-  background: transparent;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
   border: none;
-  color: var(--color-light);
-  cursor: pointer;
-  font-size: 1.25rem;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 5px;
-  border-radius: 50%;
-  transition: all 0.3s ease;
+  cursor: pointer;
+  z-index: 10;
+  transition: background-color 0.2s;
 }
 
 .close-button:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: var(--color-white);
+  background: rgba(0, 0, 0, 0.8);
 }
 
 .modal-body {
@@ -243,9 +276,14 @@
 
 /* Modal Phone */
 .modal-phone-container {
-  display: flex;
-  justify-content: center;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 320px;
+  margin-right: 30px;
 }
 
 .modal-phone {
@@ -380,9 +418,11 @@
 
 /* Modal Project Details */
 .project-details-modal {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  overflow-y: auto;
+  padding-right: 10px;
 }
 
 .project-description-modal {
@@ -475,4 +515,371 @@
 .website-link-modal:hover {
   background-color: rgba(255, 255, 255, 0.1);
   border-color: var(--color-primary);
+}
+
+/* Add these styles for disabled links */
+.app-store-link-modal.disabled,
+.play-store-link-modal.disabled,
+.github-link-modal.disabled,
+.website-link-modal.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--color-light);
+}
+
+.app-store-link-modal.disabled,
+.play-store-link-modal.disabled {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--color-light);
+  border: none;
+}
+
+.github-link-modal.disabled,
+.website-link-modal.disabled {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Add these styles to your existing mobile-projects.css file */
+
+.screenshot-slider-modal {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.app-screenshot-modal {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease-out;
+}
+
+.sliding-next-modal .app-screenshot-modal {
+  animation: slideLeftModal 0.3s forwards;
+}
+
+.sliding-prev-modal .app-screenshot-modal {
+  animation: slideRightModal 0.3s forwards;
+}
+
+@keyframes slideLeftModal {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes slideRightModal {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Make pagination dots clickable */
+.pagination-dot-modal {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pagination-dot-modal:hover {
+  transform: scale(1.2);
+}
+
+/* Enhance navigation buttons */
+.nav-button-modal {
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.nav-button-modal:hover {
+  opacity: 0.9;
+  transform: scale(1.1);
+}
+
+/* Replace the projects grid with slider styles */
+.projects-slider-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 20px 0 40px;
+}
+
+.projects-slider {
+  display: flex;
+  transition: transform 0.3s ease-out;
+  width: 100%;
+  will-change: transform;
+}
+
+.slider-item {
+  flex-shrink: 0;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+/* For mobile one item per view */
+@media (max-width: 767px) {
+  .slider-item {
+    width: 100% !important;
+  }
+}
+
+/* Slider navigation buttons */
+.slider-navigation {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 5px;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.slider-nav-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  pointer-events: auto;
+}
+
+.slider-nav-button:hover {
+  background-color: var(--color-primary-variant);
+  transform: scale(1.1);
+}
+
+.slider-nav-button.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.slider-nav-button.prev {
+  margin-left: 10px;
+}
+
+.slider-nav-button.next {
+  margin-right: 10px;
+}
+
+/* Slider pagination dots */
+.slider-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.slider-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.slider-dot.active {
+  background-color: var(--color-primary);
+  transform: scale(1.2);
+}
+
+.slider-dot:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Animation for slider */
+.projects-slider.sliding-next {
+  animation: slideNextProject 0.3s forwards;
+}
+
+.projects-slider.sliding-prev {
+  animation: slidePrevProject 0.3s forwards;
+}
+
+@keyframes slideNextProject {
+  0% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slidePrevProject {
+  0% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Modal responsiveness improvements */
+@media (max-width: 768px) {
+  .modal-overlay {
+    align-items: flex-start;
+    padding-top: 30px;
+    overflow-y: auto;
+  }
+  
+  .modal-content {
+    margin-top: 20px;
+    max-height: none;
+    overflow-y: visible;
+  }
+  
+  .modal-body {
+    padding-top: 25px;
+    gap: 3rem;
+  }
+  
+  .modal-phone-container {
+    margin-top: 15px;
+    padding-top: 25px;
+    margin-bottom: 50px;
+    position: relative;
+  }
+  
+  .modal-phone {
+    width: 190px;
+    height: 400px;
+  }
+  
+  .pagination-dots-modal {
+    bottom: -40px;
+    padding: 6px 12px;
+  }
+}
+
+/* Additional fixes for very small screens */
+@media (max-width: 480px) {
+  .modal-overlay {
+    padding-top: 20px;
+  }
+  
+  .modal-content {
+    width: 95%;
+  }
+  
+  .modal-body {
+    padding: 15px 10px;
+  }
+  
+  .modal-phone-container {
+    margin-top: 25px;
+    margin-bottom: 60px;
+  }
+  
+  .modal-phone {
+    width: 170px;
+    height: 360px;
+  }
+  
+  .project-details-modal {
+    max-height: 50vh;
+    overflow-y: auto;
+    padding: 0 5px;
+  }
+  
+  .close-button {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 1100;
+    background: rgba(0, 0, 0, 0.7);
+  }
+}
+
+/* Landscape mode adjustments */
+@media (max-height: 600px) and (orientation: landscape) {
+  .modal-body {
+    grid-template-columns: 320px 1fr;
+    gap: 1rem;
+  }
+  
+  .modal-phone {
+    width: 180px;
+    height: 380px;
+  }
+  
+  .modal-content {
+    max-height: 96vh;
+  }
+  
+  .project-details-modal {
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+  
+  .pagination-dots-modal {
+    bottom: -20px;
+  }
+}
+
+/* Improve slider responsiveness */
+@media (max-width: 576px) {
+  .slider-nav-button {
+    width: 34px;
+    height: 34px;
+  }
+  
+  .slider-nav-button.prev {
+    margin-left: 5px;
+  }
+  
+  .slider-nav-button.next {
+    margin-right: 5px;
+  }
+  
+  .slider-pagination {
+    margin-top: 15px;
+  }
+  
+  .slider-dot {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+/* Fix touch target sizes for better mobile usability */
+@media (max-width: 768px) {
+  .toggle-button-modal {
+    padding: 6px 14px;
+    font-size: 13px;
+  }
+  
+  .pagination-dot-modal {
+    width: 10px;
+    height: 10px;
+    margin: 0 4px;
+  }
+  
+  .toggle-buttons-modal {
+    padding: 5px;
+  }
+  
+  .project-content {
+    padding: 1.25rem;
+  }
+  
+  .project-footer {
+    padding: 0 1.25rem 1.25rem;
+  }
 }

@@ -16,11 +16,11 @@ const MobilePortfolio = () => {
 
   return (
     <section id="mobile">
-      <h5>Mobile Application Development</h5>
+      <h5>My Recent Work</h5>
       <h2>
         <AnimatedLetters
           letterClass={letterClass}
-          strArray={'Mobile Apps'.split('')}
+          strArray={'Projects'.split('')}
           idx={15}
         />
       </h2>

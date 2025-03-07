@@ -4,12 +4,16 @@ import {
   FaChevronRight,
   FaExternalLinkAlt,
   FaGithub,
+  FaTimes,
 } from 'react-icons/fa'
 import './mobile-showcase.css'
 
 const MobileShowcase = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [showVideo, setShowVideo] = useState(false)
+  const [isAnimating, setIsAnimating] = useState(false)
+  const [direction, setDirection] = useState('next')
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   // App details from your projects - using the AI Fashion App as featured
   const appDetails = {
@@ -37,16 +41,55 @@ const MobileShowcase = () => {
   // No need for the letter animation effect here as it's handled in the parent component
 
   const nextImage = () => {
-    setCurrentImageIndex((prevIndex) =>
-      prevIndex === appDetails.screenshots.length - 1 ? 0 : prevIndex + 1
-    )
+    if (isAnimating) return // Prevent rapid clicking
+
+    setDirection('next')
+    setIsAnimating(true)
+
+    // After animation duration, update the image index
+    setTimeout(() => {
+      setCurrentImageIndex((prevIndex) =>
+        prevIndex === appDetails.screenshots.length - 1 ? 0 : prevIndex + 1
+      )
+      setIsAnimating(false)
+    }, 300) // Match this with CSS transition duration
   }
 
   const prevImage = () => {
-    setCurrentImageIndex((prevIndex) =>
-      prevIndex === 0 ? appDetails.screenshots.length - 1 : prevIndex - 1
-    )
+    if (isAnimating) return // Prevent rapid clicking
+
+    setDirection('prev')
+    setIsAnimating(true)
+
+    // After animation duration, update the image index
+    setTimeout(() => {
+      setCurrentImageIndex((prevIndex) =>
+        prevIndex === 0 ? appDetails.screenshots.length - 1 : prevIndex - 1
+      )
+      setIsAnimating(false)
+    }, 300) // Match this with CSS transition duration
   }
+
+  // Function to directly navigate to a specific image when clicking a dot
+  const goToImage = (index) => {
+    if (isAnimating || index === currentImageIndex) return
+
+    setDirection(index > currentImageIndex ? 'next' : 'prev')
+    setIsAnimating(true)
+
+    setTimeout(() => {
+      setCurrentImageIndex(index)
+      setIsAnimating(false)
+    }, 300)
+  }
+
+  // Preload images for smoother transitions
+  React.useEffect(() => {
+    appDetails.screenshots.forEach((src) => {
+      const img = new Image()
+      img.src = src
+    })
+  }, [])
 
   return (
     <div className="mobile-showcase-container">
@@ -91,13 +134,22 @@ const MobileShowcase = () => {
                         frameBorder="0"
                       ></iframe>
                     ) : (
-                      <img
-                        src={appDetails.screenshots[currentImageIndex]}
-                        alt={`${appDetails.name} screenshot ${
-                          currentImageIndex + 1
+                      <div
+                        className={`screenshot-slider ${
+                          isAnimating ? `sliding-${direction}` : ''
                         }`}
-                        className="app-screenshot"
-                      />
+                        onClick={() => setIsModalOpen(true)}
+                        style={{ cursor: 'pointer' }}
+                      >
+                        <img
+                          src={appDetails.screenshots[currentImageIndex]}
+                          alt={`${appDetails.name} screenshot ${
+                            currentImageIndex + 1
+                          }`}
+                          className="app-screenshot"
+                          key={currentImageIndex}
+                        />
+                      </div>
                     )}
                   </div>
                 </div>
@@ -124,6 +176,7 @@ const MobileShowcase = () => {
                       className={`pagination-dot ${
                         index === currentImageIndex ? 'active' : ''
                       }`}
+                      onClick={() => goToImage(index)}
                     />
                   ))}
                 </div>
@@ -168,6 +221,118 @@ const MobileShowcase = () => {
           </div>
         </div>
       </div>
+
+      {/* Add Modal/Lightbox */}
+      {isModalOpen && (
+        <div className="screenshot-modal" onClick={() => setIsModalOpen(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            {/* Add toggle buttons at the top of modal - styled like the pill in the image */}
+            <div className="modal-media-toggle">
+              <div className="app-style-toggle">
+                <button
+                  className={`app-toggle-option ${!showVideo ? 'active' : ''}`}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setShowVideo(false)
+                  }}
+                >
+                  Images
+                </button>
+                <button
+                  className={`app-toggle-option ${showVideo ? 'active' : ''}`}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setShowVideo(true)
+                  }}
+                >
+                  Video
+                </button>
+              </div>
+            </div>
+
+            <div className="modal-phone-frame">
+              <div className="modal-phone-notch"></div>
+              {showVideo ? (
+                <iframe
+                  src={`https://drive.google.com/file/d/${appDetails.demoVideoId}/preview`}
+                  width="100%"
+                  height="100%"
+                  allow="autoplay"
+                  className="modal-video"
+                  frameBorder="0"
+                ></iframe>
+              ) : (
+                <div
+                  className={`modal-screenshot-container ${
+                    isAnimating ? `sliding-${direction}` : ''
+                  }`}
+                >
+                  <img
+                    src={appDetails.screenshots[currentImageIndex]}
+                    alt={`${appDetails.name} screenshot ${
+                      currentImageIndex + 1
+                    }`}
+                    className="modal-screenshot"
+                  />
+                </div>
+              )}
+            </div>
+
+            {/* Only show navigation for images */}
+            {!showVideo && (
+              <>
+                {/* Navigation buttons for modal */}
+                <div className="modal-image-navigation">
+                  <button
+                    className="modal-nav-button prev"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      prevImage()
+                    }}
+                  >
+                    <FaChevronLeft />
+                  </button>
+                  <button
+                    className="modal-nav-button next"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      nextImage()
+                    }}
+                  >
+                    <FaChevronRight />
+                  </button>
+                </div>
+
+                {/* Pagination dots for modal */}
+                <div className="modal-pagination-dots">
+                  {appDetails.screenshots.map((_, index) => (
+                    <div
+                      key={index}
+                      className={`modal-pagination-dot ${
+                        index === currentImageIndex ? 'active' : ''
+                      }`}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        goToImage(index)
+                      }}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
+
+            <button
+              className="modal-close"
+              onClick={(e) => {
+                e.stopPropagation()
+                setIsModalOpen(false)
+              }}
+            >
+              <FaTimes />
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

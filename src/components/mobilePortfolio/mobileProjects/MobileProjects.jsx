@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import {
   FaChevronLeft,
   FaChevronRight,
@@ -14,12 +14,22 @@ const MobileProjects = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [showVideo, setShowVideo] = useState(false)
   const [activeTab, setActiveTab] = useState('all')
+  const [isAnimating, setIsAnimating] = useState(false)
+  const [direction, setDirection] = useState('next')
+
+  // For slider functionality
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const [isSliding, setIsSliding] = useState(false)
+  const sliderRef = useRef(null)
+  const [slidesPerView, setSlidesPerView] = useState(2)
 
   // Your actual projects data from Portfolio.jsx
   const projects = [
     // Featured projects from your JSON
     {
       name: 'AI Fashion Stylist App',
+      shortDescription:
+        'AI-powered fashion app with personalized clothing recommendations and style assistance',
       description:
         'An AI-powered fashion application that provides personalized clothing recommendations based on user preferences, body type, and current fashion trends. Features smart outfit suggestions and style assistance.',
       technologies: ['Flutter', 'TensorFlow', 'AI/ML', 'FastAPI'],
@@ -43,7 +53,7 @@ const MobileProjects = () => {
     },
     {
       id: 'ai-fashion-backend',
-      name: 'AI Fashion App Backend',
+      name: 'AI Fashion Stylist Backend',
       shortDescription: 'Robust backend system for AI fashion recommendations',
       description:
         'The backend infrastructure for the AI Fashion App, handling user data, AI model training, fashion inventory management, and recommendation algorithms.',
@@ -87,7 +97,7 @@ const MobileProjects = () => {
         'https://github.com/harshsingh-io/testline_quiz_app/blob/main/assets/screenshots/1.jpg',
         'https://github.com/harshsingh-io/testline_quiz_app/blob/main/assets/screenshots/2.jpg',
       ],
-      demoVideo: '#',
+      demoVideoId: '1tngnYXZliwu5czziU4tnQ8ymeX5zZpxT',
       featured: true,
     },
     // {
@@ -365,31 +375,139 @@ const MobileProjects = () => {
     },
   ]
 
+  // Update slides per view based on screen size
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setSlidesPerView(1)
+      } else {
+        setSlidesPerView(2)
+      }
+    }
+
+    // Set initial value
+    handleResize()
+
+    // Add event listener
+    window.addEventListener('resize', handleResize)
+
+    // Clean up
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
+
+  // Navigation functions for the image slider in modal
   const nextImage = () => {
-    if (!selectedProject) return
-    setCurrentImageIndex((prevIndex) =>
-      prevIndex === selectedProject.screenshots.length - 1 ? 0 : prevIndex + 1
-    )
+    if (!selectedProject || isAnimating) return
+
+    setDirection('next')
+    setIsAnimating(true)
+
+    setTimeout(() => {
+      setCurrentImageIndex((prevIndex) =>
+        prevIndex === selectedProject.screenshots.length - 2 ? 0 : prevIndex + 1
+      )
+      setIsAnimating(false)
+    }, 300)
   }
 
   const prevImage = () => {
-    if (!selectedProject) return
-    setCurrentImageIndex((prevIndex) =>
-      prevIndex === 0 ? selectedProject.screenshots.length - 1 : prevIndex - 1
-    )
+    if (!selectedProject || isAnimating) return
+
+    setDirection('prev')
+    setIsAnimating(true)
+
+    setTimeout(() => {
+      setCurrentImageIndex((prevIndex) =>
+        prevIndex === 0 ? selectedProject.screenshots.length - 2 : prevIndex - 1
+      )
+      setIsAnimating(false)
+    }, 300)
   }
+
+  // Function to directly navigate to a specific image when clicking a dot
+  const goToImage = (index) => {
+    if (isAnimating || index === currentImageIndex || !selectedProject) return
+
+    setDirection(index > currentImageIndex ? 'next' : 'prev')
+    setIsAnimating(true)
+
+    setTimeout(() => {
+      setCurrentImageIndex(index)
+      setIsAnimating(false)
+    }, 300)
+  }
+
+  // Project slider navigation functions
+  const nextSlide = () => {
+    if (isSliding) return
+
+    const filteredProjs = filteredProjects()
+    const maxSlide = Math.ceil(filteredProjs.length / slidesPerView) - 1
+
+    if (currentSlide >= maxSlide) return
+
+    setIsSliding(true)
+    setDirection('next')
+
+    setTimeout(() => {
+      setCurrentSlide((prev) => Math.min(prev + 1, maxSlide))
+      setIsSliding(false)
+    }, 300)
+  }
+
+  const prevSlide = () => {
+    if (isSliding) return
+
+    if (currentSlide <= 0) return
+
+    setIsSliding(true)
+    setDirection('prev')
+
+    setTimeout(() => {
+      setCurrentSlide((prev) => Math.max(prev - 1, 0))
+      setIsSliding(false)
+    }, 300)
+  }
+
+  const goToSlide = (index) => {
+    if (isSliding || index === currentSlide) return
+
+    setDirection(index > currentSlide ? 'next' : 'prev')
+    setIsSliding(true)
+
+    setTimeout(() => {
+      setCurrentSlide(index)
+      setIsSliding(false)
+    }, 300)
+  }
+
+  // Reset slide when tab changes
+  useEffect(() => {
+    setCurrentSlide(0)
+  }, [activeTab])
 
   const openProjectDetails = (project) => {
     setSelectedProject(project)
     setCurrentImageIndex(0)
     setShowVideo(false)
-    document.body.style.overflow = 'hidden' // Prevent scrolling when modal is open
+    setIsAnimating(false)
   }
 
   const closeProjectDetails = () => {
     setSelectedProject(null)
-    document.body.style.overflow = '' // Re-enable scrolling
   }
+
+  // Preload images when a project is selected
+  useEffect(() => {
+    if (selectedProject && selectedProject.screenshots) {
+      selectedProject.screenshots.forEach((src) => {
+        const img = new Image()
+        img.src = src
+      })
+    }
+  }, [selectedProject])
 
   const filteredProjects = () => {
     switch (activeTab) {
@@ -417,6 +535,23 @@ const MobileProjects = () => {
         return projects
     }
   }
+
+  // Calculate slider display values
+  const getSliderStyle = () => {
+    return {
+      transform: `translateX(-${currentSlide * 100}%)`,
+      transition: isSliding ? 'transform 0.3s ease-out' : 'none',
+    }
+  }
+
+  const getVisibleProjects = () => {
+    const filtered = filteredProjects()
+    const totalSlides = Math.ceil(filtered.length / slidesPerView)
+    const dots = Array.from({ length: totalSlides }, (_, i) => i)
+    return { filtered, totalSlides, dots }
+  }
+
+  const { filtered, totalSlides, dots } = getVisibleProjects()
 
   return (
     <div className="mobile-projects-container">
@@ -460,34 +595,82 @@ const MobileProjects = () => {
           </div>
         </div>
 
-        <div className="projects-grid">
-          {filteredProjects().map((project) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              onClick={() => openProjectDetails(project)}
-            />
-          ))}
+        {/* Project Slider instead of Grid */}
+        <div className="projects-slider-container">
+          <div
+            className={`projects-slider sliding-${direction}`}
+            ref={sliderRef}
+            style={getSliderStyle()}
+          >
+            {filtered.map((project) => (
+              <div
+                className="slider-item"
+                key={project.id || project.name}
+                style={{ width: `${100 / slidesPerView}%` }}
+              >
+                <ProjectCard
+                  project={project}
+                  onClick={() => openProjectDetails(project)}
+                />
+              </div>
+            ))}
+          </div>
+
+          {/* Slider Navigation */}
+          {filtered.length > slidesPerView && (
+            <div className="slider-navigation">
+              <button
+                className={`slider-nav-button prev ${
+                  currentSlide === 0 ? 'disabled' : ''
+                }`}
+                onClick={prevSlide}
+                disabled={currentSlide === 0}
+              >
+                <FaChevronLeft />
+              </button>
+              <button
+                className={`slider-nav-button next ${
+                  currentSlide >= totalSlides - 1 ? 'disabled' : ''
+                }`}
+                onClick={nextSlide}
+                disabled={currentSlide >= totalSlides - 1}
+              >
+                <FaChevronRight />
+              </button>
+            </div>
+          )}
+
+          {/* Slider Pagination */}
+          {filtered.length > slidesPerView && (
+            <div className="slider-pagination">
+              {dots.map((dot, index) => (
+                <div
+                  key={index}
+                  className={`slider-dot ${
+                    index === currentSlide ? 'active' : ''
+                  }`}
+                  onClick={() => goToSlide(index)}
+                />
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Project Details Modal */}
         {selectedProject && (
           <div className="modal-overlay" onClick={closeProjectDetails}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-              <div className="modal-header">
-                <h3 className="modal-title">{selectedProject.name}</h3>
-                <button className="close-button" onClick={closeProjectDetails}>
-                  <FaTimes />
-                </button>
-              </div>
+              <button className="close-button" onClick={closeProjectDetails}>
+                <FaTimes />
+              </button>
 
               <div className="modal-body">
                 <div className="modal-phone-container">
                   <div className="modal-phone">
                     <div className="phone-notch-modal"></div>
                     <div className="phone-screen-modal">
-                      {/* Toggle button at the top */}
-                      {selectedProject.demoVideo && (
+                      {(selectedProject.demoVideo ||
+                        selectedProject.demoVideoId) && (
                         <div className="media-toggle-modal">
                           <div className="toggle-buttons-modal">
                             <button
@@ -510,30 +693,50 @@ const MobileProjects = () => {
                         </div>
                       )}
 
-                      {/* App screenshot or video */}
                       <div className="screen-content-modal">
-                        {showVideo && selectedProject.demoVideo ? (
-                          <video
-                            src={selectedProject.demoVideo}
-                            controls
-                            className="app-video-modal"
-                            poster={selectedProject.screenshots[0]}
-                          />
+                        {showVideo ? (
+                          selectedProject.demoVideoId ? (
+                            <iframe
+                              src={`https://drive.google.com/file/d/${selectedProject.demoVideoId}/preview`}
+                              width="100%"
+                              height="100%"
+                              allow="autoplay"
+                              className="app-video-modal"
+                              frameBorder="0"
+                            ></iframe>
+                          ) : selectedProject.demoVideo ? (
+                            <video
+                              src={selectedProject.demoVideo}
+                              controls
+                              className="app-video-modal"
+                              poster={selectedProject.screenshots[0]}
+                            />
+                          ) : null
                         ) : (
-                          <img
-                            src={selectedProject.screenshots[currentImageIndex]}
-                            alt={`${selectedProject.name} screenshot ${
-                              currentImageIndex + 1
+                          <div
+                            className={`screenshot-slider-modal ${
+                              isAnimating ? `sliding-${direction}-modal` : ''
                             }`}
-                            className="app-screenshot-modal"
-                          />
+                          >
+                            <img
+                              src={
+                                selectedProject.screenshots[
+                                  currentImageIndex + 1
+                                ] || selectedProject.screenshots[0]
+                              }
+                              alt={`${selectedProject.name} screenshot ${
+                                currentImageIndex + 2
+                              }`}
+                              className="app-screenshot-modal"
+                              key={currentImageIndex}
+                            />
+                          </div>
                         )}
                       </div>
                     </div>
                   </div>
 
-                  {/* Navigation buttons */}
-                  {!showVideo && selectedProject.screenshots.length > 1 && (
+                  {!showVideo && selectedProject.screenshots.length > 2 && (
                     <div className="image-navigation-modal">
                       <button
                         className="nav-button-modal prev"
@@ -550,15 +753,15 @@ const MobileProjects = () => {
                     </div>
                   )}
 
-                  {/* Pagination dots */}
-                  {!showVideo && selectedProject.screenshots.length > 1 && (
+                  {!showVideo && selectedProject.screenshots.length > 2 && (
                     <div className="pagination-dots-modal">
-                      {selectedProject.screenshots.map((_, index) => (
+                      {selectedProject.screenshots.slice(1).map((_, index) => (
                         <div
                           key={index}
                           className={`pagination-dot-modal ${
                             index === currentImageIndex ? 'active' : ''
                           }`}
+                          onClick={() => goToImage(index)}
                         />
                       ))}
                     </div>
@@ -566,6 +769,8 @@ const MobileProjects = () => {
                 </div>
 
                 <div className="project-details-modal">
+                  <h3 className="modal-title">{selectedProject.name}</h3>
+
                   <p className="project-description-modal">
                     {selectedProject.description}
                   </p>
@@ -584,40 +789,62 @@ const MobileProjects = () => {
                   </div>
 
                   <div className="download-links-modal">
-                    {selectedProject.appStoreLink && (
+                    {selectedProject.appStoreLink &&
+                    selectedProject.appStoreLink !== '#' ? (
                       <a
                         href={selectedProject.appStoreLink}
                         className="app-store-link-modal"
                       >
                         App Store
                       </a>
+                    ) : (
+                      <span className="app-store-link-modal disabled">
+                        App Store
+                      </span>
                     )}
-                    {selectedProject.playStoreLink && (
+
+                    {selectedProject.playStoreLink &&
+                    selectedProject.playStoreLink !== '#' ? (
                       <a
                         href={selectedProject.playStoreLink}
                         className="play-store-link-modal"
                       >
                         Google Play
                       </a>
+                    ) : (
+                      <span className="play-store-link-modal disabled">
+                        Google Play
+                      </span>
                     )}
                   </div>
 
                   <div className="additional-links-modal">
-                    {selectedProject.githubLink && (
+                    {selectedProject.githubLink &&
+                    selectedProject.githubLink !== '#' ? (
                       <a
                         href={selectedProject.githubLink}
                         className="github-link-modal"
                       >
                         <FaGithub /> View Code
                       </a>
+                    ) : (
+                      <span className="github-link-modal disabled">
+                        <FaGithub /> View Code
+                      </span>
                     )}
-                    {selectedProject.websiteLink && (
+
+                    {selectedProject.websiteLink &&
+                    selectedProject.websiteLink !== '#' ? (
                       <a
                         href={selectedProject.websiteLink}
                         className="website-link-modal"
                       >
                         <FaExternalLinkAlt /> Visit Website
                       </a>
+                    ) : (
+                      <span className="website-link-modal disabled">
+                        <FaExternalLinkAlt /> Visit Website
+                      </span>
                     )}
                   </div>
                 </div>
