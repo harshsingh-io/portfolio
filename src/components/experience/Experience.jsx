@@ -89,28 +89,27 @@ const Experience = () => {
   const timelineEvents = [
     {
       date: 'Sep 2024 - Present',
-      role: 'Prompt Engineer',
+      role: 'AI Engineer',
       company: 'Outlier',
       logo: outlierLogo,
-      description:
-        'Leading LLM training and prompt engineering initiatives for code generation and analysis.',
+      description: 'Specializing in RLHF implementation for large language models with focus on code generation and analysis capabilities.',
       details: [
         {
           title: 'Key Responsibilities',
           points: [
-            'Led LLM training initiatives improving code generation accuracy by 30%',
-            'Built automated data pipelines processing over 100k code samples',
-            'Developed cross-language optimization reducing errors by 40%',
-            'Engineered training datasets for fine-tuning large language models',
+            'Drive RLHF training methodologies improving code generation accuracy by 30%',
+            'Develop robust feedback mechanisms processing over 100k code samples daily',
+            'Implement cross-language alignment techniques reducing errors by 40%',
+            'Design comprehensive human feedback frameworks for fine-tuning large language models',
           ],
         },
         {
           title: 'Technical Achievements',
           points: [
-            'Implemented sophisticated prompting strategies for code analysis',
-            'Created specialized prompt templates for multiple programming languages',
-            'Designed automated systems for high-quality training data generation',
-            'Maintained 95% data quality standards across processing pipeline',
+            'Architect reward modeling systems for optimizing code generation capabilities',
+            'Create specialized alignment strategies across multiple programming languages',
+            'Engineer automated RLHF pipelines for high-quality preference data collection',
+            'Achieve 95% alignment with human preferences across evaluation benchmarks',
           ],
         },
       ],
