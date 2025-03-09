@@ -2,7 +2,6 @@ import React from 'react'
 import './header.css'
 import CTA from './CTA'
 import { useEffect, useState } from 'react'
-import ME from 'https://github.com/harshsingh-io/portfolio/blob/master/src/assets/harsh_singh_image.webp?raw=true'
 import AnimatedLetters from '../AnimatedLetters'
 import HeaderSocials from './HeaderSocials'
 
@@ -65,7 +64,7 @@ const Header = () => {
         <CTA />
         <HeaderSocials />
         <div className="me">
-          <img src={ME} alt="me" />
+          <img src={'https://github.com/harshsingh-io/portfolio/blob/master/src/assets/harsh_singh_image.webp?raw=true'} alt="Image Of Harsh Singh Who is Software Engineer Specialised in Android Development and Backend Development" />
         </div>
         <a href="#contact" className="scroll__down">
           Scroll Down

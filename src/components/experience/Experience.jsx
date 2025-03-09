@@ -1,9 +1,6 @@
 import { useEffect, useState } from 'react'
 import AnimatedLetters from '../AnimatedLetters'
-import outlierLogo from 'https://github.com/harshsingh-io/portfolio/blob/master/src/assets/outlier.svg?raw=true'
-import persistLogo from 'https://github.com/harshsingh-io/portfolio/blob/master/src/assets/persistVentures.svg?raw=true'
-import gdgLogo from 'https://github.com/harshsingh-io/portfolio/blob/master/src/assets/Google_logo_lockup_color.png?raw=true'
-import blueMangoLogo from 'https://github.com/harshsingh-io/portfolio/blob/master/src/assets/blueMangoLogo.webp?raw=true'
+
 
 const CustomDialog = ({ isOpen, onClose, title, date, content }) => {
   if (!isOpen) return null
@@ -91,7 +88,7 @@ const Experience = () => {
       date: 'Sep 2024 - Present',
       role: 'AI Engineer',
       company: 'Outlier',
-      logo: outlierLogo,
+      logo: 'https://github.com/harshsingh-io/portfolio/blob/master/src/assets/outlier.svg?raw=true',
       description: 'Specializing in RLHF implementation for large language models with focus on code generation and analysis capabilities.',
       details: [
         {
@@ -118,7 +115,7 @@ const Experience = () => {
       date: 'Nov 2024 - Dec 2024',
       role: 'Full Stack Engineer',
       company: 'Persist Ventures',
-      logo: persistLogo,
+      logo: 'https://github.com/harshsingh-io/portfolio/blob/master/src/assets/persistVentures.svg?raw=true',
       description:
         'Developed AI-powered fashion styling platform with FastAPI backend and Flutter frontend.',
       details: [
@@ -146,7 +143,7 @@ const Experience = () => {
       date: 'Jan 2024 - Sep 2024',
       role: 'Software Engineer Intern',
       company: 'BlueMango Labs',
-      logo: blueMangoLogo,
+      logo: 'https://github.com/harshsingh-io/portfolio/blob/master/src/assets/blueMangoLogo.webp?raw=true',
       description:
         'Full-stack mobile development focusing on SuperAstro and Kosmic apps.',
       details: [
@@ -174,7 +171,7 @@ const Experience = () => {
       date: 'Aug 2023 - Aug 2024',
       role: 'Android Lead',
       company: 'Google Developer Group',
-      logo: gdgLogo,
+      logo: 'https://github.com/harshsingh-io/portfolio/blob/master/src/assets/Google_logo_lockup_color.png?raw=true',
       description:
         'Led Android development initiatives and managed community engagement.',
       details: [

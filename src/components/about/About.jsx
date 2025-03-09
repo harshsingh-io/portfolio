@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './about.css'
 import AnimatedLetters from '../AnimatedLetters'
-import ME from 'https://github.com/harshsingh-io/portfolio/blob/master/src/assets/harsh-about.webp?raw=true'
 import { FaAward } from 'react-icons/fa'
 import { FiUsers } from 'react-icons/fi'
 import { GoProject } from 'react-icons/go'
@@ -147,7 +146,7 @@ const About = () => {
       <div className="container about__container">
         <div className="about__me">
           <div className="about__me-image">
-            <img src={ME} alt="Image Of Me" />
+            <img src={'https://github.com/harshsingh-io/portfolio/blob/master/src/assets/harsh-about.webp?raw=true'} alt="Image Of Harsh Singh Who is Software Engineer Specialised in Android Development and Backend Development." />
           </div>
         </div>
 
