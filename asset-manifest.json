@@ -1,17 +1,12 @@
 {
   "files": {
     "main.css": "/portfolio/static/css/main.7422dd40.css",
-    "main.js": "/portfolio/static/js/main.5634e61f.js",
+    "main.js": "/portfolio/static/js/main.7bd719f8.js",
     "static/media/P2.webp": "/portfolio/static/media/P2.8aa5670737d32b8cc2c8.webp",
-    "static/media/blueMangoLogo.webp": "/portfolio/static/media/blueMangoLogo.f1b76688197c2545f568.webp",
     "static/media/P3.webp": "/portfolio/static/media/P3.7df849135f510e31ad2f.webp",
     "static/media/P5.webp": "/portfolio/static/media/P5.5c912ab1d041df7f967a.webp",
-    "static/media/outlier.svg": "/portfolio/static/media/outlier.fbb21f53a59a8f2f54c33dea6a1ffb4d.svg",
-    "static/media/meo.webp": "/portfolio/static/media/meo.2307053726da54b46115.webp",
-    "static/media/harsh-about.webp": "/portfolio/static/media/harsh-about.335f356a7ca3d9ae083a.webp",
     "static/media/P6.webp": "/portfolio/static/media/P6.4e1bf73a402048f0298a.webp",
     "static/media/doodleit.webp": "/portfolio/static/media/doodleit.6b39142f6ec500e0d965.webp",
-    "static/media/Google_logo_lockup_color.png": "/portfolio/static/media/Google_logo_lockup_color.bc2a20dea99bab7060c0.png",
     "static/media/P4.webp": "/portfolio/static/media/P4.12e81f7b0f77be9a41c4.webp",
     "static/media/helvetica-neu.ttf": "/portfolio/static/media/helvetica-neu.8a19678078a6b21c8057.ttf",
     "static/media/P1.webp": "/portfolio/static/media/P1.b27798ebf6efc0c2f1d7.webp",
@@ -24,7 +19,6 @@
     "static/media/pxiByp8kv8JHgFVrLDz8Z1xlFQ.woff2": "/portfolio/static/media/pxiByp8kv8JHgFVrLDz8Z1xlFQ.39576fe9df8a22cc1bcc.woff2",
     "static/media/postgresql.svg": "/portfolio/static/media/postgresql.2588ce51c243d02d2e6cbd1cff88b818.svg",
     "static/media/pxiByp8kv8JHgFVrLGT9Z1xlFQ.woff2": "/portfolio/static/media/pxiByp8kv8JHgFVrLGT9Z1xlFQ.08491d3f7fe7ae88ef44.woff2",
-    "static/media/persistVentures.svg": "/portfolio/static/media/persistVentures.151e72bfccead2872b4b6b9cfde0fcfd.svg",
     "static/media/pxiEyp8kv8JHgFVrJJnecmNE.woff2": "/portfolio/static/media/pxiEyp8kv8JHgFVrJJnecmNE.d7c074a9c34fe9785f69.woff2",
     "static/media/pxiByp8kv8JHgFVrLDz8Z1JlFc-K.woff2": "/portfolio/static/media/pxiByp8kv8JHgFVrLDz8Z1JlFc-K.05a697e23555546c5179.woff2",
     "static/media/pxiByp8kv8JHgFVrLEj6Z1JlFc-K.woff2": "/portfolio/static/media/pxiByp8kv8JHgFVrLEj6Z1JlFc-K.62a35c4d2c25efed9019.woff2",
@@ -48,10 +42,10 @@
     "static/media/fastapi.svg": "/portfolio/static/media/fastapi.1536093a1656eaee7a8d589641ff2803.svg",
     "static/media/kotlin.svg": "/portfolio/static/media/kotlin.5c2458c7e947ad3bedbbaa1c75f660f8.svg",
     "main.7422dd40.css.map": "/portfolio/static/css/main.7422dd40.css.map",
-    "main.5634e61f.js.map": "/portfolio/static/js/main.5634e61f.js.map"
+    "main.7bd719f8.js.map": "/portfolio/static/js/main.7bd719f8.js.map"
   },
   "entrypoints": [
     "static/css/main.7422dd40.css",
-    "static/js/main.5634e61f.js"
+    "static/js/main.7bd719f8.js"
   ]
 }
