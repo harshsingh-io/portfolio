@@ -2,7 +2,7 @@ import React from 'react'
 import './header.css'
 import CTA from './CTA'
 import { useEffect, useState } from 'react'
-import ME from '../../assets/meo.webp'
+import ME from 'https://github.com/harshsingh-io/portfolio/blob/master/src/assets/harsh_singh_image.webp?raw=true'
 import AnimatedLetters from '../AnimatedLetters'
 import HeaderSocials from './HeaderSocials'
 

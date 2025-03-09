@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import AnimatedLetters from '../AnimatedLetters'
-import outlierLogo from '../../assets/outlier.svg'
-import persistLogo from '../../assets/persistVentures.svg'
-import gdgLogo from '../../assets/Google_logo_lockup_color.png'
-import blueMangoLogo from '../../assets/blueMangoLogo.webp'
+import outlierLogo from 'https://github.com/harshsingh-io/portfolio/blob/master/src/assets/outlier.svg?raw=true'
+import persistLogo from 'https://github.com/harshsingh-io/portfolio/blob/master/src/assets/persistVentures.svg?raw=true'
+import gdgLogo from 'https://github.com/harshsingh-io/portfolio/blob/master/src/assets/Google_logo_lockup_color.png?raw=true'
+import blueMangoLogo from 'https://github.com/harshsingh-io/portfolio/blob/master/src/assets/blueMangoLogo.webp?raw=true'
 
 const CustomDialog = ({ isOpen, onClose, title, date, content }) => {
   if (!isOpen) return null

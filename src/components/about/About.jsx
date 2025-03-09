@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './about.css'
 import AnimatedLetters from '../AnimatedLetters'
-import ME from '../../assets/harsh-about.webp'
+import ME from 'https://github.com/harshsingh-io/portfolio/blob/master/src/assets/harsh-about.webp?raw=true'
 import { FaAward } from 'react-icons/fa'
 import { FiUsers } from 'react-icons/fi'
 import { GoProject } from 'react-icons/go'
