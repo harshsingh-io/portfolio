@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/portfolio/static/css/main.a41a08b4.css",
+    "main.css": "/portfolio/static/css/main.7422dd40.css",
     "main.js": "/portfolio/static/js/main.833d3426.js",
     "static/media/P2.webp": "/portfolio/static/media/P2.8aa5670737d32b8cc2c8.webp",
     "static/media/blueMangoLogo.webp": "/portfolio/static/media/blueMangoLogo.f1b76688197c2545f568.webp",
@@ -47,11 +47,11 @@
     "static/media/flutter.svg": "/portfolio/static/media/flutter.9eec95c1fffd93cba12beaf7b24b7802.svg",
     "static/media/fastapi.svg": "/portfolio/static/media/fastapi.1536093a1656eaee7a8d589641ff2803.svg",
     "static/media/kotlin.svg": "/portfolio/static/media/kotlin.5c2458c7e947ad3bedbbaa1c75f660f8.svg",
-    "main.a41a08b4.css.map": "/portfolio/static/css/main.a41a08b4.css.map",
+    "main.7422dd40.css.map": "/portfolio/static/css/main.7422dd40.css.map",
     "main.833d3426.js.map": "/portfolio/static/js/main.833d3426.js.map"
   },
   "entrypoints": [
-    "static/css/main.a41a08b4.css",
+    "static/css/main.7422dd40.css",
     "static/js/main.833d3426.js"
   ]
 }
