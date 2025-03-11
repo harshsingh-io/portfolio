@@ -1,6 +1,8 @@
 # Getting Started with Create React App
 [Webite Link](https://harshsingh-io.github.io/portfolio/)
 
+[![wakatime](https://wakatime.com/badge/user/018ecd32-5efb-491a-be09-136c9f428be6/project/5324f007-5790-424d-a43c-2bce08f83ca1.svg)](https://wakatime.com/badge/user/018ecd32-5efb-491a-be09-136c9f428be6/project/5324f007-5790-424d-a43c-2bce08f83ca1)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
