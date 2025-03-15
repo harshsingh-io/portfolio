@@ -119,7 +119,7 @@ const MobileProjects = () => {
       screenshots: [
         'https://github.com/harshsingh-io/certifications-and-achievements/blob/main/aifashionbackendMockup.png?raw=true',
       ],
-      demoVideo: '',
+      demoVideoId: '',
       featured: true,
     },
     {
@@ -150,11 +150,11 @@ const MobileProjects = () => {
       appStoreLink: '#',
       playStoreLink: '#',
       githubLink: 'https://github.com/harshsingh-io/tensixmedia',
-      websiteLink: 'https://demo.example.com/tensix',
+      websiteLink: 'https://harshsinghh.me/tensixmedia/',
       screenshots: [
         'https://github.com/harshsingh-io/certifications-and-achievements/blob/main/tensixmediaMockup.png?raw=true',
       ],
-      demoVideo: '#',
+      demoVideoId: '#',
       featured: true,
     },
     {
@@ -174,11 +174,11 @@ const MobileProjects = () => {
       playStoreLink:
         'https://play.google.com/store/apps/details?id=com.empowerverse.app&hl=en_IN',
       githubLink: '#',
-      websiteLink: 'https://demo.example.com/empowerverse',
+      websiteLink: 'https://empowerverse.org/',
       screenshots: [
         'https://github.com/harshsingh-io/certifications-and-achievements/blob/main/empowerverseMockup.png?raw=true',
       ],
-      demoVideo: '#',
+      demoVideoId: '#',
       featured: true,
     },
     {
@@ -210,7 +210,7 @@ const MobileProjects = () => {
         'https://github.com/harshsingh-io/testline_quiz_app/blob/main/assets/screenshots/1.jpg?raw=true',
         'https://github.com/harshsingh-io/testline_quiz_app/blob/main/assets/screenshots/2.jpg?raw=true',
       ],
-      demoVideo: '14pQjzmEMRyg7yI5N2PDnCxA04VvqxWYE',
+      demoVideoId: '14pQjzmEMRyg7yI5N2PDnCxA04VvqxWYE',
       featured: true,
     },
     {
@@ -237,7 +237,7 @@ const MobileProjects = () => {
         'https://github.com/harshsingh-io/KanbanBoard/blob/main/Sample/searchmember.jpg?raw=true',
         'https://github.com/harshsingh-io/KanbanBoard/blob/main/Sample/boardmembers.jpg?raw=true',
       ],
-      demoVideo: '1fwTLTl2HqU00ISOEnXdZZmKgwmUE15fG',
+      demoVideoId: '1fwTLTl2HqU00ISOEnXdZZmKgwmUE15fG',
       featured: true,
     },
     {
@@ -266,7 +266,7 @@ const MobileProjects = () => {
         'https://github.com/harshsingh-io/EcoSync/blob/main/StatisticPage.png?raw=true',
         'https://github.com/harshsingh-io/EcoSync/blob/main/UserProfile.png?raw=true',
       ],
-      demoVideo: '',
+      demoVideoId: '',
       featured: false,
     },
     {
@@ -285,7 +285,7 @@ const MobileProjects = () => {
         require('../../../assets/P4.webp'),
         'https://github.com/harshsingh-io/WeatherCast/blob/main/Screenshots/Screenshot_20230902-220225.png?raw=true',
       ],
-      demoVideo: '',
+      demoVideoId: '',
       featured: true,
     },
     {
@@ -308,7 +308,7 @@ const MobileProjects = () => {
         'https://github.com/harshsingh-io/quizie/blob/master/Screenshot_ScreenOnWrongAnswer.png?raw=true',
         'https://github.com/harshsingh-io/quizie/blob/master/Screenshot_ResultScreen.png?raw=true',
       ],
-      demoVideo: '',
+      demoVideoId: '',
       featured: false,
     },
     {
@@ -330,7 +330,7 @@ const MobileProjects = () => {
       websiteLink:
         'https://github.com/harshsingh-io/BodySync/blob/main/README.md#demo',
       screenshots: [require('../../../assets/P3.webp')],
-      demoVideo: '#',
+      demoVideoId: '#',
       featured: false,
     },
 
@@ -374,7 +374,7 @@ const MobileProjects = () => {
       websiteLink:
         'https://github.com/harshsingh-io/DoodleIt/blob/main/README.md#demo',
       screenshots: [require('../../../assets/doodleit.webp')],
-      demoVideo: '#',
+      demoVideoId: '#',
       featured: false,
     },
 
@@ -689,108 +689,122 @@ const MobileProjects = () => {
               </button>
 
               <div className="modal-body">
-                <div className="modal-phone-container">
-                  <div className="modal-phone">
-                    <div className="phone-notch-modal"></div>
-                    <div className="phone-screen-modal">
-                      {(selectedProject.demoVideo ||
-                        selectedProject.demoVideoId) && (
-                        <div className="media-toggle-modal">
-                          <div className="toggle-buttons-modal">
-                            <button
-                              className={`toggle-button-modal ${
-                                !showVideo ? 'active' : ''
-                              }`}
-                              onClick={() => setShowVideo(false)}
-                            >
-                              Images
-                            </button>
-                            <button
-                              className={`toggle-button-modal ${
-                                showVideo ? 'active' : ''
-                              }`}
-                              onClick={() => setShowVideo(true)}
-                            >
-                              Video
-                            </button>
-                          </div>
-                        </div>
-                      )}
-
-                      <div className="screen-content-modal">
-                        {showVideo ? (
-                          selectedProject.demoVideoId ? (
-                            <iframe
-                              src={`https://drive.google.com/file/d/${selectedProject.demoVideoId}/preview`}
-                              width="100%"
-                              height="100%"
-                              allow="autoplay"
-                              className="app-video-modal"
-                              frameBorder="0"
-                            ></iframe>
-                          ) : selectedProject.demoVideo ? (
-                            <video
-                              src={selectedProject.demoVideo}
-                              controls
-                              className="app-video-modal"
-                              poster={selectedProject.screenshots[0]}
-                            />
-                          ) : null
-                        ) : (
-                          <div
-                            className={`screenshot-slider-modal ${
-                              isAnimating ? `sliding-${direction}-modal` : ''
-                            }`}
-                          >
-                            <img
-                              src={
-                                selectedProject.screenshots[
-                                  currentImageIndex + 1
-                                ] || selectedProject.screenshots[0]
-                              }
-                              alt={`${selectedProject.name} screenshot ${
-                                currentImageIndex + 2
-                              }`}
-                              className="app-screenshot-modal"
-                              key={currentImageIndex}
-                            />
+                {/* Only show phone mockup if there are more than 1 screenshots */}
+                {selectedProject.screenshots.length > 1 ? (
+                  <div className="modal-phone-container">
+                    <div className="modal-phone">
+                      <div className="phone-notch-modal"></div>
+                      <div className="phone-screen-modal">
+                        {(selectedProject.demoVideo ||
+                          selectedProject.demoVideoId) && (
+                          <div className="media-toggle-modal">
+                            <div className="toggle-buttons-modal">
+                              <button
+                                className={`toggle-button-modal ${
+                                  !showVideo ? 'active' : ''
+                                }`}
+                                onClick={() => setShowVideo(false)}
+                              >
+                                Images
+                              </button>
+                              <button
+                                className={`toggle-button-modal ${
+                                  showVideo ? 'active' : ''
+                                }`}
+                                onClick={() => setShowVideo(true)}
+                              >
+                                Video
+                              </button>
+                            </div>
                           </div>
                         )}
+
+                        <div className="screen-content-modal">
+                          {showVideo ? (
+                            selectedProject.demoVideoId ? (
+                              <iframe
+                                src={`https://drive.google.com/file/d/${selectedProject.demoVideoId}/preview`}
+                                width="100%"
+                                height="100%"
+                                allow="autoplay"
+                                className="app-video-modal"
+                                frameBorder="0"
+                              ></iframe>
+                            ) : selectedProject.demoVideo ? (
+                              <video
+                                src={selectedProject.demoVideo}
+                                controls
+                                className="app-video-modal"
+                                poster={selectedProject.screenshots[0]}
+                              />
+                            ) : null
+                          ) : (
+                            <div
+                              className={`screenshot-slider-modal ${
+                                isAnimating ? `sliding-${direction}-modal` : ''
+                              }`}
+                            >
+                              <img
+                                src={
+                                  selectedProject.screenshots[
+                                    currentImageIndex + 1
+                                  ] || selectedProject.screenshots[1]
+                                }
+                                alt={`${selectedProject.name} screenshot ${
+                                  currentImageIndex + 2
+                                }`}
+                                className="app-screenshot-modal"
+                                key={currentImageIndex}
+                              />
+                            </div>
+                          )}
+                        </div>
                       </div>
                     </div>
+
+                    {!showVideo && selectedProject.screenshots.length > 2 && (
+                      <div className="image-navigation-modal">
+                        <button
+                          className="nav-button-modal prev"
+                          onClick={prevImage}
+                        >
+                          <FaChevronLeft />
+                        </button>
+                        <button
+                          className="nav-button-modal next"
+                          onClick={nextImage}
+                        >
+                          <FaChevronRight />
+                        </button>
+                      </div>
+                    )}
+
+                    {!showVideo && selectedProject.screenshots.length > 2 && (
+                      <div className="pagination-dots-modal">
+                        {selectedProject.screenshots
+                          .slice(1)
+                          .map((_, index) => (
+                            <div
+                              key={index}
+                              className={`pagination-dot-modal ${
+                                index === currentImageIndex ? 'active' : ''
+                              }`}
+                              onClick={() => goToImage(index)}
+                            />
+                          ))}
+                      </div>
+                    )}
                   </div>
-
-                  {!showVideo && selectedProject.screenshots.length > 2 && (
-                    <div className="image-navigation-modal">
-                      <button
-                        className="nav-button-modal prev"
-                        onClick={prevImage}
-                      >
-                        <FaChevronLeft />
-                      </button>
-                      <button
-                        className="nav-button-modal next"
-                        onClick={nextImage}
-                      >
-                        <FaChevronRight />
-                      </button>
-                    </div>
-                  )}
-
-                  {!showVideo && selectedProject.screenshots.length > 2 && (
-                    <div className="pagination-dots-modal">
-                      {selectedProject.screenshots.slice(1).map((_, index) => (
-                        <div
-                          key={index}
-                          className={`pagination-dot-modal ${
-                            index === currentImageIndex ? 'active' : ''
-                          }`}
-                          onClick={() => goToImage(index)}
-                        />
-                      ))}
-                    </div>
-                  )}
-                </div>
+                ) : (
+                  // For projects with only one screenshot (mockup), show a larger version of it
+                  <div className="project-mockup-container">
+                    <img
+                      src={selectedProject.screenshots[0]}
+                      alt={`${selectedProject.name} mockup`}
+                      className="project-mockup-image"
+                    />
+                  </div>
+                )}
 
                 <div className="project-details-modal">
                   <h3 className="modal-title">{selectedProject.name}</h3>

@@ -73,7 +73,7 @@
   .tabs {
     padding: 4px;
   }
-  
+
   .tab-button {
     padding: 6px 10px;
     font-size: 0.8rem;
@@ -569,6 +569,7 @@
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(-100%);
   }
@@ -578,6 +579,7 @@
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(100%);
   }
@@ -717,6 +719,7 @@
   0% {
     opacity: 0.9;
   }
+
   100% {
     opacity: 1;
   }
@@ -726,6 +729,7 @@
   0% {
     opacity: 0.9;
   }
+
   100% {
     opacity: 1;
   }
@@ -738,30 +742,30 @@
     padding-top: 30px;
     overflow-y: auto;
   }
-  
+
   .modal-content {
     margin-top: 20px;
     max-height: none;
     overflow-y: visible;
   }
-  
+
   .modal-body {
     padding-top: 25px;
     gap: 3rem;
   }
-  
+
   .modal-phone-container {
     margin-top: 15px;
     padding-top: 25px;
     margin-bottom: 50px;
     position: relative;
   }
-  
+
   .modal-phone {
     width: 190px;
     height: 400px;
   }
-  
+
   .pagination-dots-modal {
     bottom: -40px;
     padding: 6px 12px;
@@ -773,31 +777,31 @@
   .modal-overlay {
     padding-top: 20px;
   }
-  
+
   .modal-content {
     width: 95%;
   }
-  
+
   .modal-body {
     padding: 15px 10px;
   }
-  
+
   .modal-phone-container {
     margin-top: 25px;
     margin-bottom: 60px;
   }
-  
+
   .modal-phone {
     width: 170px;
     height: 360px;
   }
-  
+
   .project-details-modal {
     max-height: 50vh;
     overflow-y: auto;
     padding: 0 5px;
   }
-  
+
   .close-button {
     position: fixed;
     top: 10px;
@@ -813,21 +817,21 @@
     grid-template-columns: 320px 1fr;
     gap: 1rem;
   }
-  
+
   .modal-phone {
     width: 180px;
     height: 380px;
   }
-  
+
   .modal-content {
     max-height: 96vh;
   }
-  
+
   .project-details-modal {
     max-height: 70vh;
     overflow-y: auto;
   }
-  
+
   .pagination-dots-modal {
     bottom: -20px;
   }
@@ -839,19 +843,19 @@
     width: 34px;
     height: 34px;
   }
-  
+
   .slider-nav-button.prev {
     margin-left: 5px;
   }
-  
+
   .slider-nav-button.next {
     margin-right: 5px;
   }
-  
+
   .slider-pagination {
     margin-top: 15px;
   }
-  
+
   .slider-dot {
     width: 8px;
     height: 8px;
@@ -864,22 +868,51 @@
     padding: 6px 14px;
     font-size: 13px;
   }
-  
+
   .pagination-dot-modal {
     width: 10px;
     height: 10px;
     margin: 0 4px;
   }
-  
+
   .toggle-buttons-modal {
     padding: 5px;
   }
-  
+
   .project-content {
     padding: 1.25rem;
   }
-  
+
   .project-footer {
     padding: 0 1.25rem 1.25rem;
+  }
+}
+
+/* Styles for projects with only one screenshot (mockup) */
+.project-mockup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.project-mockup-image {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.project-mockup-image:hover {
+  transform: scale(1.03);
+}
+
+@media (max-width: 768px) {
+  .project-mockup-container {
+    max-width: 280px;
+    margin-bottom: 20px;
   }
 }
