@@ -23,8 +23,8 @@ const MobileShowcase = () => {
     technologies: ['Flutter', 'TensorFlow', 'AI/ML', 'FastAPI'],
     appStoreLink: '#',
     playStoreLink: '#',
-    githubLink: 'https://github.com/yourusername/ai-fashion-app',
-    websiteLink: 'https://demo.example.com/ai-fashion-app',
+    githubLink: 'https://github.com/harshsingh-io/lulu_stylist_app',
+    websiteLink: '#',
     screenshots: [
       'https://github.com/harshsingh-io/lulu_stylist_app/blob/main/screenshots/1.jpg?raw=true',
       'https://github.com/harshsingh-io/lulu_stylist_app/blob/main/screenshots/2.jpg?raw=true',
@@ -187,7 +187,6 @@ const MobileShowcase = () => {
           {/* App details */}
           <div className="app-details">
             <h3 className="app-title">{appDetails.name}</h3>
-
             <p className="app-description">{appDetails.description}</p>
 
             <div className="technologies">
@@ -202,21 +201,47 @@ const MobileShowcase = () => {
             </div>
 
             <div className="download-links">
-              <a href={appDetails.appStoreLink} className="app-store-link">
-                App Store
-              </a>
-              <a href={appDetails.playStoreLink} className="play-store-link">
-                Google Play
-              </a>
+              {appDetails.appStoreLink && appDetails.appStoreLink !== '#' ? (
+                <a href={appDetails.appStoreLink} className="app-store-link">
+                  App Store
+                </a>
+              ) : (
+                <span className="app-store-link disabled">
+                  App Store
+                </span>
+              )}
+              
+              {appDetails.playStoreLink && appDetails.playStoreLink !== '#' ? (
+                <a href={appDetails.playStoreLink} className="play-store-link">
+                  Google Play
+                </a>
+              ) : (
+                <span className="play-store-link disabled">
+                  Google Play
+                </span>
+              )}
             </div>
 
             <div className="additional-links">
-              <a href={appDetails.githubLink} className="github-link">
-                <FaGithub /> View Code
-              </a>
-              <a href={appDetails.websiteLink} className="website-link">
-                <FaExternalLinkAlt /> Visit Website
-              </a>
+              {appDetails.githubLink && appDetails.githubLink !== '#' ? (
+                <a href={appDetails.githubLink} className="github-link">
+                  <FaGithub /> View Code
+                </a>
+              ) : (
+                <span className="github-link disabled">
+                  <FaGithub /> View Code
+                </span>
+              )}
+              
+              {appDetails.websiteLink && appDetails.websiteLink !== '#' ? (
+                <a href={appDetails.websiteLink} className="website-link">
+                  <FaExternalLinkAlt /> Visit Website
+                </a>
+              ) : (
+                <span className="website-link disabled">
+                  <FaExternalLinkAlt /> Visit Website
+                </span>
+              )}
             </div>
           </div>
         </div>

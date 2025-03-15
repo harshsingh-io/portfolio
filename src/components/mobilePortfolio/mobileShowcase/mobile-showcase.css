@@ -4,6 +4,12 @@
   color: var(--color-white);
 }
 
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 .container {
   width: 85%;
   max-width: 1200px;
@@ -299,6 +305,7 @@
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(-100%);
   }
@@ -308,6 +315,7 @@
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(100%);
   }
@@ -540,7 +548,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #4285f4; /* Google blue color similar to the image */
+  background-color: #4285f4;
+  /* Google blue color similar to the image */
   border-radius: 20px;
   z-index: -1;
 }

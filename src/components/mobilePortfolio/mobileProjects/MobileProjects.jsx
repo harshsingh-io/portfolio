@@ -35,8 +35,8 @@ const MobileProjects = () => {
       technologies: ['Flutter', 'TensorFlow', 'AI/ML', 'FastAPI'],
       appStoreLink: '#',
       playStoreLink: '#',
-      githubLink: 'https://github.com/yourusername/ai-fashion-app',
-      websiteLink: 'https://demo.example.com/ai-fashion-app',
+      githubLink: 'https://github.com/harshsingh-io/lulu_stylist_app',
+      websiteLink: '#',
       screenshots: [
         'https://github.com/harshsingh-io/lulu_stylist_app/blob/main/screenshots/ai-fashion-mockup.png?raw=true',
         'https://github.com/harshsingh-io/lulu_stylist_app/blob/main/screenshots/1.jpg?raw=true',
@@ -52,82 +52,107 @@ const MobileProjects = () => {
       featured: true,
     },
     {
-      id: 'ai-fashion-backend',
-      name: 'AI Fashion Stylist Backend',
-      shortDescription: 'Robust backend system for AI fashion recommendations',
+      name: 'Passport Seva Android App',
+      shortDescription:
+        'Modern Android application for accessing passport services offered by the Ministry of External Affairs, India',
       description:
-        'The backend infrastructure for the AI Fashion App, handling user data, AI model training, fashion inventory management, and recommendation algorithms.',
-      technologies: ['Node.js', 'Express', 'MongoDB', 'TensorFlow', 'AWS'],
+        'A modern Android application that provides a digital interface for accessing passport services offered by the Ministry of External Affairs, India. Built with Jetpack Compose and following Clean Architecture principles, this app simplifies the passport application process, appointment booking, and application status tracking with an intuitive user interface.',
+      technologies: [
+        'Android',
+        'Kotlin',
+        'Jetpack Compose',
+        'Material Design 3',
+        'Clean Architecture',
+        'MVVM',
+        'Coroutines & Flow',
+        'Dagger Hilt',
+        'Navigation Component',
+        'Room Database',
+        'Retrofit',
+      ],
       appStoreLink: '#',
       playStoreLink: '#',
-      githubLink: 'https://github.com/harshsingh-io/lulu_stylist_backend',
-      websiteLink: 'https://demo.example.com/ai-fashion-backend',
+      githubLink: 'https://github.com/harshsingh-io/passport-seva',
+      websiteLink: '#',
+      screenshots: [
+        'https://github.com/harshsingh-io/passport-seva/blob/main/screenshots/passportMockup.png?raw=true',
+        'https://github.com/harshsingh-io/passport-seva/blob/main/screenshots/light_theme/homePage.png?raw=true',
+        'https://github.com/harshsingh-io/passport-seva/blob/main/screenshots/light_theme/appointmentBookingScreen.png?raw=true',
+        'https://github.com/harshsingh-io/passport-seva/blob/main/screenshots/light_theme/feeCalculatorScreen.png?raw=true',
+        'https://github.com/harshsingh-io/passport-seva/blob/main/screenshots/dark_theme/documentAdvisorScreen.png?raw=true',
+        'https://github.com/harshsingh-io/passport-seva/blob/main/screenshots/light_theme/loginScreen.png?raw=true',
+        'https://github.com/harshsingh-io/passport-seva/blob/main/screenshots/light_theme/registrationScreen.png?raw=true',
+        'https://github.com/harshsingh-io/passport-seva/blob/main/screenshots/light_theme/appointmentBookingDateAndTimeScreen.png?raw=true',
+        'https://github.com/harshsingh-io/passport-seva/blob/main/screenshots/light_theme/appointmentDetiailsScreen.png?raw=true',
+        'https://github.com/harshsingh-io/passport-seva/blob/main/screenshots/light_theme/documentAdvisorScreen.png?raw=true',
+        'https://github.com/harshsingh-io/passport-seva/blob/main/screenshots/light_theme/annexuresScreen.png?raw=true',
+        'https://github.com/harshsingh-io/passport-seva/blob/main/screenshots/light_theme/faqScreen.png?raw=true',
+        'https://github.com/harshsingh-io/passport-seva/blob/main/screenshots/light_theme/profileScreen.png?raw=true',
+        'https://github.com/harshsingh-io/passport-seva/blob/main/screenshots/light_theme/editProfileScreen.png?raw=true',
+        'https://github.com/harshsingh-io/passport-seva/blob/main/screenshots/light_theme/servicesScreen.png?raw=true',
+        'https://github.com/harshsingh-io/passport-seva/blob/main/screenshots/dark_theme/homeScreen.png?raw=true',
+      ],
+      demoVideoId: '1VSdQYoRXCivt442kYAqxiPsILtdZYNDI',
+      featured: true,
+    },
+    {
+      id: 'ai-fashion-backend',
+      name: 'AI Stylist App Backend',
+      shortDescription:
+        'Robust and scalable FastAPI backend for AI fashion recommendations',
+      description:
+        'A robust and scalable FastAPI backend for the AI Stylist App that provides personalized fashion advice through an AI chat interface, wardrobe management, and user profile customization.',
+      technologies: [
+        'FastAPI',
+        'PostgreSQL',
+        'MongoDB',
+        'OpenAI API',
+        'AWS S3',
+        'Docker',
+        'JWT Authentication',
+        'Alembic',
+      ],
+      appStoreLink: '#',
+      playStoreLink: '#',
+      githubLink: 'https://github.com/yourusername/ai-stylist-backend',
+      websiteLink: 'http://54.197.163.177:8000/docs',
       screenshots: [
         'https://github.com/harshsingh-io/certifications-and-achievements/blob/main/aifashionbackendMockup.png?raw=true',
-        require('../../../assets/mobile-showcase/screenshot1.png'),
-        require('../../../assets/mobile-showcase/screenshot2.png'),
       ],
-      demoVideo: '#',
+      demoVideo: '',
       featured: true,
     },
     {
       id: 'freshness-analysis',
-      name: 'Fruit & Vegetable Freshness Analysis',
-      shortDescription: 'AI-based freshness detection for produce',
+      name: 'Freshness Analysis of Fruits Using Deep Learning',
+      shortDescription:
+        'AI-based freshness detection for fruits using deep learning',
       description:
-        'A mobile application that uses computer vision and machine learning to detect the freshness of fruits and vegetables, helping users reduce food waste and ensure quality.',
-      technologies: ['Flutter', 'TensorFlow Lite', 'Python', 'OpenCV'],
+        "This project utilizes a deep learning model to analyze the freshness of fruits from images. The project has gone through multiple versions to improve model accuracy and real-world applicability. The current version (v2) integrates model fine-tuning and real-world use-case predictions, building upon the previous version's (v1) baseline model.",
+      technologies: ['TensorFlow', 'Keras', 'Python', 'VGG16'],
       appStoreLink: '#',
       playStoreLink: '#',
       githubLink: 'https://github.com/harshsingh-io/fruit_freshness_analysis',
       websiteLink: 'https://demo.example.com/freshness-analysis',
       screenshots: [
         'https://github.com/harshsingh-io/certifications-and-achievements/blob/main/freshnessAnalysisMockup.png?raw=true',
-        'https://github.com/harshsingh-io/certifications-and-achievements/blob/main/freshnessAnalysisMockup.png?raw=true',
       ],
-      demoVideoId: '1tngnYXZliwu5czziU4tnQ8ymeX5zZpxT',
+      demoVideoId: '',
       featured: true,
     },
-    // {
-    //   id: 'ml-model-deployment',
-    //   name: 'ML Model Deployment',
-    //   shortDescription: 'Streamlined deployment of machine learning models',
-    //   description:
-    //     'A framework for efficiently deploying machine learning models to mobile and web platforms, with optimization for on-device inference and real-time predictions.',
-    //   technologies: [
-    //     'TensorFlow',
-    //     'Docker',
-    //     'Kubernetes',
-    //     'Flask',
-    //     'React Native',
-    //   ],
-    //   appStoreLink: '#',
-    //   playStoreLink: '#',
-    //   githubLink: 'https://github.com/harshsingh-io/fruit_freshness_analysis',
-    //   websiteLink: 'https://demo.example.com/ml-deployment',
-    //   screenshots: [
-    //     '/api/placeholder/800/600',
-    //     require('../../../assets/mobile-showcase/screenshot1.png'),
-    //     require('../../../assets/mobile-showcase/screenshot2.png'),
-    //   ],
-    //   demoVideo: '#',
-    //   featured: true,
-    // },
     {
       id: 'tensix-website',
       name: 'Tensix Media Softech Website',
       shortDescription: 'Professional website for tech company',
       description:
         'A responsive, modern website for Tensix Media Softech, featuring company services, portfolio showcase, team profiles, and client testimonials with seamless mobile integration.',
-      technologies: ['React', 'Next.js', 'Tailwind CSS', 'Firebase'],
+      technologies: ['React', 'Next.js', 'Tailwind CSS', 'MongoDB'],
       appStoreLink: '#',
       playStoreLink: '#',
       githubLink: 'https://github.com/harshsingh-io/tensixmedia',
       websiteLink: 'https://demo.example.com/tensix',
       screenshots: [
         'https://github.com/harshsingh-io/certifications-and-achievements/blob/main/tensixmediaMockup.png?raw=true',
-        require('../../../assets/mobile-showcase/screenshot1.png'),
-        require('../../../assets/mobile-showcase/screenshot2.png'),
       ],
       demoVideo: '#',
       featured: true,
@@ -152,8 +177,6 @@ const MobileProjects = () => {
       websiteLink: 'https://demo.example.com/empowerverse',
       screenshots: [
         'https://github.com/harshsingh-io/certifications-and-achievements/blob/main/empowerverseMockup.png?raw=true',
-        require('../../../assets/mobile-showcase/screenshot1.png'),
-        require('../../../assets/mobile-showcase/screenshot2.png'),
       ],
       demoVideo: '#',
       featured: true,
@@ -161,14 +184,16 @@ const MobileProjects = () => {
     {
       id: 'testline-quiz',
       name: 'Testline Quiz App',
-      shortDescription: 'Interactive educational quizzing platform',
+      shortDescription:
+        'Modern, feature-rich interactive quiz app with gamification elements',
       description:
-        'An educational quiz application designed for students and educators, featuring customizable quizzes, performance analytics, and a comprehensive question bank across various subjects.',
-      technologies: ['React Native', 'Redux', 'Firebase', 'Cloud Functions'],
+        'A modern, feature-rich quiz application built with Flutter that offers an engaging and interactive quiz-taking experience with gamification elements.',
+      technologies: ['Flutter', 'http', 'flutter_markdown', 'confetti'],
       appStoreLink: '#',
-      playStoreLink: '#',
+      playStoreLink:
+        'https://github.com/harshsingh-io/testline_quiz_app/raw/main/app-debug.apk',
       githubLink: 'https://github.com/harshsingh-io/testline_quiz_app',
-      websiteLink: 'https://demo.example.com/testline',
+      websiteLink: '#',
       screenshots: [
         'https://github.com/harshsingh-io/certifications-and-achievements/blob/main/testlineQuizMockup.png?raw=true',
         'https://github.com/harshsingh-io/testline_quiz_app/blob/main/assets/screenshots/dark_theme/1.jpg?raw=true',
@@ -185,11 +210,107 @@ const MobileProjects = () => {
         'https://github.com/harshsingh-io/testline_quiz_app/blob/main/assets/screenshots/1.jpg?raw=true',
         'https://github.com/harshsingh-io/testline_quiz_app/blob/main/assets/screenshots/2.jpg?raw=true',
       ],
-      demoVideo: '#',
+      demoVideo: '14pQjzmEMRyg7yI5N2PDnCxA04VvqxWYE',
       featured: true,
     },
-
-    // Your original mobile projects
+    {
+      id: 'kanbanboard',
+      name: 'Trello Clone: KanbanBoard',
+      shortDescription:
+        'A fully functional Kanban board with drag-and-drop functionality',
+      description:
+        'A fully functional Kanban board with drag-and-drop functionality. Organize tasks, manage projects, and collaborate with team members with this comprehensive project management tool.',
+      technologies: ['Android', 'Kotlin', 'Firebase', 'Retrofit', 'MVVM'],
+      appStoreLink: '#',
+      playStoreLink: '#',
+      githubLink: 'https://github.com/harshsingh-io/KanbanBoard',
+      websiteLink: '',
+      screenshots: [
+        require('../../../assets/P6.webp'),
+        'https://github.com/harshsingh-io/KanbanBoard/blob/main/Sample/intro.jpg?raw=true',
+        'https://github.com/harshsingh-io/KanbanBoard/blob/main/Sample/signup.jpg?raw=true',
+        'https://github.com/harshsingh-io/KanbanBoard/blob/main/Sample/login.jpg?raw=true',
+        'https://github.com/harshsingh-io/KanbanBoard/blob/main/Sample/mainactivity.jpg?raw=true',
+        'https://github.com/harshsingh-io/KanbanBoard/blob/main/Sample/navigation.jpg?raw=true',
+        'https://github.com/harshsingh-io/KanbanBoard/blob/main/Sample/editprofile.jpg?raw=true',
+        'https://github.com/harshsingh-io/KanbanBoard/blob/main/Sample/taskandcard.jpg?raw=true',
+        'https://github.com/harshsingh-io/KanbanBoard/blob/main/Sample/searchmember.jpg?raw=true',
+        'https://github.com/harshsingh-io/KanbanBoard/blob/main/Sample/boardmembers.jpg?raw=true',
+      ],
+      demoVideo: '1fwTLTl2HqU00ISOEnXdZZmKgwmUE15fG',
+      featured: true,
+    },
+    {
+      id: 'ecosync',
+      name: 'EcoSync: Electricity Tracking',
+      shortDescription:
+        'Monitor and optimize your electricity usage in real-time',
+      description:
+        'Monitor and optimize your electricity usage in real-time. Track consumption patterns, set goals, and receive energy-saving tips to reduce your carbon footprint and utility bills.',
+      technologies: [
+        'Kotlin',
+        'Android SDK',
+        'Data Visualization',
+        'IoT Integration',
+      ],
+      appStoreLink: '#',
+      playStoreLink: '#',
+      githubLink: 'https://github.com/harshsingh-io/EcoSync',
+      websiteLink: '',
+      screenshots: [
+        require('../../../assets/EcoSync.webp'),
+        'https://github.com/harshsingh-io/EcoSync/blob/main/Splash_screen.png?raw=true',
+        'https://github.com/harshsingh-io/EcoSync/blob/main/Authentication_page.png?raw=true',
+        'https://github.com/harshsingh-io/EcoSync/blob/main/Sign_in.png?raw=true',
+        'https://github.com/harshsingh-io/EcoSync/blob/main/HomePage.png?raw=true',
+        'https://github.com/harshsingh-io/EcoSync/blob/main/StatisticPage.png?raw=true',
+        'https://github.com/harshsingh-io/EcoSync/blob/main/UserProfile.png?raw=true',
+      ],
+      demoVideo: '',
+      featured: false,
+    },
+    {
+      id: 'weathercast',
+      name: 'WeatherCast',
+      shortDescription:
+        'Real-time weather updates with beautiful visualizations',
+      description:
+        'Real-time weather updates with beautiful visualizations. Get accurate forecasts, radar maps, and weather alerts for your location and anywhere in the world.',
+      technologies: ['Kotlin', 'Android SDK', 'OpenWeatherMap API', 'MVVM'],
+      appStoreLink: '#',
+      playStoreLink: '#',
+      githubLink: 'https://github.com/harshsingh-io/WeatherCast',
+      websiteLink: '',
+      screenshots: [
+        require('../../../assets/P4.webp'),
+        'https://github.com/harshsingh-io/WeatherCast/blob/main/Screenshots/Screenshot_20230902-220225.png?raw=true',
+      ],
+      demoVideo: '',
+      featured: true,
+    },
+    {
+      id: 'quizie',
+      name: 'Quizie: Quiz App',
+      shortDescription: 'Test your knowledge with interactive quizzes',
+      description:
+        'Test your knowledge with interactive quizzes across various categories. Challenge yourself with timed questions, track your progress, and compete with friends on the leaderboard.',
+      technologies: ['Kotlin', 'Firebase', 'Material Design', 'Animation API'],
+      appStoreLink: '#',
+      playStoreLink: '#',
+      githubLink: 'https://github.com/harshsingh-io/quizie',
+      websiteLink:
+        'https://github.com/harshsingh-io/quizie/blob/main/README.md#demo',
+      screenshots: [
+        require('../../../assets/P5.webp'),
+        'https://github.com/harshsingh-io/quizie/blob/master/Screenshot_MainScreen.png?raw=true',
+        'https://github.com/harshsingh-io/quizie/blob/master/Screenshot_DefaultQuestionScreen.png?raw=true',
+        'https://github.com/harshsingh-io/quizie/blob/master/Screenshot_RightAnswer.png?raw=true',
+        'https://github.com/harshsingh-io/quizie/blob/master/Screenshot_ScreenOnWrongAnswer.png?raw=true',
+        'https://github.com/harshsingh-io/quizie/blob/master/Screenshot_ResultScreen.png?raw=true',
+      ],
+      demoVideo: '',
+      featured: false,
+    },
     {
       id: 'bodysync',
       name: 'BodySync: Workout App',
@@ -208,35 +329,11 @@ const MobileProjects = () => {
       githubLink: 'https://github.com/harshsingh-io/BodySync',
       websiteLink:
         'https://github.com/harshsingh-io/BodySync/blob/main/README.md#demo',
-      screenshots: [
-        require('../../../assets/P3.webp'),
-        require('../../../assets/mobile-showcase/screenshot1.png'),
-        require('../../../assets/mobile-showcase/screenshot2.png'),
-      ],
+      screenshots: [require('../../../assets/P3.webp')],
       demoVideo: '#',
-      featured: true,
+      featured: false,
     },
-    {
-      id: 'weathercast',
-      name: 'WeatherCast',
-      shortDescription:
-        'Real-time weather updates with beautiful visualizations',
-      description:
-        'Real-time weather updates with beautiful visualizations. Get accurate forecasts, radar maps, and weather alerts for your location and anywhere in the world.',
-      technologies: ['Kotlin', 'Android SDK', 'OpenWeatherMap API', 'MVVM'],
-      appStoreLink: '#',
-      playStoreLink: '#',
-      githubLink: 'https://github.com/harshsingh-io/WeatherCast',
-      websiteLink:
-        'https://github.com/harshsingh-io/WeatherCast/blob/main/README.md#demo',
-      screenshots: [
-        require('../../../assets/P4.webp'),
-        require('../../../assets/mobile-showcase/screenshot1.png'),
-        require('../../../assets/mobile-showcase/screenshot2.png'),
-      ],
-      demoVideo: '#',
-      featured: true,
-    },
+
     {
       id: 'memorywhisper',
       name: 'MemoryWhisper: HappyPlace App',
@@ -254,59 +351,10 @@ const MobileProjects = () => {
       githubLink: 'https://github.com/harshsingh-io/MemoryWhisper',
       websiteLink:
         'https://github.com/harshsingh-io/MemoryWhisper/tree/main#demo',
-      screenshots: [
-        require('../../../assets/P2.webp'),
-        require('../../../assets/mobile-showcase/screenshot1.png'),
-        require('../../../assets/mobile-showcase/screenshot2.png'),
-      ],
+      screenshots: [require('../../../assets/P2.webp')],
       featured: true,
     },
-    {
-      id: 'kanbanboard',
-      name: 'Trello Clone: KanbanBoard',
-      shortDescription:
-        'A fully functional Kanban board with drag-and-drop functionality',
-      description:
-        'A fully functional Kanban board with drag-and-drop functionality. Organize tasks, manage projects, and collaborate with team members with this comprehensive project management tool.',
-      technologies: ['Android', 'Kotlin', 'Firebase', 'Drag & Drop API'],
-      appStoreLink: '#',
-      playStoreLink: '#',
-      githubLink: 'https://github.com/harshsingh-io/KanbanBoard',
-      websiteLink:
-        'https://github.com/harshsingh-io/KanbanBoard/blob/main/README.md#demo',
-      screenshots: [
-        require('../../../assets/P6.webp'),
-        require('../../../assets/mobile-showcase/screenshot1.png'),
-        require('../../../assets/mobile-showcase/screenshot2.png'),
-      ],
-      demoVideo: '#',
-      featured: false,
-    },
-    {
-      id: 'ecosync',
-      name: 'EcoSync: Electricity Tracking',
-      shortDescription:
-        'Monitor and optimize your electricity usage in real-time',
-      description:
-        'Monitor and optimize your electricity usage in real-time. Track consumption patterns, set goals, and receive energy-saving tips to reduce your carbon footprint and utility bills.',
-      technologies: [
-        'Kotlin',
-        'Android SDK',
-        'Data Visualization',
-        'IoT Integration',
-      ],
-      appStoreLink: '#',
-      playStoreLink: '#',
-      githubLink: 'https://github.com/harshsingh-io/EcoSync',
-      websiteLink:
-        'https://github.com/harshsingh-io/EcoSync/blob/main/README.md#demo',
-      screenshots: [
-        require('../../../assets/EcoSync.webp'),
-        require('../../../assets/mobile-showcase/screenshot1.png'),
-        require('../../../assets/mobile-showcase/screenshot2.png'),
-      ],
-      featured: false,
-    },
+
     {
       id: 'doodleit',
       name: 'DoodleIt: Drawing App',
@@ -325,34 +373,11 @@ const MobileProjects = () => {
       githubLink: 'https://github.com/harshsingh-io/DoodleIt',
       websiteLink:
         'https://github.com/harshsingh-io/DoodleIt/blob/main/README.md#demo',
-      screenshots: [
-        require('../../../assets/doodleit.webp'),
-        require('../../../assets/mobile-showcase/screenshot1.png'),
-        require('../../../assets/mobile-showcase/screenshot2.png'),
-      ],
+      screenshots: [require('../../../assets/doodleit.webp')],
       demoVideo: '#',
       featured: false,
     },
-    {
-      id: 'quizie',
-      name: 'Quizie: Quiz App',
-      shortDescription: 'Test your knowledge with interactive quizzes',
-      description:
-        'Test your knowledge with interactive quizzes across various categories. Challenge yourself with timed questions, track your progress, and compete with friends on the leaderboard.',
-      technologies: ['Kotlin', 'Firebase', 'Material Design', 'Animation API'],
-      appStoreLink: '#',
-      playStoreLink: '#',
-      githubLink: 'https://github.com/harshsingh-io/quizie',
-      websiteLink:
-        'https://github.com/harshsingh-io/quizie/blob/main/README.md#demo',
-      screenshots: [
-        require('../../../assets/P5.webp'),
-        require('../../../assets/mobile-showcase/screenshot1.png'),
-        require('../../../assets/mobile-showcase/screenshot2.png'),
-      ],
-      demoVideo: '#',
-      featured: false,
-    },
+
     {
       id: 'calculator',
       name: 'Calculator',
