@@ -1,6 +1,6 @@
 {
-  "name": "react-portfolio-website-1",
-  "homepage": "https://harshsingh-io.github.io/portfolio",
+  "name": "portfolio-website",
+  "homepage": "https://harshsingh.io",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
