@@ -21,14 +21,14 @@ const Footer = () => {
 
       <div className="footer__socials">
         <a href="https://linkedin.com/in/harshsingh-io"><BsLinkedin/></a>
-        <a href="https://twitter.com/harshtobekind"><FaTwitterSquare/></a>
+        <a href="https://x.com/harshsingh_io"><FaTwitterSquare/></a>
         <a href="https://fb.com/harshtobekind"><GrFacebook/></a>
-        <a href="https://instagram.com/harshtobekind"><AiFillInstagram/></a>
+        <a href="https://instagram.com/harshsingh_io"><AiFillInstagram/></a>
 
       </div>
 
       <div className="footer__copyright">
-        <small>&copy; Code Enemy. All rights reserved.</small>
+        <small>&copy; Harsh Singh. All rights reserved.</small>
       </div>
     </footer>
   )
