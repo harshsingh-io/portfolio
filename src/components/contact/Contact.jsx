@@ -9,31 +9,69 @@ import emailjs from '@emailjs/browser'
 
 const Contact = () => {
   const [letterClass, setLetterClass] = useState('text-animate')
+  const [isLoading, setIsLoading] = useState(false)
+  const [message, setMessage] = useState('')
+  const [messageType, setMessageType] = useState('') // 'success' or 'error'
 
   useEffect(() => {
     return setTimeout(() => {
       setLetterClass('text-animate-hover')
     }, 3000)
   }, [])
-  const form = useRef()
-  const sendEmail = (e) => {
-    e.preventDefault()
 
-    emailjs
-      .sendForm('service_3fi7qrd', 'template_5k9zfma', form.current, {
-        publicKey: 'jWyP779mY_ZDKBnxq',
-      })
-      .then(
-        () => {
-          console.log('SUCCESS!')
-        },
-        (error) => {
-          console.log('FAILED...', error.text)
-        }
+  const form = useRef()
+
+  const sendEmail = async (e) => {
+    e.preventDefault()
+    setIsLoading(true)
+    setMessage('')
+    setMessageType('')
+
+    // Validate EmailJS configuration
+    const serviceId = 'service_p2s6eeb'
+    const templateId = 'template_s8q1d8p'
+    const publicKey = '-Wch1sLimKhZvPQUK'
+
+    if (!serviceId || !templateId || !publicKey) {
+      setMessage(
+        'EmailJS configuration is missing. Please check your credentials.'
       )
-    e.target.reset()
+      setMessageType('error')
+      setIsLoading(false)
+      return
+    }
+
+    try {
+      const result = await emailjs.sendForm(
+        serviceId,
+        templateId,
+        form.current,
+        publicKey
+      )
+
+      console.log('EmailJS Success:', result)
+      setMessage('Thank you! Your message has been sent successfully.')
+      setMessageType('success')
+      form.current.reset()
+    } catch (error) {
+      console.error('EmailJS Error:', error)
+      setMessage(
+        `Failed to send message: ${
+          error.text || error.message || 'Unknown error'
+        }`
+      )
+      setMessageType('error')
+    } finally {
+      setIsLoading(false)
+      // Clear message after 5 seconds
+      setTimeout(() => {
+        setMessage('')
+        setMessageType('')
+      }, 5000)
+    }
   }
-  return (  
+
+  return (
     <section id="contact">
       <h5>
         <AnimatedLetters
@@ -91,16 +129,34 @@ const Contact = () => {
             name="name"
             placeholder="Your Full Name"
             required
+            disabled={isLoading}
           />
-          <input type="email" name="email" placeholder="Your Email" required />
+          <input
+            type="email"
+            name="email"
+            placeholder="Your Email"
+            required
+            disabled={isLoading}
+          />
           <textarea
             name="message"
             rows="7"
             placeholder="Your Message"
             required
+            disabled={isLoading}
           ></textarea>
-          <button type="submit" className="btn btn-primary">
-            Send Message
+
+          {/* Message display */}
+          {message && (
+            <div className={`form-message ${messageType}`}>{message}</div>
+          )}
+
+          <button
+            type="submit"
+            className="btn btn-primary"
+            disabled={isLoading}
+          >
+            {isLoading ? 'Sending...' : 'Send Message'}
           </button>
         </form>
       </div>
