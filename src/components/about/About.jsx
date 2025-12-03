@@ -41,14 +41,14 @@ const About = () => {
       )
       const contributionsData = await contributionsResponse.json()
       console.log('Contributions Data:', contributionsData)
-      const totalContributions = "1000+"
+      const totalContributions = '1000+'
       console.log('Total Contributions:', totalContributions)
 
       // Fetch repositories
       const reposResponse = await fetch(
         `https://api.github.com/users/harshsingh-io/repos`
       )
-      
+
       const reposData = await reposResponse.json()
       console.log('Repositories Data:', reposData)
       const totalRepos = reposData.length
@@ -146,7 +146,12 @@ const About = () => {
       <div className="container about__container">
         <div className="about__me">
           <div className="about__me-image">
-            <img src={'https://github.com/harshsingh-io/portfolio/blob/master/src/assets/harsh-about.webp?raw=true'} alt="Image Of Harsh Singh Who is Software Engineer Specialised in Android Development and Backend Development." />
+            <img
+              src={
+                'https://github.com/harshsingh-io/portfolio/blob/master/src/assets/harsh-about.JPEG?raw=true'
+              }
+              alt="Image Of Harsh Singh Who is Software Engineer Specialised in Android Development and Backend Development."
+            />
           </div>
         </div>
 

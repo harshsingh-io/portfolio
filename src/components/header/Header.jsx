@@ -64,7 +64,12 @@ const Header = () => {
         <CTA />
         <HeaderSocials />
         <div className="me">
-          <img src={'https://github.com/harshsingh-io/portfolio/blob/master/src/assets/harsh_singh_image.webp?raw=true'} alt="Image Of Harsh Singh Who is Software Engineer Specialised in Android Development and Backend Development" />
+          <img
+            src={
+              'https://github.com/harshsingh-io/portfolio/blob/master/src/assets/harsh_singh_image.png?raw=true'
+            }
+            alt="Image Of Harsh Singh Who is Software Engineer Specialised in Android Development and Backend Development"
+          />
         </div>
         <a href="#contact" className="scroll__down">
           Scroll Down
