@@ -17,7 +17,7 @@ const Nav = () => {
   return (
     <nav>
       <a
-        href="#"
+        href="#home"
         onMouseEnter={hoverHandler}
         onMouseLeave={hoverHandler}
         onClick={() => setActiveNav('#')}
