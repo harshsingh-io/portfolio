@@ -6,6 +6,7 @@ const CTA = () => {
       <a
         href="https://harshsingh-io.github.io/resume/"
         target="_blank"
+        rel="noreferrer"
         className="btn"
       >
         View Resume

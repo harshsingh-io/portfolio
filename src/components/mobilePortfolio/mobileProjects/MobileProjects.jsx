@@ -729,6 +729,7 @@ const MobileProjects = () => {
                                 allow="autoplay"
                                 className="app-video-modal"
                                 frameBorder="0"
+                                title={`${selectedProject.name} demo video`}
                               ></iframe>
                             ) : selectedProject.demoVideo ? (
                               <video

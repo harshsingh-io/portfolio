@@ -89,7 +89,7 @@ const MobileShowcase = () => {
       const img = new Image()
       img.src = src
     })
-  }, [])
+  }, [appDetails.screenshots])
 
   return (
     <div className="mobile-showcase-container">
@@ -132,6 +132,7 @@ const MobileShowcase = () => {
                         allow="autoplay"
                         className="app-video"
                         frameBorder="0"
+                        title={`${appDetails.name} demo video`}
                       ></iframe>
                     ) : (
                       <div
@@ -206,19 +207,15 @@ const MobileShowcase = () => {
                   App Store
                 </a>
               ) : (
-                <span className="app-store-link disabled">
-                  App Store
-                </span>
+                <span className="app-store-link disabled">App Store</span>
               )}
-              
+
               {appDetails.playStoreLink && appDetails.playStoreLink !== '#' ? (
                 <a href={appDetails.playStoreLink} className="play-store-link">
                   Google Play
                 </a>
               ) : (
-                <span className="play-store-link disabled">
-                  Google Play
-                </span>
+                <span className="play-store-link disabled">Google Play</span>
               )}
             </div>
 
@@ -232,7 +229,7 @@ const MobileShowcase = () => {
                   <FaGithub /> View Code
                 </span>
               )}
-              
+
               {appDetails.websiteLink && appDetails.websiteLink !== '#' ? (
                 <a href={appDetails.websiteLink} className="website-link">
                   <FaExternalLinkAlt /> Visit Website
@@ -285,6 +282,7 @@ const MobileShowcase = () => {
                   allow="autoplay"
                   className="modal-video"
                   frameBorder="0"
+                  title={`${appDetails.name} demo video modal`}
                 ></iframe>
               ) : (
                 <div
