@@ -1,6 +1,6 @@
 header {
     height: 100vh;
-    padding-top: 7rem;
+    padding-top: 4rem;
     overflow: hidden;
 }
 
@@ -72,7 +72,33 @@ h5 {
 
 @media screen and (max-width: 1024px) {
     header {
-        height: 68vh;
+        height: 100vh;
+        padding-top: 5rem;
+    }
+
+    .header__content h5 {
+        font-size: 0.85rem;
+        letter-spacing: 2px;
+    }
+
+    .header__content h1 {
+        font-size: 2.5rem;
+    }
+
+    .header__content h2 {
+        font-size: 1.8rem;
+    }
+
+    .cta {
+        margin-top: 2rem;
+        gap: 1rem;
+    }
+
+    .me {
+        width: 16rem;
+        height: 20rem;
+        left: calc(50% - 8rem);
+        margin-top: 1rem;
     }
 }
 
@@ -81,9 +107,44 @@ h5 {
 @media screen and (max-width: 600px) {
     header {
         height: 100vh;
+        padding-top: 3rem;
     }
 
-    .header__socials, .scroll__down {
+    .header__socials,
+    .scroll__down {
         display: none;
+    }
+
+    .header__content h5 {
+        font-size: 0.75rem;
+        letter-spacing: 1.5px;
+    }
+
+    .header__content h1 {
+        font-size: 2rem;
+    }
+
+    .header__content h2 {
+        font-size: 1.4rem;
+    }
+
+
+    .cta {
+        margin-top: 1.5rem;
+        gap: 0.8rem;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cta .btn {
+        width: 80%;
+    }
+
+    .me {
+        width: 14rem;
+        height: 19rem;
+        left: calc(50% - 7rem);
+        margin-top: 2.5rem;
+        padding: 1.5rem 1rem 1rem 1rem;
     }
 }

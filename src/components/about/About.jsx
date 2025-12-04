@@ -7,7 +7,7 @@ import { GoProject } from 'react-icons/go'
 
 const About = () => {
   const [letterClass, setLetterClass] = useState('text-animate')
-  const [showMore, setShowMore] = useState(false)
+  const [showDialog, setShowDialog] = useState(false)
   const [experienceMonths, setExperienceMonths] = useState(0)
   const [contributions, setContributions] = useState(0)
   const [repositories, setRepositories] = useState(0)
@@ -57,47 +57,6 @@ const About = () => {
     }
   }
 
-  const toggleShowMore = () => {
-    setShowMore(!showMore)
-  }
-
-  const initialText = (
-    <>
-      <p>
-        I'm a versatile Software Engineer who thrives at the intersection of Mobile Development, Backend Engineering, and Data Systems. My journey in software development is driven by a passion for building scalable, production-ready solutions that solve real-world problems.
-        <span onClick={toggleShowMore} className="btn-text">
-          {showMore ? ' Read Less' : ' Read More'}
-        </span>
-      </p>
-    </>
-  )
-
-  const fullText = (
-    <>
-      <p>
-        I'm a versatile Software Engineer who thrives at the intersection of Mobile Development, Backend Engineering, and Data Systems. My journey in software development is driven by a passion for building scalable, production-ready solutions that solve real-world problems.
-      </p>
-      <p>
-        <strong>Mobile Development:</strong> I specialize in crafting intuitive mobile experiences using Android (Kotlin, Java) and Flutter. At BlueMango Labs, I led UI redesigns that increased user retention by 25% and implemented real-time features including chat and live streaming. I believe great mobile apps combine performance with delightful user experiences.
-      </p>
-      <p>
-        <strong>Backend Engineering:</strong> I build robust backend systems with Python and FastAPI, integrating databases like PostgreSQL, DynamoDB, and SQLite. I've architected systems that scale to handle 10x more concurrent users and implemented Domain-Driven Design principles that accelerated development by 30%. My focus is on clean architecture, API design, and system reliability.
-      </p>
-      <p>
-        <strong>Data Engineering:</strong> I work with data pipelines, MQTT protocols, and cloud services (AWS, Firebase) to build data-driven applications. My experience includes optimizing data flows, implementing efficient caching strategies, and ensuring data consistency across distributed systems.
-      </p>
-      <p>
-        Currently, I'm working as an AI Engineer at Outlier, implementing RLHF methodologies that improve code generation accuracy by 30%, and recently built an AI-powered fashion platform at Persist Ventures with a full-stack architecture.
-      </p>
-      <p>
-        Beyond technical skills, I'm passionate about mentoring developers, contributing to open-source, and continuous learning. Whether it's mobile apps, backend APIs, or data systems, I approach every challenge with curiosity and a commitment to excellence.
-        <span onClick={toggleShowMore} className="btn-text">
-          {showMore ? ' Read Less' : ' Read More'}
-        </span>
-      </p>
-    </>
-  )
-
   return (
     <section id="about">
       <h5>
@@ -137,8 +96,8 @@ const About = () => {
             </article>
             <article className="about__card">
               <FiUsers className="about__icon" />
-              <h5>Contributions</h5>
-              <small>{contributions} Contributions</small>
+              <h5>Perfrmance</h5>
+              <small>{"2.2+"} millions User</small>
             </article>
             <article className="about__card">
               <GoProject className="about__icon" />
@@ -147,13 +106,54 @@ const About = () => {
             </article>
           </div>
 
-          {showMore ? fullText : initialText}
+          <p>
+            I'm a versatile Software Engineer who thrives at the intersection of Mobile Development, Backend Engineering, and Data Systems. My journey in software development is driven by a passion for building scalable, production-ready solutions that solve real-world problems.
+            <span onClick={() => setShowDialog(true)} className="read-more-text">
+              {' '}Read More
+            </span>
+          </p>
 
           <a href="#contact" className="btn btn-primary">
             Let's Talk
           </a>
         </div>
       </div>
+
+      {/* Dialog */}
+      {showDialog && (
+        <div className="dialog-overlay" onClick={() => setShowDialog(false)}>
+          <div className="dialog-content" onClick={(e) => e.stopPropagation()}>
+            <div className="dialog-header">
+              <div className="dialog-header-text">
+                <h2>About Me</h2>
+              </div>
+              <button className="close-btn" onClick={() => setShowDialog(false)}>
+                ✕
+              </button>
+            </div>
+            <div className="dialog-body">
+              <p>
+                I'm a versatile Software Engineer who thrives at the intersection of Mobile Development, Backend Engineering, and Data Systems. My journey in software development is driven by a passion for building scalable, production-ready solutions that solve real-world problems.
+              </p>
+              <p>
+                <strong>Mobile Development:</strong> I specialize in crafting intuitive mobile experiences using Android (Kotlin, Java) and Flutter. At BlueMango Labs, I led UI redesigns that increased user retention by 25% and implemented real-time features including chat and live streaming. I believe great mobile apps combine performance with delightful user experiences.
+              </p>
+              <p>
+                <strong>Backend Engineering:</strong> I build robust backend systems with Python and FastAPI, integrating databases like PostgreSQL, DynamoDB, and SQLite. I've architected systems that scale to handle 10x more concurrent users and implemented Domain-Driven Design principles that accelerated development by 30%. My focus is on clean architecture, API design, and system reliability.
+              </p>
+              <p>
+                <strong>Data Engineering:</strong> I work with data pipelines, MQTT protocols, and cloud services (AWS, Firebase) to build data-driven applications. My experience includes optimizing data flows, implementing efficient caching strategies, and ensuring data consistency across distributed systems.
+              </p>
+              <p>
+                Currently, I'm working as an AI Engineer at Outlier, implementing RLHF methodologies that improve code generation accuracy by 30%, and recently built an AI-powered fashion platform at Persist Ventures with a full-stack architecture.
+              </p>
+              <p>
+                Beyond technical skills, I'm passionate about mentoring developers, contributing to open-source, and continuous learning. Whether it's mobile apps, backend APIs, or data systems, I approach every challenge with curiosity and a commitment to excellence.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   )
 }

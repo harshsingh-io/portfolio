@@ -34,7 +34,7 @@ const Header = () => {
       setLetterClass('text-animate-hover')
     }, 4000)
   }, [])
-  
+
   return (
     <header id="home">
       <div className="container header__container">
@@ -56,7 +56,7 @@ const Header = () => {
               idx={15}
             />
           </h1>
-          
+
           <div className="header__tagline">
             <h2 className="text-light header__title">
               <AnimatedLetters
@@ -65,15 +65,12 @@ const Header = () => {
                 idx={19}
               />
             </h2>
-            <p className="header__subtitle">
-              Mobile Dev • Backend • Data Engineering
-            </p>
           </div>
-          
+
           <CTA />
           <HeaderSocials />
         </div>
-        
+
         <div className="me">
           <div className="me__wrapper">
             <img
@@ -85,7 +82,7 @@ const Header = () => {
             />
           </div>
         </div>
-        
+
         <a href="#contact" className="scroll__down" aria-label="Scroll to contact section">
           Scroll Down
         </a>

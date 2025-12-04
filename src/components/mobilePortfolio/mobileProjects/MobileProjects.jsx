@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import ReactDOM from 'react-dom'
 import {
   FaChevronLeft,
   FaChevronRight,
@@ -463,20 +464,22 @@ const MobileProjects = () => {
     }, 300)
   }
 
-  // Project slider navigation functions
+  // Project slider navigation functions - Infinite scroll
   const nextSlide = () => {
     if (isSliding) return
 
     const filteredProjs = filteredProjects()
-    const maxSlide = Math.ceil(filteredProjs.length / slidesPerView) - 1
-
-    if (currentSlide >= maxSlide) return
+    const maxSlide = Math.ceil(filteredProjs.length / slidesPerView)
 
     setIsSliding(true)
     setDirection('next')
 
     setTimeout(() => {
-      setCurrentSlide((prev) => Math.min(prev + 1, maxSlide))
+      setCurrentSlide((prev) => {
+        const nextSlide = prev + 1
+        // Loop back to start after reaching the end
+        return nextSlide >= maxSlide * 2 ? maxSlide : nextSlide
+      })
       setIsSliding(false)
     }, 300)
   }
@@ -484,13 +487,18 @@ const MobileProjects = () => {
   const prevSlide = () => {
     if (isSliding) return
 
-    if (currentSlide <= 0) return
+    const filteredProjs = filteredProjects()
+    const maxSlide = Math.ceil(filteredProjs.length / slidesPerView)
 
     setIsSliding(true)
     setDirection('prev')
 
     setTimeout(() => {
-      setCurrentSlide((prev) => Math.max(prev - 1, 0))
+      setCurrentSlide((prev) => {
+        const prevSlideNum = prev - 1
+        // Loop to end when going back from start
+        return prevSlideNum < 0 ? maxSlide - 1 : prevSlideNum
+      })
       setIsSliding(false)
     }, 300)
   }
@@ -507,9 +515,11 @@ const MobileProjects = () => {
     }, 300)
   }
 
-  // Reset slide when tab changes
+  // Reset slide when tab changes - Start at middle section for infinite scroll
   useEffect(() => {
-    setCurrentSlide(0)
+    const filteredProjs = filteredProjects()
+    const maxSlide = Math.ceil(filteredProjs.length / slidesPerView)
+    setCurrentSlide(maxSlide) // Start at the middle duplicate
   }, [activeTab])
 
   const openProjectDetails = (project) => {
@@ -582,8 +592,7 @@ const MobileProjects = () => {
       <div className="container">
         <p className="subtitle">
           Explore my portfolio of mobile applications, showcasing my skills in
-          UI/UX design, frontend and backend development, and cross-platform
-          technologies.
+          Mobile Development, Backend Development and Data Engineering roles.
         </p>
 
         <div className="tabs-container">
@@ -595,9 +604,8 @@ const MobileProjects = () => {
               All Projects
             </button>
             <button
-              className={`tab-button ${
-                activeTab === 'featured' ? 'active' : ''
-              }`}
+              className={`tab-button ${activeTab === 'featured' ? 'active' : ''
+                }`}
               onClick={() => setActiveTab('featured')}
             >
               Featured
@@ -609,9 +617,8 @@ const MobileProjects = () => {
               AI/ML
             </button>
             <button
-              className={`tab-button ${
-                activeTab === 'android' ? 'active' : ''
-              }`}
+              className={`tab-button ${activeTab === 'android' ? 'active' : ''
+                }`}
               onClick={() => setActiveTab('android')}
             >
               Android
@@ -626,10 +633,11 @@ const MobileProjects = () => {
             ref={sliderRef}
             style={getSliderStyle()}
           >
-            {filtered.map((project) => (
+            {/* Duplicate the array to create infinite loop effect */}
+            {[...filtered, ...filtered, ...filtered].map((project, index) => (
               <div
                 className="slider-item"
-                key={project.id || project.name}
+                key={`${project.id || project.name}-${index}`}
                 style={{ width: `${100 / slidesPerView}%` }}
               >
                 <ProjectCard
@@ -640,24 +648,18 @@ const MobileProjects = () => {
             ))}
           </div>
 
-          {/* Slider Navigation */}
+          {/* Slider Navigation - Always enabled for infinite scroll */}
           {filtered.length > slidesPerView && (
             <div className="slider-navigation">
               <button
-                className={`slider-nav-button prev ${
-                  currentSlide === 0 ? 'disabled' : ''
-                }`}
+                className="slider-nav-button prev"
                 onClick={prevSlide}
-                disabled={currentSlide === 0}
               >
                 <FaChevronLeft />
               </button>
               <button
-                className={`slider-nav-button next ${
-                  currentSlide >= totalSlides - 1 ? 'disabled' : ''
-                }`}
+                className="slider-nav-button next"
                 onClick={nextSlide}
-                disabled={currentSlide >= totalSlides - 1}
               >
                 <FaChevronRight />
               </button>
@@ -670,9 +672,8 @@ const MobileProjects = () => {
               {dots.map((dot, index) => (
                 <div
                   key={index}
-                  className={`slider-dot ${
-                    index === currentSlide ? 'active' : ''
-                  }`}
+                  className={`slider-dot ${index === (currentSlide % dots.length) ? 'active' : ''
+                    }`}
                   onClick={() => goToSlide(index)}
                 />
               ))}
@@ -681,7 +682,7 @@ const MobileProjects = () => {
         </div>
 
         {/* Project Details Modal */}
-        {selectedProject && (
+        {selectedProject && ReactDOM.createPortal(
           <div className="modal-overlay" onClick={closeProjectDetails}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
               <button className="close-button" onClick={closeProjectDetails}>
@@ -697,27 +698,25 @@ const MobileProjects = () => {
                       <div className="phone-screen-modal">
                         {(selectedProject.demoVideo ||
                           selectedProject.demoVideoId) && (
-                          <div className="media-toggle-modal">
-                            <div className="toggle-buttons-modal">
-                              <button
-                                className={`toggle-button-modal ${
-                                  !showVideo ? 'active' : ''
-                                }`}
-                                onClick={() => setShowVideo(false)}
-                              >
-                                Images
-                              </button>
-                              <button
-                                className={`toggle-button-modal ${
-                                  showVideo ? 'active' : ''
-                                }`}
-                                onClick={() => setShowVideo(true)}
-                              >
-                                Video
-                              </button>
+                            <div className="media-toggle-modal">
+                              <div className="toggle-buttons-modal">
+                                <button
+                                  className={`toggle-button-modal ${!showVideo ? 'active' : ''
+                                    }`}
+                                  onClick={() => setShowVideo(false)}
+                                >
+                                  Images
+                                </button>
+                                <button
+                                  className={`toggle-button-modal ${showVideo ? 'active' : ''
+                                    }`}
+                                  onClick={() => setShowVideo(true)}
+                                >
+                                  Video
+                                </button>
+                              </div>
                             </div>
-                          </div>
-                        )}
+                          )}
 
                         <div className="screen-content-modal">
                           {showVideo ? (
@@ -741,19 +740,17 @@ const MobileProjects = () => {
                             ) : null
                           ) : (
                             <div
-                              className={`screenshot-slider-modal ${
-                                isAnimating ? `sliding-${direction}-modal` : ''
-                              }`}
+                              className={`screenshot-slider-modal ${isAnimating ? `sliding-${direction}-modal` : ''
+                                }`}
                             >
                               <img
                                 src={
                                   selectedProject.screenshots[
-                                    currentImageIndex + 1
+                                  currentImageIndex + 1
                                   ] || selectedProject.screenshots[1]
                                 }
-                                alt={`${selectedProject.name} screenshot ${
-                                  currentImageIndex + 2
-                                }`}
+                                alt={`${selectedProject.name} screenshot ${currentImageIndex + 2
+                                  }`}
                                 className="app-screenshot-modal"
                                 key={currentImageIndex}
                               />
@@ -787,9 +784,8 @@ const MobileProjects = () => {
                           .map((_, index) => (
                             <div
                               key={index}
-                              className={`pagination-dot-modal ${
-                                index === currentImageIndex ? 'active' : ''
-                              }`}
+                              className={`pagination-dot-modal ${index === currentImageIndex ? 'active' : ''
+                                }`}
                               onClick={() => goToImage(index)}
                             />
                           ))}
@@ -829,7 +825,7 @@ const MobileProjects = () => {
 
                   <div className="download-links-modal">
                     {selectedProject.appStoreLink &&
-                    selectedProject.appStoreLink !== '#' ? (
+                      selectedProject.appStoreLink !== '#' ? (
                       <a
                         href={selectedProject.appStoreLink}
                         className="app-store-link-modal"
@@ -843,7 +839,7 @@ const MobileProjects = () => {
                     )}
 
                     {selectedProject.playStoreLink &&
-                    selectedProject.playStoreLink !== '#' ? (
+                      selectedProject.playStoreLink !== '#' ? (
                       <a
                         href={selectedProject.playStoreLink}
                         className="play-store-link-modal"
@@ -859,7 +855,7 @@ const MobileProjects = () => {
 
                   <div className="additional-links-modal">
                     {selectedProject.githubLink &&
-                    selectedProject.githubLink !== '#' ? (
+                      selectedProject.githubLink !== '#' ? (
                       <a
                         href={selectedProject.githubLink}
                         className="github-link-modal"
@@ -873,7 +869,7 @@ const MobileProjects = () => {
                     )}
 
                     {selectedProject.websiteLink &&
-                    selectedProject.websiteLink !== '#' ? (
+                      selectedProject.websiteLink !== '#' ? (
                       <a
                         href={selectedProject.websiteLink}
                         className="website-link-modal"
@@ -889,7 +885,8 @@ const MobileProjects = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div>,
+          document.body
         )}
       </div>
     </div>

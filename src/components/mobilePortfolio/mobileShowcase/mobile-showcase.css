@@ -2,6 +2,7 @@
   padding: 80px 0;
   background: linear-gradient(to bottom, var(--color-bg), var(--color-bg-variant));
   color: var(--color-white);
+  border-radius: 6rem;
 }
 
 .disabled {

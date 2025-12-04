@@ -9,7 +9,7 @@
   display: flex;
   flex-direction: column;
   gap: 3rem;
-  padding: 2rem;
+  padding: 0 2rem 2rem 2rem;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -87,12 +87,10 @@
   left: -50%;
   width: 200%;
   height: 200%;
-  background: linear-gradient(
-    45deg,
-    transparent,
-    rgba(255, 255, 255, 0.03),
-    transparent
-  );
+  background: linear-gradient(45deg,
+      transparent,
+      rgba(255, 255, 255, 0.03),
+      transparent);
   transform: rotate(45deg);
   transition: all 0.6s ease;
 }
@@ -105,6 +103,7 @@
   0% {
     transform: translateX(-100%) rotate(45deg);
   }
+
   100% {
     transform: translateX(100%) rotate(45deg);
   }
@@ -116,7 +115,7 @@
     width: 110px;
     height: 110px;
   }
-  
+
   .skill-badge__icon {
     width: 35px;
     height: 35px;
@@ -128,12 +127,12 @@
     width: 100px;
     height: 100px;
   }
-  
+
   .skill-badge__icon {
     width: 32px;
     height: 32px;
   }
-  
+
   .skill-badge__title {
     font-size: 0.75rem;
   }
@@ -152,7 +151,7 @@
 }
 
 section#skills {
-  padding: 4rem 0;
+  padding: 1rem 0 4rem 0;
   background: var(--color-bg);
   background-image: url(../../assets/bg-texture.png);
 }
@@ -181,6 +180,7 @@ section#skills h2 {
   min-width: 10px;
   display: inline-block;
   animation-fill-mode: both;
+
   &:hover {
     animation: rubberBand 1s;
     color: #ffd700;
@@ -192,14 +192,17 @@ section#skills h2 {
     opacity: 0;
     transform: scale(0.3);
   }
+
   50% {
     opacity: 0.9;
     transform: scale(1.1);
   }
+
   80% {
     opacity: 1;
     transform: scale(0.89);
   }
+
   100% {
     opacity: 1;
     transform: scale(1);
@@ -210,21 +213,27 @@ section#skills h2 {
   from {
     transform: scale3d(1, 1, 1);
   }
+
   30% {
     transform: scale3d(1.25, 0.75, 1);
   }
+
   40% {
     transform: scale3d(0.75, 1.25, 1);
   }
+
   50% {
     transform: scale3d(1.15, 0.85, 1);
   }
+
   65% {
     transform: scale3d(0.95, 1.05, 1);
   }
+
   75% {
     transform: scale3d(1.05, 0.95, 1);
   }
+
   to {
     transform: scale3d(1, 1, 1);
   }

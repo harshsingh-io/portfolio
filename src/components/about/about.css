@@ -2,6 +2,8 @@
     display: grid;
     grid-template-columns: 35% 50%;
     gap: 15%;
+    padding: 2rem;
+    margin: 0 auto;
 }
 
 /* About Image */
@@ -9,34 +11,123 @@
     width: 100%;
     aspect-ratio: 1/1;
     border-radius: 2rem;
-    background: linear-gradient(
-        45deg,
-        transparent,
-        var(--color-primary),
-        transparent
-    );
+    background: linear-gradient(45deg,
+            transparent,
+            var(--color-primary),
+            transparent);
     display: grid;
     place-items: center;
 }
-.btn-text {
-  color: white; /* This can be adjusted to match your design */
-  cursor: pointer;
-  margin-left: 5px;
-  display: inline-block;
+
+.read-more-text {
+    color: var(--color-primary);
+    cursor: pointer;
+    text-decoration: underline;
+    transition: color 0.3s ease;
 }
 
+.read-more-text:hover {
+    color: var(--color-white);
+}
 
-.about__me-image{
+/* Dialog styles */
+.dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.dialog-content {
+    background: var(--color-bg-variant);
+    border-radius: 1.5rem;
+    padding: 2.5rem;
+    max-width: 700px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    border: 1px solid rgba(77, 122, 255, 0.3);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.dialog-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    gap: 1rem;
+}
+
+.dialog-header-text {
+    flex: 1;
+}
+
+.dialog-header h2 {
+    color: var(--color-primary);
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.dialog-body {
+    margin: 2rem 0;
+}
+
+.dialog-body p {
+    color: var(--color-light);
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+}
+
+.dialog-body strong {
+    color: var(--color-primary);
+}
+
+.close-btn {
+    background: rgba(77, 122, 255, 0.1);
+    color: var(--color-light);
+    width: 36px;
+    height: 36px;
+    border-radius: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 300;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(77, 122, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    line-height: 1;
+    padding: 0;
+}
+
+.close-btn:hover {
+    background: var(--color-primary);
+    color: var(--color-white);
+    border-color: var(--color-primary);
+    transform: rotate(90deg);
+}
+
+.about__me-image {
     border-radius: 2rem;
     overflow: hidden;
     transform: rotate(10deg);
     transition: var(--transition);
 }
+
 .content-transition {
-  overflow: hidden;
-  transition: height 0.5s ease-in-out;
+    overflow: hidden;
+    transition: height 0.5s ease-in-out;
 }
-.about__me-image:hover{
+
+.about__me-image:hover {
     transform: rotate(0);
 }
 
@@ -45,40 +136,76 @@
 .about__cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+    gap: 2rem;
+    margin-bottom: 3rem;
 }
 
 .about__card {
-    background: var(--color-bg-variant);
-    border: 1px solid transparent;
-    border-radius: 1rem;
-    padding: 2rem;
+    background: linear-gradient(135deg, rgba(77, 122, 255, 0.05) 0%, rgba(45, 60, 122, 0.1) 100%);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(77, 122, 255, 0.2);
+    border-radius: 1.5rem;
+    padding: 2.5rem 2rem;
     text-align: center;
-    transition: var(--transition);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
 }
 
-.about__card:hover{
-    background: transparent;
-    border-color: var(--color-primary-varient);
-    cursor: default;
+.about__card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-primary) 0%, rgba(77, 122, 255, 0.5) 100%);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+}
+
+.about__card:hover::before {
+    transform: scaleX(1);
+}
+
+.about__card:hover {
+    background: linear-gradient(135deg, rgba(77, 122, 255, 0.15) 0%, rgba(45, 60, 122, 0.2) 100%);
+    border-color: var(--color-primary);
+    transform: translateY(-10px);
+    box-shadow: 0 20px 60px rgba(77, 122, 255, 0.25);
 }
 
 .about__icon {
     color: var(--color-primary);
-    font-size: 1.4rem;
+    font-size: 2rem;
     margin-bottom: 1rem;
+    transition: all 0.3s ease;
+}
+
+.about__card:hover .about__icon {
+    transform: scale(1.15) rotate(5deg);
+    filter: drop-shadow(0 5px 15px rgba(77, 122, 255, 0.4));
 }
 
 .about__card h5 {
-    font-size: 0.95rem;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--color-white);
 }
 
 .about__card small {
-    font-size: 0.7rem;
+    font-size: 0.85rem;
     color: var(--color-light);
+    font-weight: 400;
 }
 
-.about__content p{
+.about__content p {
     margin: 2rem 0 2.6rem;
     color: var(--color-light);
 }
@@ -87,37 +214,62 @@
 /* Media Queries for Medium Devices(Tablet) */
 
 @media screen and (max-width: 1024px) {
-    .about__container{
+    .about__container {
         grid-template-columns: 1fr;
         gap: 0;
     }
-    .about__me{
+
+    .about__me {
         width: 50%;
         margin: 2rem auto 4rem;
     }
+
     .about__content p {
         margin: 1rem 0 1.5rem;
+    }
+
+    .dialog-content {
+        padding: 2rem;
+        max-width: 90vw;
+    }
+
+    .about__cards {
+        gap: 1.5rem;
     }
 }
 
 /* Media Queries for Small Devices(Mobile) */
 
 @media screen and (max-width: 600px) {
-   .about__me {
-    width: 65%;
-    margin: 0 auto 3rem;
-   }
+    .about__me {
+        width: 65%;
+        margin: 0 auto 3rem;
+    }
 
-   .about__cards {
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-   }
+    .about__cards {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
 
-   .about__content {
-    text-align: center;
-   }
+    .about__card {
+        padding: 2rem 1.5rem;
+        min-height: 150px;
+    }
 
-   .about__content p {
-    margin: 1.5rem 0;
-   }
+    .about__icon {
+        font-size: 1.75rem;
+    }
+
+    .about__content {
+        text-align: center;
+    }
+
+    .about__content p {
+        margin: 1.5rem 0;
+    }
+
+    .dialog-content {
+        padding: 1.5rem;
+        width: 95vw;
+    }
 }
