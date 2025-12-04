@@ -28,7 +28,7 @@ nav a {
   color: var(--color-light);
   font-size: 1.1rem;
   transition: var(--transition);
-  
+
 }
 
 nav a .iconname {
@@ -38,11 +38,13 @@ nav a .iconname {
   transform: translateX(-100%);
   transition: var(--transition);
 }
+
 nav a:hover {
   background: rgba(0, 0, 0, 0.3);
   border-radius: 100px;
   width: 105px;
 }
+
 nav a:hover .iconname {
   margin-left: 0.5rem;
   opacity: 1;
@@ -50,16 +52,105 @@ nav a:hover .iconname {
   transform: translateX(0%);
   color: var(--color-white);
 }
+
 nav a.active {
   background: var(--color-primary);
   border-radius: 100px;
   width: 105px;
   color: var(--color-white);
 }
+
 nav a.active .iconname {
   transform: translateX(0%);
   font-size: 0.6rem;
   margin-left: 0.5rem;
   opacity: 1;
   color: var(--color-white);
+}
+
+/* ========== MEDIA QUERIES (TABLET) ========== */
+@media screen and (max-width: 1024px) {
+  nav {
+    padding: 0.6rem 1.5rem;
+    gap: 0.7rem;
+    bottom: 1.5rem;
+  }
+
+  nav a {
+    width: 40px;
+    height: 40px;
+    padding: 0.8rem;
+    font-size: 1rem;
+  }
+
+  nav a:hover {
+    width: 95px;
+  }
+
+  nav a.active {
+    width: 95px;
+  }
+
+  nav a .iconname {
+    font-size: 0;
+  }
+
+  nav a:hover .iconname,
+  nav a.active .iconname {
+    font-size: 0.55rem;
+    margin-left: 0.4rem;
+  }
+}
+
+/* ========== MEDIA QUERIES (MOBILE) ========== */
+@media screen and (max-width: 600px) {
+  nav {
+    padding: 0.5rem 1rem;
+    gap: 0.5rem;
+    bottom: 1rem;
+    border-radius: 2.5rem;
+  }
+
+  nav a {
+    width: 35px;
+    height: 35px;
+    padding: 0.65rem;
+    font-size: 0.9rem;
+  }
+
+  nav a:hover {
+    width: 35px;
+    border-radius: 50%;
+  }
+
+  nav a.active {
+    width: 35px;
+    border-radius: 50%;
+  }
+
+  /* Hide text labels on mobile for cleaner look */
+  nav a .iconname {
+    display: none;
+  }
+
+  nav a:hover .iconname,
+  nav a.active .iconname {
+    display: none;
+  }
+}
+
+/* ========== MEDIA QUERIES (SMALL MOBILE) ========== */
+@media screen and (max-width: 400px) {
+  nav {
+    padding: 0.4rem 0.8rem;
+    gap: 0.4rem;
+    bottom: 0.75rem;
+  }
+
+  nav a {
+    width: 32px;
+    height: 32px;
+    padding: 0.55rem;
+    font-size: 0.85rem;
+  }
 }
