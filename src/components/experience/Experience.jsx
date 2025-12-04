@@ -146,7 +146,7 @@ const Experience = () => {
       date: 'November 2024 - January 2025',
       role: 'Software Engineer Intern',
       company: 'Persist Ventures',
-      logo: 'https://github.com/harshsingh-io/portfolio/blob/master/src/assets/persistVentures.png?raw=true',
+      logo: 'https://github.com/harshsingh-io/portfolio/blob/master/src/assets/persistVentures.jpg?raw=true',
       description: 'Spearheaded frontend development of AI-powered Flutter applications and full-stack fashion platforms.',
       details: [
         {
