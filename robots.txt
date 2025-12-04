@@ -1,0 +1,14 @@
+# https://harshsingh.io/robots.txt
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://harshsingh.io/sitemap.xml
+
+# Disallow certain paths (if any)
+Disallow: /api/
+Disallow: /*.json$
+Disallow: /service-worker.js
+
+# Crawl-delay (optional, for specific bots if needed)
+# Crawl-delay: 10
