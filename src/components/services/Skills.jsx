@@ -35,31 +35,31 @@ const Skills = () => {
     return () => clearTimeout(timer)
   }, [])
 
-  const coreSkills = [
-    { name: 'Java', icon: java, isGold: true },
+  const mobileSkills = [
     { name: 'Kotlin', icon: kotlin, isGold: true },
-    { name: 'Flutter', icon: flutter, isGold: true },
-    { name: 'Python', icon: python, isGold: true },
+    { name: 'Java', icon: java, isGold: true },
     { name: 'Android SDK', icon: android, isGold: true },
+    { name: 'Flutter', icon: flutter, isGold: true },
     { name: 'Firebase', icon: firebase, isGold: true },
-    { name: 'AWS', icon: aws, isGold: true },
+    { name: 'Android Studio', icon: androidstudio, isGold: true },
   ]
 
   const backendSkills = [
-    { name: 'REST APIs', icon: restapi, isGold: true },
+    { name: 'Python', icon: python, isGold: true },
     { name: 'FastAPI', icon: fastapi, isGold: true },
+    { name: 'REST APIs', icon: restapi, isGold: true },
     { name: 'PostgreSQL', icon: postgresql, isGold: true },
-    { name: 'DynamoDB', icon: dynamodb, isGold: false },
-    { name: 'SQLite', icon: sqlite, isGold: false },
-    { name: 'MQTT', icon: mqtt, isGold: false },
-    { name: 'SQLAlchemy', icon: sqlalchemy, isGold: false },
+    { name: 'SQLite', icon: sqlite, isGold: true },
+    { name: 'SQLAlchemy', icon: sqlalchemy, isGold: true },
   ]
 
-  const devTools = [
-    { name: 'Git', icon: git, isGold: true },
-    { name: 'Android Studio', icon: androidstudio, isGold: true },
-    { name: 'CI/CD', icon: cicd, isGold: false },
+  const dataEngSkills = [
+    { name: 'AWS', icon: aws, isGold: true },
+    { name: 'DynamoDB', icon: dynamodb, isGold: true },
+    { name: 'MQTT', icon: mqtt, isGold: true },
     { name: 'Docker', icon: docker, isGold: false },
+    { name: 'CI/CD', icon: cicd, isGold: false },
+    { name: 'Git', icon: git, isGold: true },
     { name: 'Agile', icon: agile, isGold: false },
   ]
 
@@ -85,9 +85,9 @@ const Skills = () => {
 
       <div className="skills__container">
         <div className="skills__category">
-          <h3>Core Technologies</h3>
+          <h3>Mobile Development</h3>
           <div className="skills__list">
-            {coreSkills.map((skill) => (
+            {mobileSkills.map((skill) => (
               <SkillBadge
                 key={skill.name}
                 name={skill.name}
@@ -99,8 +99,8 @@ const Skills = () => {
         </div>
 
         <div className="skills__category">
-          <h3>Backend & Databases</h3>
-          <div className="skills__list">
+          <h3>Backend Engineering</h3>
+        <div className="skills__list">
             {backendSkills.map((skill) => (
               <SkillBadge
                 key={skill.name}
@@ -113,9 +113,9 @@ const Skills = () => {
         </div>
 
         <div className="skills__category">
-          <h3>Development Tools</h3>
-          <div className="skills__list">
-            {devTools.map((skill) => (
+          <h3>Data Engineering & DevOps</h3>
+        <div className="skills__list">
+            {dataEngSkills.map((skill) => (
               <SkillBadge
                 key={skill.name}
                 name={skill.name}

@@ -34,44 +34,59 @@ const Header = () => {
       setLetterClass('text-animate-hover')
     }, 4000)
   }, [])
+  
   return (
-    <header>
+    <header id="home">
       <div className="container header__container">
-        <h5>
-          <span className={letterClass}>H</span>
-          <span className={`${letterClass} _12`}>e</span>
-          <span className={`${letterClass} _13`}>l</span>
-          <span className={`${letterClass} _14`}>l</span>
-          <span className={`${letterClass} _15`}>o,</span>
-          <span className={`${letterClass} _16`}>I</span>
-          <span className={`${letterClass} _17`}>'m</span>
-        </h5>
+        <div className="header__content">
+          <h5 className="header__greeting">
+            <span className={letterClass}>H</span>
+            <span className={`${letterClass} _12`}>e</span>
+            <span className={`${letterClass} _13`}>l</span>
+            <span className={`${letterClass} _14`}>l</span>
+            <span className={`${letterClass} _15`}>o,</span>
+            <span className={`${letterClass} _16`}> I</span>
+            <span className={`${letterClass} _17`}>'m</span>
+          </h5>
 
-        <h1>
-          <AnimatedLetters
-            letterClass={letterClass}
-            strArray={nameArray}
-            idx={15}
-          />
-        </h1>
-        <h5 className="text-light">
-          <AnimatedLetters
-            letterClass={letterClass}
-            strArray={jobArray}
-            idx={19}
-          />
-        </h5>
-        <CTA />
-        <HeaderSocials />
-        <div className="me">
-          <img
-            src={
-              'https://github.com/harshsingh-io/portfolio/blob/master/src/assets/harsh_singh_image.png?raw=true'
-            }
-            alt="Harsh Singh, Software Engineer specializing in Android and Backend Development"
-          />
+          <h1 className="header__name">
+            <AnimatedLetters
+              letterClass={letterClass}
+              strArray={nameArray}
+              idx={15}
+            />
+          </h1>
+          
+          <div className="header__tagline">
+            <h2 className="text-light header__title">
+              <AnimatedLetters
+                letterClass={letterClass}
+                strArray={jobArray}
+                idx={19}
+              />
+            </h2>
+            <p className="header__subtitle">
+              Mobile Dev • Backend • Data Engineering
+            </p>
+          </div>
+          
+          <CTA />
+          <HeaderSocials />
         </div>
-        <a href="#contact" className="scroll__down">
+        
+        <div className="me">
+          <div className="me__wrapper">
+            <img
+              src={
+                'https://github.com/harshsingh-io/portfolio/blob/master/src/assets/harsh_singh_image.png?raw=true'
+              }
+              alt="Harsh Singh, Software Engineer specializing in Mobile, Backend and Data Engineering"
+              loading="eager"
+            />
+          </div>
+        </div>
+        
+        <a href="#contact" className="scroll__down" aria-label="Scroll to contact section">
           Scroll Down
         </a>
       </div>
