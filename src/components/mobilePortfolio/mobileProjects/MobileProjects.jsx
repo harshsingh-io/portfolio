@@ -481,7 +481,7 @@ const MobileProjects = () => {
         return nextSlide >= maxSlide * 2 ? maxSlide : nextSlide
       })
       setIsSliding(false)
-    }, 300)
+    }, 600)
   }
 
   const prevSlide = () => {
@@ -500,7 +500,7 @@ const MobileProjects = () => {
         return prevSlideNum < 0 ? maxSlide - 1 : prevSlideNum
       })
       setIsSliding(false)
-    }, 300)
+    }, 600)
   }
 
   const goToSlide = (index) => {
@@ -574,7 +574,7 @@ const MobileProjects = () => {
   const getSliderStyle = () => {
     return {
       transform: `translateX(-${currentSlide * 100}%)`,
-      transition: isSliding ? 'transform 0.3s ease-out' : 'none',
+      transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
     }
   }
 
