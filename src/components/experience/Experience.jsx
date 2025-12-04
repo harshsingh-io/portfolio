@@ -89,116 +89,113 @@ const Experience = () => {
 
   const timelineEvents = [
     {
-      date: 'Sep 2024 - Present',
-      role: 'AI Engineer',
-      company: 'Outlier',
-      logo: 'https://github.com/harshsingh-io/portfolio/blob/master/src/assets/outlier.svg?raw=true',
-      description: 'Specializing in RLHF implementation for large language models with focus on code generation and analysis capabilities.',
+      date: 'August 2025 - Present',
+      role: 'SDE-1 Data and AI Automation',
+      company: 'MathonGo',
+      logo: '', // Placeholder as logo URL was not in source
+      description: 'Engineered automated tagging systems and orchestrated large-scale data migrations.',
       details: [
         {
           title: 'Key Responsibilities',
           points: [
-            'Drive RLHF training methodologies improving code generation accuracy by 30%',
-            'Develop robust feedback mechanisms processing over 100k code samples daily',
-            'Implement cross-language alignment techniques reducing errors by 40%',
-            'Design comprehensive human feedback frameworks for fine-tuning large language models',
+            'Engineered an automated tagging system using Google Gemini 2.5 Pro API processing 8 years of CAT exam data',
+            'Orchestrated migration of 160,000+ questions and media assets to MongoDB and AWS S3',
+            'Developed ETL pipelines using Python and Google Drive API managing 1,000+ educational resources',
+            'Reduced manual content management time by 80% and migration time from weeks to hours'
           ],
         },
         {
           title: 'Technical Achievements',
           points: [
-            'Architect reward modeling systems for optimizing code generation capabilities',
-            'Create specialized alignment strategies across multiple programming languages',
-            'Engineer automated RLHF pipelines for high-quality preference data collection',
-            'Achieve 95% alignment with human preferences across evaluation benchmarks',
+            'Achieved high-accuracy classification across 4 educational domains',
+            'Maintained 100% referential integrity during large-scale asset migration',
+            'Processed 950+ files automatically using AI-driven pipelines',
+            'Optimized content workflows reducing manual intervention significantly'
           ],
         },
       ],
     },
     {
-      date: 'Nov 2024 - Dec 2024',
-      role: 'Full Stack Engineer',
+      date: 'February 2025 - July 2025',
+      role: 'AI Engineer (Freelance)',
+      company: 'Outlier',
+      logo: 'https://github.com/harshsingh-io/portfolio/blob/master/src/assets/outlier.svg?raw=true',
+      description: 'Enhanced multi-language code generation models through instruction-tuning and expert evaluation.',
+      details: [
+        {
+          title: 'Key Responsibilities',
+          points: [
+            'Enhanced performance of multi-language code generation models (Java, Python, Kotlin)',
+            'Designed sophisticated prompts and curated large-scale instruction-tuning datasets',
+            'Served as coding subject-matter expert in human-in-the-loop AI training pipeline',
+            'Authored "gold-standard" solutions to reduce model hallucinations'
+          ],
+        },
+        {
+          title: 'Technical Achievements',
+          points: [
+            'Evaluated and ranked thousands of AI-generated code samples',
+            'Systematically identified and corrected language-specific errors',
+            'Provided critical feedback to improve instruction-following capabilities',
+            'Improved model reasoning and accuracy through detailed code rewrites'
+          ],
+        },
+      ],
+    },
+    {
+      date: 'November 2024 - January 2025',
+      role: 'Software Engineer Intern',
       company: 'Persist Ventures',
       logo: 'https://github.com/harshsingh-io/portfolio/blob/master/src/assets/persistVentures.svg?raw=true',
-      description:
-        'Developed AI-powered fashion styling platform with FastAPI backend and Flutter frontend.',
+      description: 'Spearheaded frontend development of AI-powered Flutter applications and full-stack fashion platforms.',
       details: [
         {
           title: 'Project Overview',
           points: [
-            'Led development of AI-powered personal styling platform',
-            'Implemented microservices architecture with FastAPI',
-            'Designed dual database system using PostgreSQL and MongoDB',
-            'Built intuitive mobile interface using Flutter',
+            'Spearheaded frontend development of three AI-powered Flutter applications',
+            'Engineered full-stack AI fashion stylist platform (Lulu) from concept to deployment',
+            'Contributed to a combined 155,000+ downloads on Google Play Store',
+            'Architected scalable microservices backend with FastAPI'
           ],
         },
         {
           title: 'Technical Implementation',
           points: [
-            'Integrated OpenAI for intelligent fashion advice',
-            'Implemented secure JWT authentication system',
-            'Created comprehensive API endpoints for wardrobe management',
-            'Developed real-time chat interface for AI stylist interaction',
+            'Implemented dual-database system (PostgreSQL/MongoDB) reducing latency by 40%',
+            'Integrated OpenAI API for intelligent fashion recommendations',
+            'Developed RESTful API endpoints for user management and AI chat interface',
+            'Achieved 40% faster response times through backend optimization'
           ],
         },
       ],
     },
     {
-      date: 'Jan 2024 - Sep 2024',
-      role: 'SDE Intern',
+      date: 'January 2024 - September 2024',
+      role: 'Software Engineer Intern',
       company: 'BlueMango Labs',
       logo: 'https://github.com/harshsingh-io/portfolio/blob/master/src/assets/blueMangoLogo.webp?raw=true',
-      description:
-        'Full-stack mobile development focusing on SuperAstro and Kosmic apps.',
+      description: 'Spearheaded end-to-end development of SuperAstro app and expert portals.',
       details: [
         {
           title: 'Key Achievements',
           points: [
-            'Increased user engagement by 35% through Firebase notifications',
-            'Optimized system performance by 50% using Domain-Driven Design',
-            'Scaled backend to support 10x concurrent users',
-            'Led internationalization expanding userbase by 40%',
+            'Spearheaded end-to-end development of SuperAstro app\'s entire UI',
+            'Developed complete expert portal with analytics dashboard',
+            'Scaled backend infrastructure to support 5x concurrent users',
+            'Architected scalable cross-platform mobile app structure'
           ],
         },
         {
           title: 'Technical Contributions',
           points: [
-            'Implemented real-time chat and live streaming features',
-            'Integrated AWS S3 and DynamoDB for scalable storage',
-            'Developed offline message caching with SQLite',
-            'Created robust deployment processes using Ruby scripts',
+            'Utilized AWS S3, DynamoDB, and MQTT protocol for infrastructure',
+            'Built consultation management system using Flutter and FastAPI',
+            'Implemented scalable backend solutions for high traffic support',
+            'Optimized application performance across platforms'
           ],
         },
       ],
-    },
-    {
-      date: 'Aug 2023 - Aug 2024',
-      role: 'Android Lead',
-      company: 'Google Developer Group',
-      logo: 'https://github.com/harshsingh-io/portfolio/blob/master/src/assets/Google_logo_lockup_color.png?raw=true',
-      description:
-        'Led Android development initiatives and managed community engagement.',
-      details: [
-        {
-          title: 'Leadership & Management',
-          points: [
-            'Managed team of 10 volunteers and grew membership by 500+',
-            'Organized 5+ tech events with 550+ participants each',
-            'Led Android development workshops and training sessions',
-            'Coordinated with other GDG chapters for collaborative events',
-          ],
-        },
-        {
-          title: 'Technical Contributions',
-          points: [
-            'Conducted Android development workshops',
-            'Created learning resources and documentation',
-            'Mentored junior developers in mobile development',
-            'Facilitated knowledge sharing sessions',
-          ],
-        },
-      ],
-    },
+    }
   ]
 
   return (
