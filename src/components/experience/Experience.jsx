@@ -92,7 +92,7 @@ const Experience = () => {
       date: 'August 2025 - Present',
       role: 'SDE-1 Data and AI Automation',
       company: 'MathonGo',
-      logo: '', // Placeholder as logo URL was not in source
+      logo: 'https://github.com/harshsingh-io/portfolio/blob/master/src/assets/mathongo.webp?raw=true',
       description: 'Engineered automated tagging systems and orchestrated large-scale data migrations.',
       details: [
         {
@@ -119,7 +119,7 @@ const Experience = () => {
       date: 'February 2025 - July 2025',
       role: 'AI Engineer (Freelance)',
       company: 'Outlier',
-      logo: 'https://github.com/harshsingh-io/portfolio/blob/master/src/assets/outlier.svg?raw=true',
+      logo: 'https://github.com/harshsingh-io/portfolio/blob/master/src/assets/outlier.png?raw=true',
       description: 'Enhanced multi-language code generation models through instruction-tuning and expert evaluation.',
       details: [
         {
@@ -146,7 +146,7 @@ const Experience = () => {
       date: 'November 2024 - January 2025',
       role: 'Software Engineer Intern',
       company: 'Persist Ventures',
-      logo: 'https://github.com/harshsingh-io/portfolio/blob/master/src/assets/persistVentures.svg?raw=true',
+      logo: 'https://github.com/harshsingh-io/portfolio/blob/master/src/assets/persistVentures.png?raw=true',
       description: 'Spearheaded frontend development of AI-powered Flutter applications and full-stack fashion platforms.',
       details: [
         {
