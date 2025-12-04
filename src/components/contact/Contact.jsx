@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react'
 import AnimatedLetters from '../AnimatedLetters'
 import { TbBrandTelegram } from 'react-icons/tb'
 import React, { useRef } from 'react'
-import emailjs from '@emailjs/browser'
 
 const Contact = () => {
   const [letterClass, setLetterClass] = useState('text-animate')
@@ -27,37 +26,35 @@ const Contact = () => {
     setMessage('')
     setMessageType('')
 
-    // Validate EmailJS configuration
-    const serviceId = 'service_p2s6eeb'
-    const templateId = 'template_s8q1d8p'
-    const publicKey = '-Wch1sLimKhZvPQUK'
-
-    if (!serviceId || !templateId || !publicKey) {
-      setMessage(
-        'EmailJS configuration is missing. Please check your credentials.'
-      )
-      setMessageType('error')
-      setIsLoading(false)
-      return
-    }
-
     try {
-      const result = await emailjs.sendForm(
-        serviceId,
-        templateId,
-        form.current,
-        publicKey
-      )
+      const formData = new FormData(form.current)
 
-      console.log('EmailJS Success:', result)
-      setMessage('Thank you! Your message has been sent successfully.')
-      setMessageType('success')
-      form.current.reset()
+      // Add Web3Forms access key (safe to expose - it's rate-limited and public by design)
+      formData.append('access_key', 'c2b5be86-e5ec-4f7a-9582-fe7e177202ad')
+
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+      })
+
+      const data = await response.json()
+
+      if (data.success) {
+        console.log('Web3Forms Success:', data)
+        setMessage('Thank you! Your message has been sent successfully.')
+        setMessageType('success')
+        form.current.reset()
+      } else {
+        console.error('Web3Forms Error:', data)
+        setMessage(
+          `Failed to send message: ${data.message || 'Unknown error'}`
+        )
+        setMessageType('error')
+      }
     } catch (error) {
-      console.error('EmailJS Error:', error)
+      console.error('Network Error:', error)
       setMessage(
-        `Failed to send message: ${
-          error.text || error.message || 'Unknown error'
+        `Failed to send message: ${error.message || 'Network error. Please try again.'
         }`
       )
       setMessageType('error')
