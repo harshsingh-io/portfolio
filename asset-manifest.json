@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.4eefe4de.css",
-    "main.js": "/static/js/main.c0cb0048.js",
+    "main.css": "/static/css/main.65cf0873.css",
+    "main.js": "/static/js/main.9f64fa01.js",
     "static/media/P6.webp": "/static/media/P6.4e1bf73a402048f0298a.webp",
     "static/media/helvetica-neu.ttf": "/static/media/helvetica-neu.8a19678078a6b21c8057.ttf",
     "static/media/LaBelleAurore.woff2": "/static/media/LaBelleAurore.a83c1c58fd7e43972e4a.woff2",
@@ -34,11 +34,11 @@
     "static/media/flutter.svg": "/static/media/flutter.9eec95c1fffd93cba12beaf7b24b7802.svg",
     "static/media/fastapi.svg": "/static/media/fastapi.1536093a1656eaee7a8d589641ff2803.svg",
     "static/media/kotlin.svg": "/static/media/kotlin.5c2458c7e947ad3bedbbaa1c75f660f8.svg",
-    "main.4eefe4de.css.map": "/static/css/main.4eefe4de.css.map",
-    "main.c0cb0048.js.map": "/static/js/main.c0cb0048.js.map"
+    "main.65cf0873.css.map": "/static/css/main.65cf0873.css.map",
+    "main.9f64fa01.js.map": "/static/js/main.9f64fa01.js.map"
   },
   "entrypoints": [
-    "static/css/main.4eefe4de.css",
-    "static/js/main.c0cb0048.js"
+    "static/css/main.65cf0873.css",
+    "static/js/main.9f64fa01.js"
   ]
 }
