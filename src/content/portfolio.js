@@ -12,14 +12,23 @@
 export const profile = {
   name: 'Harsh Singh',
   role: 'Backend & Data Engineer',
-  // Thesis. Derived from MG-001 (backend) + MG-012 (pipelines) + MG-019 (both).
-  thesis:
-    'I build the services that run MathonGo’s exam platform, and the pipelines that keep its data honest.',
+  // Thesis, in segments so the two nouns that carry the positioning can hold full
+  // ink while the connective tissue drops to secondary. Both halves matter equally
+  // — backend AND data is the whole claim — so this emphasises rather than mutes
+  // either side. Derived from MG-001 (backend) + MG-012 (pipelines) + MG-019 (both).
+  thesis: [
+    { text: 'I build the ' },
+    { text: 'services', em: true },
+    { text: ' that run MathonGo’s exam platform, and the ' },
+    { text: 'pipelines', em: true },
+    { text: ' that keep its data honest.' },
+  ],
   // MG-003 is graded `partial`: defensible as the environment he works in, never
-  // as something he built. The wording below is deliberate — "on a backend serving",
-  // not "built a backend serving".
+  // as something he built. "The backend I work on serves" keeps it environmental —
+  // it must never become "built a backend serving". The role itself moved to the
+  // facts strip below, so this line now carries only the scale context.
   context: {
-    text: 'Currently SDE-1 at MathonGo, on a backend serving 300K+ daily active users.',
+    text: 'The backend I work on serves 300K+ daily active users.',
     factIds: ['MG-003'],
   },
   location: 'Bengaluru, India',
@@ -30,6 +39,30 @@ export const profile = {
     telegram: 'https://telegram.me/harshsingh_io',
   },
 }
+
+// Scannable identity strip, sitting between the hero and the proof numbers.
+// Four things a hiring manager needs before reading a word of prose: what he does
+// now, where he is (with the UTC offset that actually decides overlap), what he
+// works in, and how to reach him. Deliberately carries no availability line.
+//
+// The stack line repeats the Stack section on purpose — this strip is an index,
+// and an index that makes you scroll to find the answer has failed.
+export const facts = [
+  { label: 'Now', lines: ['SDE-1 · MathonGo'] },
+  { label: 'Based', lines: ['Bengaluru, India', 'IST · UTC+5:30'] },
+  {
+    label: 'Stack',
+    lines: ['Java · Spring Boot · Python', 'PostgreSQL · MongoDB · Redis'],
+  },
+  {
+    label: 'Links',
+    links: [
+      { text: 'GitHub', href: 'https://github.com/harshsingh-io' },
+      { text: 'LinkedIn', href: 'https://www.linkedin.com/in/harshsingh-io' },
+      { text: 'Email', href: 'mailto:harshsingh704888@gmail.com' },
+    ],
+  },
+]
 
 // Three numbers, above the fold. Each is `strong` and each belongs to a different
 // piece of work, so they read as range rather than one project restated.

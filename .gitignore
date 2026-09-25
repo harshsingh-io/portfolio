@@ -41,3 +41,7 @@ yarn-error.log*
 # private repo, or `git add -f` deliberately.
 facts.yaml
 portfolio-revamp-v2-plan.md
+
+# Third-party reference dump (awesome-list of ~2,000 portfolios), not site
+# content. Kept locally for reference; no reason to carry it in the repo.
+inspiration.md

@@ -102,6 +102,7 @@ export default function Schematic() {
         </g>
       </svg>
       <figcaption className="schematic__caption">
+        <span className="mono schematic__fig">Fig. 1</span>
         Pool sizing follows <span className="mono">vCPU × 2 + spindles</span>. The
         client-side MongoDB pools and the PgBouncer proxy pool solve the same
         problem at two different layers.

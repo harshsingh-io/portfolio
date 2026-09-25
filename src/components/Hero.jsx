@@ -1,4 +1,4 @@
-import { profile, proof } from '../content/portfolio'
+import { profile, proof, facts } from '../content/portfolio'
 
 // Served from public/ rather than imported, so the URLs are stable and index.html
 // can <link rel="preload"> them. This is the LCP element; a hashed webpack URL is
@@ -20,7 +20,14 @@ export default function Hero() {
 
           <h1 className="display hero__name">{profile.name}</h1>
 
-          <p className="hero__thesis">{profile.thesis}</p>
+          {/* Segments, not a string: the two nouns carrying the positioning hold
+              full ink, the connective tissue drops to secondary. <em> rather than
+              <span> because the emphasis is semantic, not decoration. */}
+          <p className="hero__thesis">
+            {profile.thesis.map((part, i) =>
+              part.em ? <em key={i}>{part.text}</em> : part.text
+            )}
+          </p>
 
           {/* MG-003 is graded `partial` — this is the environment he works in,
               deliberately not phrased as something he built. */}
@@ -58,6 +65,31 @@ export default function Hero() {
             />
           </picture>
         </figure>
+
+        {/* Identity strip. A <dl> because it is genuinely label/value pairs, which
+            also gives a screen reader the pairing for free. */}
+        <dl className="hero__facts">
+          {facts.map((fact) => (
+            <div className="hero__fact" key={fact.label}>
+              <dt className="eyebrow hero__fact-label">{fact.label}</dt>
+              <dd className="hero__fact-value">
+                {fact.links
+                  ? fact.links.map((link) => (
+                      <a
+                        key={link.text}
+                        href={link.href}
+                        {...(link.href.startsWith('http')
+                          ? { target: '_blank', rel: 'noreferrer noopener' }
+                          : {})}
+                      >
+                        {link.text}
+                      </a>
+                    ))
+                  : fact.lines.map((line) => <span key={line}>{line}</span>)}
+              </dd>
+            </div>
+          ))}
+        </dl>
 
         <dl className="hero__proof">
           {proof.map((item) => (

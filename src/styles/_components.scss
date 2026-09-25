@@ -140,6 +140,8 @@
   transition: color var(--dur-state) var(--ease);
 }
 
+/* The rule draws in from the left rather than fading. A fade is a state change
+   you notice after the fact; a rule that extends reads as the page responding. */
 .nav__link::after {
   content: '';
   position: absolute;
@@ -148,12 +150,17 @@
   bottom: 2px;
   height: 1px;
   background: currentcolor;
-  opacity: 0;
-  transition: opacity var(--dur-state) var(--ease);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--dur-state) var(--ease);
 }
 
 .nav__link:hover {
   color: var(--ink);
+}
+
+.nav__link:hover::after {
+  transform: scaleX(1);
 }
 
 .nav__link.is-active {
@@ -161,7 +168,8 @@
 }
 
 .nav__link.is-active::after {
-  opacity: 1;
+  transform: scaleX(1);
+  background: var(--accent);
 }
 
 .nav__theme {
@@ -336,9 +344,16 @@
 .hero__thesis {
   font-size: var(--step-1);
   line-height: 1.4;
-  color: var(--ink);
+  color: var(--ink-2);
   max-width: 32ch;
   text-wrap: balance;
+}
+
+/* Emphasis by ink weight, not italics or colour — the eye lands on the two nouns
+   that carry the positioning without the line turning into a highlighter. */
+.hero__thesis em {
+  font-style: normal;
+  color: var(--ink);
 }
 
 .hero__context {
@@ -378,12 +393,49 @@
   filter: grayscale(0) contrast(1);
 }
 
+/* Identity strip — four label/value pairs closing the hero, above the numbers.
+   Together they read as a ledger footer: the small facts, then the big ones. */
+.hero__facts {
+  grid-column: 1 / 13;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-5);
+  margin-top: var(--space-7);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--rule);
+}
+
+.hero__fact-label {
+  margin-bottom: var(--space-2);
+}
+
+.hero__fact-value {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: var(--step--1);
+  color: var(--ink-2);
+}
+
+.hero__fact-value a {
+  align-self: flex-start;
+  color: var(--ink-2);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+  transition: color var(--dur-state) var(--ease), border-color var(--dur-state) var(--ease);
+}
+
+.hero__fact-value a:hover {
+  color: var(--accent);
+  border-bottom-color: currentcolor;
+}
+
 .hero__proof {
   grid-column: 1 / 13;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--space-5);
-  margin-top: var(--space-7);
+  margin-top: var(--space-6);
   padding-top: var(--space-5);
   border-top: 1px solid var(--rule);
 }
@@ -427,26 +479,27 @@
     max-height: 34vh;
   }
 
-  .hero__proof {
+  .hero__facts {
     grid-column: 1 / -1;
     order: 3;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-5) var(--space-4);
+  }
+
+  .hero__proof {
+    grid-column: 1 / -1;
+    order: 4;
     grid-template-columns: 1fr;
     gap: var(--space-4);
   }
 
-  .hero__proof-item {
-    display: flex;
-    align-items: baseline;
-    gap: var(--space-4);
-  }
-
+  /* These were a compact `value | label` row at --step-1, which rendered the
+     three numbers at 20px — barely above the 17px body, so the one thing the art
+     direction calls the imagery was a desktop-only effect. Mobile is where most
+     of the traffic is. Stacked and set at --step-3 instead: taller hero, but the
+     numbers are the pitch. */
   .hero__proof-value {
-    font-size: var(--step-1);
-    min-width: 5.5ch;
-  }
-
-  .hero__proof-label {
-    margin-top: 0;
+    font-size: var(--step-3);
   }
 
   .hero__thesis {
@@ -636,12 +689,31 @@
 
 /* ══ Schematic ════════════════════════════════════════════════════════════ */
 
+/* A 24px drafting grid, at the opacity of a blueprint rather than a spreadsheet.
+   Confined to the one figure on the site: it puts the schematic in the register of
+   a technical drawing without turning the whole page into graph paper. */
 .schematic {
   margin-top: var(--space-7);
   padding: var(--space-5);
   border: 1px solid var(--rule);
   border-radius: 4px;
-  background: var(--surface);
+  background-color: var(--surface);
+  background-image:
+    linear-gradient(to right, var(--rule) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--rule) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-position: center center;
+}
+
+/* The figure number, in the margin of the caption. */
+.schematic__fig {
+  float: left;
+  margin-right: var(--space-3);
+  padding: 0.1em 0.45em;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  color: var(--ink-2);
+  letter-spacing: 0.04em;
 }
 
 .schematic svg {
