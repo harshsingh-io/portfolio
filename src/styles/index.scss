@@ -1,0 +1,6 @@
+// Order matters: tokens define the custom properties, base resets and sets
+// defaults, components build on both. Sass emits in @use order, so component
+// rules must come last or the reset would override them.
+@use 'tokens';
+@use 'base';
+@use 'components';

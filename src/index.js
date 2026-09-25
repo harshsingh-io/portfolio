@@ -1,15 +1,12 @@
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import App from './App'
-import './index.css'
-import * as serviceWorkerRegistration from './serviceWorkerRegistration'
+import './styles/index.scss'
+import { unregister } from './serviceWorkerRegistration'
 
-ReactDOM.render(<App />, document.querySelector("#root"))
+createRoot(document.querySelector('#root')).render(<App />)
 
-// Register service worker for PWA functionality
-serviceWorkerRegistration.register({
-    onSuccess: () => console.log('[PWA] Service worker registered successfully'),
-    onUpdate: (registration) => {
-        console.log('[PWA] New content available, please refresh')
-        // Optional: Show update notification to user
-    }
-})
+// The PWA was removed. This tears down any service worker still registered in a
+// returning visitor's browser — without it they keep being served the old cached
+// shell. Keep this call for a release or two, then delete it along with
+// serviceWorkerRegistration.js.
+unregister()
