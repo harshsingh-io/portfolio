@@ -197,18 +197,45 @@ for (const id of cited) {
 }
 
 const content = readFileSync(join(root, 'src/content/portfolio.js'), 'utf8')
+
+function reportUnbacked(surface, listed) {
+  const unbacked = listed.filter((t) => !backedTech.has(normalise(t)))
+  if (!unbacked.length) return
+  problems.push(
+    `src/content/portfolio.js  ${surface} names ${unbacked.length} technolog` +
+      `${unbacked.length === 1 ? 'y' : 'ies'} no cited fact supports` +
+      `\n      ${unbacked.join(', ')}` +
+      `\n      Either cite a fact whose \`technologies\` list includes it, or drop it.`
+  )
+}
+
+// Surface 1 — the Stack section.
 const stackBlock = content.slice(content.indexOf('export const stack'))
 for (const [, group, items] of stackBlock.matchAll(
   /group: '([^']+)',\s*\n\s*items: \[([^\]]*)\]/g
 )) {
-  const listed = [...items.matchAll(/'([^']+)'/g)].map((m) => m[1])
-  const unbacked = listed.filter((t) => !backedTech.has(normalise(t)))
-  if (!unbacked.length) continue
-  problems.push(
-    `src/content/portfolio.js  Stack group "${group}" names ${unbacked.length} technolog` +
-      `${unbacked.length === 1 ? 'y' : 'ies'} no cited fact supports` +
-      `\n      ${unbacked.join(', ')}` +
-      `\n      Either cite a fact whose \`technologies\` list includes it, or drop it.`
+  reportUnbacked(
+    `Stack group "${group}"`,
+    [...items.matchAll(/'([^']+)'/g)].map((m) => m[1])
+  )
+}
+
+// Surface 2 — the hero facts strip, which repeats the stack as an index and so
+// is a second place the page names technologies. It is declared BEFORE
+// `export const stack`, so the slice above cannot see it: a technology added
+// only here passed the gate silently. Verified by injecting Kubernetes and Rust
+// and watching all three passes go green.
+//
+// Its items are `·`-separated inside `lines` strings rather than a quoted list,
+// so they need splitting before they can be compared.
+const strip = content.match(/label: 'Stack',\s*\n\s*lines: \[([^\]]*)\]/)
+if (strip) {
+  reportUnbacked(
+    'Hero facts strip',
+    [...strip[1].matchAll(/'([^']+)'/g)]
+      .flatMap((m) => m[1].split('·'))
+      .map((t) => t.trim())
+      .filter(Boolean)
   )
 }
 
@@ -235,7 +262,7 @@ console.log(
     `\n    pass 1 — ${refs.length} citations to ${cited.length} facts, all citable` +
     (usedAllowlist.length ? ` (allowlisted partials: ${usedAllowlist.join(', ')})` : '') +
     `\n    pass 2 — ${scannedCount} claim-shaped numbers across ${SCANNED.length} files, all traceable` +
-    `\n    pass 3 — ${backedTech.size} technologies backed by cited facts, Stack section clean` +
+    `\n    pass 3 — ${backedTech.size} technologies backed by cited facts, Stack section and hero strip clean` +
     (staleAllowlist.length
       ? `\n\n  ! allowlist entries no longer cited: ${staleAllowlist.join(', ')}` +
         `\n    Remove them — a stale entry silently re-permits a \`partial\` fact later.`
