@@ -172,6 +172,20 @@ export const alsoShipped = [
       'AWS Lambda and Python pulling VdoCipher metadata into Google Sheets dashboards on an EventBridge cron, with CloudWatch alerting. 2,500+ videos at 99.2% uptime.',
     stack: ['Python', 'AWS Lambda', 'EventBridge', 'CloudWatch'],
   },
+  // DECIDED — reviewed 2026-09-25, full technical depth kept on both of these.
+  //
+  // PRJ-005 and PRJ-006 are both marked AI-assisted in facts.yaml, each with an
+  // explicit "MUST be able to defend" list: why the Redis Lua script is atomic,
+  // fixed versus sliding window, how the Redisson lock guarantees idempotency,
+  // the PENDING → RUNNING → FAILED state machine. Publishing at this depth
+  // invites exactly those questions.
+  //
+  // The case for trimming was that the README carries the detail anyway. The
+  // case for keeping — which Harsh took — is that the mechanism IS the reason
+  // these are worth showing: a rate limiter without "Redis Lua for atomic
+  // counters" is a tutorial project. The depth guarantees the follow-up; that
+  // is good if the defend-lists have been studied, and facts.yaml lists exactly
+  // what to study. A conscious trade, not an oversight.
   {
     id: 'rate-limiter',
     title: 'Distributed API rate limiter',
@@ -250,6 +264,14 @@ export const roles = [
 // Persist Ventures and BlueMango Labs have no claims graded `strong`, so they carry
 // no bullets. Collapsed into one line rather than two empty rows — the chronology
 // stays continuous without a reader stopping on a blank.
+//
+// DECIDED — reviewed 2026-09-25 and kept bare.
+// The alternative was citing PV-005 ("Built a FastAPI and Redis backend", no
+// metrics) so the row is not a blank that invites "so what did you do there?".
+// That needs PV-005 deliberately allowlisted as a `partial`, the same treatment
+// MG-003 has — and once cited, pass 3 would automatically permit FastAPI back
+// into the Stack section, which the stack audit removed. Harsh chose bare.
+// Do not add the line without re-deciding both of those consequences.
 export const earlierRoles = {
   label: 'Earlier',
   items: [

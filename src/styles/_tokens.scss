@@ -83,6 +83,18 @@
   --shadow: 0 1px 2px rgb(0 0 0 / 40%), 0 8px 24px -12px rgb(0 0 0 / 60%);
 }
 
+// DECIDED — do not "fix" this to a light default.
+//
+// Reviewed 2026-09-25 and kept: the default follows the visitor's OS setting.
+// The counter-argument was that Ledger was chosen because light editorial stands
+// out against dark-glow portfolios, and an OS-following default means most
+// visitors never see it. Harsh weighed that and kept OS-following, on the
+// grounds that the serif, hairline grid, mono metrics and asymmetric grid all
+// survive inversion — a dark-preference visitor gets Ledger inverted, not a
+// generic dark portfolio.
+//
+// Known loose end: the OG card is light in both themes, so the social → site
+// transition is inconsistent for dark-mode visitors. Accepted, not overlooked.
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
     @include dark-tokens;
