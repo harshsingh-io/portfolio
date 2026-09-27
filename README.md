@@ -106,9 +106,13 @@ public/
   preloaded at author time, and CRA's css-loader cannot resolve a root-relative
   `url()` at all.
 - **`.enter` is only `opacity: 0` inside `@media (prefers-reduced-motion:
-  no-preference)`.** Content is never hidden by default — if JS fails, everything
-  renders. `useReveal` also has a 1.5s failsafe. Do not "simplify" this by moving
-  the opacity rule out of the media query.
+  no-preference)`.** Under that query content really is hidden until `useReveal`
+  adds `is-in`, so that hook is the guarantee, not the media query: it reveals on
+  three paths (observer fires, IntersectionObserver missing, or a 1.5s failsafe).
+  Under `reduce` the opacity rule never applies. With JS disabled, CRA renders an
+  empty `#root` and the `<noscript>` block is the fallback. Do not "simplify" this
+  by moving the opacity rule out of the media query, and do not delete the
+  failsafe on the assumption that CSS alone keeps the page readable.
 - **`useHashScroll` deliberately avoids `requestAnimationFrame`** (deferred until
   first paint in some contexts) and deliberately scrolls instantly (`scroll-behavior:
   smooth` on the root otherwise swallows the programmatic scroll).
