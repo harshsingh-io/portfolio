@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="shell footer__inner">
         <p className="footer__name">
           {profile.name}
-          <span className="footer__role"> — {profile.role}</span>
+          <span className="footer__role"> · {profile.role}</span>
         </p>
 
         <nav aria-label="Footer">

@@ -29,13 +29,13 @@ export default function Hero() {
             )}
           </p>
 
-          {/* MG-003 is graded `partial` — this is the environment he works in,
+          {/* MG-003 is graded `partial`, this is the environment he works in,
               deliberately not phrased as something he built. */}
           <p className="hero__context">{profile.context.text}</p>
 
-          {/* DECIDED — reviewed 2026-09-25: two CTAs, no résumé.
+          {/* DECIDED, reviewed 2026-09-25: two CTAs, no résumé.
               The old hero linked https://harshsingh-io.github.io/resume/, which
-              301s to http://resume.harshsingh.io/ — a host that no longer
+              301s to http://resume.harshsingh.io/, a host that no longer
               resolves (curl exit 6). No current PDF exists in the repo; the last
               one was in commit c50867a and predates fact-grading, so it likely
               carries the retired claims this rebuild removed. A missing résumé

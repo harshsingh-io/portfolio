@@ -34,7 +34,7 @@
   min-height: 44px;
   padding: 0 var(--space-5);
   border: 1px solid var(--border);
-  border-radius: 999px;
+  border-radius: 0;
   font-size: var(--step--1);
   font-weight: 500;
   text-decoration: none;
@@ -78,7 +78,7 @@
 .chip {
   padding: 0.3em 0.7em;
   border: 1px solid var(--rule);
-  border-radius: 3px;
+  border-radius: 0;
   background: var(--surface);
   color: var(--ink-2);
   font-size: var(--step--2);
@@ -178,7 +178,7 @@
   width: 44px;
   height: 44px;
   margin-right: calc(var(--space-3) * -1);
-  border-radius: 999px;
+  border-radius: 0;
   color: var(--ink-2);
   transition: color var(--dur-state) var(--ease), background-color var(--dur-state) var(--ease);
 }
@@ -239,7 +239,7 @@
   place-items: center;
   width: 44px;
   height: 44px;
-  border-radius: 999px;
+  border-radius: 0;
   color: var(--ink-2);
   transition: color var(--dur-state) var(--ease), background-color var(--dur-state) var(--ease);
 }
@@ -279,7 +279,6 @@
     padding: var(--space-4) var(--gutter) var(--space-5);
     background: var(--paper);
     border-bottom: 1px solid var(--rule);
-    box-shadow: var(--shadow);
 
     /* visibility, not display — it keeps the panel out of the tab order when
        closed and still allows the transition to run. */
@@ -637,54 +636,10 @@
 }
 
 .work__also-head {
-  margin-bottom: var(--space-6);
-}
-
-.work__also-list {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-7) var(--space-6);
-}
-
-.side__title {
+  margin-bottom: var(--space-5);
   font-size: var(--step-0);
-  font-weight: 500;
-}
-
-.side__title a {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4em;
-  text-decoration: none;
-}
-
-.side__title a:hover {
-  color: var(--accent);
-  text-decoration: underline;
-}
-
-.side__arrow {
-  flex-shrink: 0;
+  font-weight: 600;
   color: var(--ink-3);
-  transition: transform var(--dur-state) var(--ease);
-}
-
-.side__title a:hover .side__arrow {
-  transform: translate(1px, -1px);
-  color: var(--accent);
-}
-
-.side__summary {
-  margin-top: var(--space-3);
-  margin-bottom: var(--space-4);
-  font-size: var(--step--1);
-  color: var(--ink-2);
-}
-
-@media (max-width: 860px) {
-  .work__also-list {
-    grid-template-columns: 1fr;
-  }
 }
 
 /* ══ Schematic ════════════════════════════════════════════════════════════ */
@@ -696,7 +651,7 @@
   margin-top: var(--space-7);
   padding: var(--space-5);
   border: 1px solid var(--rule);
-  border-radius: 4px;
+  border-radius: 0;
   background-color: var(--surface);
   background-image:
     linear-gradient(to right, var(--rule) 1px, transparent 1px),
@@ -711,7 +666,7 @@
   margin-right: var(--space-3);
   padding: 0.1em 0.45em;
   border: 1px solid var(--border);
-  border-radius: 2px;
+  border-radius: 0;
   color: var(--ink-2);
   letter-spacing: 0.04em;
 }
@@ -800,12 +755,12 @@
 
   .schematic::-webkit-scrollbar-track {
     background: var(--rule);
-    border-radius: 3px;
+    border-radius: 0;
   }
 
   .schematic::-webkit-scrollbar-thumb {
     background: var(--border);
-    border-radius: 3px;
+    border-radius: 0;
   }
 
   .schematic svg {
@@ -813,94 +768,130 @@
   }
 }
 
-/* ══ Experience ═══════════════════════════════════════════════════════════ */
+/* ══ Broadsheet rows ═══════════════════════════════════════════════════════
+   One primitive for Experience and Also-shipped, replacing the old .role* and
+   .side__* blocks. WIRED's story-row pattern: full-bleed single column, one
+   hairline between rows, metadata leading in its own column. Density comes from
+   the rhythm, not from boxes, which is why nothing here is a card.
 
-.roles {
+   The text column stays capped at 68ch via .measure in the markup even though
+   the row runs the full 1180px. A full-width row with an uncapped paragraph is
+   a ~140ch line, which is the trap this layout usually falls into. */
+
+.broadsheet {
   display: flex;
   flex-direction: column;
 }
 
-.role {
+.broadsheet__row {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: var(--space-5);
-  padding-block: var(--space-7);
+  gap: var(--space-4) var(--space-5);
+  padding-block: var(--space-6);
   border-top: 1px solid var(--rule);
 }
 
-.role:first-child {
+.broadsheet__row:first-child {
   border-top: 0;
   padding-top: 0;
 }
 
-.role__meta {
-  grid-column: 1 / 4;
+.broadsheet--compact .broadsheet__row {
+  padding-block: var(--space-5);
 }
 
-.role__period {
+/* Metadata leads in columns 1-3; everything else sits in 4-13. */
+.broadsheet__kicker {
+  grid-column: 1 / 4;
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  font-size: var(--step--1);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   color: var(--ink-3);
-  white-space: nowrap;
 }
 
-.role__now {
+.broadsheet__row > *:not(.broadsheet__kicker) {
+  grid-column: 4 / 13;
+}
+
+/* Square, like everything else. The one warm-accent mark on the page. */
+.broadsheet__now {
   width: 7px;
   height: 7px;
-  border-radius: 999px;
   background: var(--accent-warm);
   flex-shrink: 0;
 }
 
-.role__main {
-  grid-column: 4 / 13;
-}
-
-.role__head {
+.broadsheet__lede {
   display: flex;
   align-items: center;
   gap: var(--space-4);
-  margin-bottom: var(--space-5);
 }
 
-.role__logo {
+.broadsheet__mark {
   width: 40px;
   height: 40px;
-  border-radius: 6px;
-  border: 1px solid var(--rule);
   object-fit: contain;
-  background: var(--paper);
   flex-shrink: 0;
 }
 
-.role__title {
+.broadsheet__title {
   font-size: var(--step-1);
-  font-weight: 500;
 }
 
-.role__company {
+/* Company on its own line, in the structural face. Serif carries the narrative,
+   sans carries the structure. */
+.broadsheet__org {
+  display: block;
+  font-family: var(--font-sans);
   font-size: var(--step--1);
+  font-weight: 500;
   color: var(--ink-2);
 }
 
-.role__note {
+.broadsheet__note {
+  font-weight: 400;
   color: var(--ink-3);
 }
 
-.role__bullets li {
+.broadsheet__arrow {
+  flex-shrink: 0;
+  color: var(--ink-3);
+  transition: transform var(--dur-state) var(--ease);
+}
+
+.broadsheet__title a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  text-decoration: none;
+}
+
+.broadsheet__title a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.broadsheet__title a:hover .broadsheet__arrow {
+  transform: translate(1px, -1px);
+  color: var(--accent);
+}
+
+.broadsheet__points li {
   position: relative;
   padding-left: var(--space-5);
   color: var(--ink-2);
-  font-size: var(--step--1);
 }
 
-.role__bullets li + li {
+.broadsheet__points li + li {
   margin-top: var(--space-3);
 }
 
-.role__bullets li::before {
+.broadsheet__points li::before {
   content: '';
   position: absolute;
   left: 0;
@@ -910,31 +901,34 @@
   background: var(--ink-3);
 }
 
-.role--earlier .role__main {
-  align-self: center;
-}
-
-.role__earlier {
+.broadsheet__summary {
+  margin-bottom: var(--space-4);
   font-size: var(--step--1);
+  color: var(--ink-2);
+}
+
+.broadsheet__row--quiet .broadsheet__earlier {
+  color: var(--ink-3);
+  font-size: var(--step--1);
+}
+
+.broadsheet__earlier-period {
   color: var(--ink-3);
 }
 
-.role__earlier-period {
-  font-size: var(--step--2);
-}
-
-.role__sep {
-  color: var(--ink-3);
+.broadsheet__sep {
+  padding-inline: var(--space-2);
+  color: var(--rule);
 }
 
 @media (max-width: 860px) {
-  .role {
+  .broadsheet__row {
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: var(--space-3);
   }
 
-  .role__meta,
-  .role__main {
+  .broadsheet__kicker,
+  .broadsheet__row > *:not(.broadsheet__kicker) {
     grid-column: 1 / -1;
   }
 }
@@ -1017,7 +1011,7 @@
   height: auto;
   aspect-ratio: 1;
   object-fit: cover;
-  border-radius: 2px;
+  border-radius: 0;
   filter: grayscale(1) contrast(1.04);
 }
 
@@ -1103,7 +1097,7 @@
   min-height: 44px;
   padding: var(--space-3);
   border: 1px solid var(--border);
-  border-radius: 3px;
+  border-radius: 0;
   background: var(--paper);
   color: var(--ink);
   font-size: var(--step--1);

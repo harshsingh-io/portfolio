@@ -64,16 +64,18 @@ export default function Work() {
         </div>
 
         <div className="work__also">
-          <h3 className="eyebrow work__also-head enter">Also shipped</h3>
-          <ul className="work__also-list">
+          <h3 className="work__also-head enter">Also shipped</h3>
+          <ol className="broadsheet broadsheet--compact">
             {alsoShipped.map((item) => (
-              <li className="side enter" key={item.id}>
-                <h4 className="display side__title">
+              <li className="broadsheet__row enter" key={item.id}>
+                <p className="broadsheet__kicker">{item.kicker}</p>
+
+                <h4 className="display broadsheet__title">
                   {item.href ? (
                     <a href={item.href} target="_blank" rel="noreferrer noopener">
                       {item.title}
                       <svg
-                        className="side__arrow"
+                        className="broadsheet__arrow"
                         width="11"
                         height="11"
                         viewBox="0 0 11 11"
@@ -94,7 +96,9 @@ export default function Work() {
                     item.title
                   )}
                 </h4>
-                <p className="side__summary">{item.summary}</p>
+
+                <p className="broadsheet__summary measure">{item.summary}</p>
+
                 <ul className="chips" aria-label="Technologies used">
                   {item.stack.map((tech) => (
                     <li className="mono chip" key={tech}>
@@ -104,7 +108,7 @@ export default function Work() {
                 </ul>
               </li>
             ))}
-          </ul>
+          </ol>
         </div>
       </div>
     </section>

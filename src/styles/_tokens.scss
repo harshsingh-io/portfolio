@@ -9,7 +9,14 @@
   color-scheme: light dark;
 
   // ── Type families ────────────────────────────────────────────────────────
-  --font-display: 'Instrument Serif', 'Iowan Old Style', Georgia, serif;
+  // Newsreader, not Instrument Serif. The old face is one of two display serifs
+  // named outright as the LLM-default tell, and it had become the single most
+  // recognisable "AI built this" signal on the page. Newsreader is drawn for news
+  // setting, which is the register this direction is actually after, and it is not
+  // the default reach. Shipped as a static instance pinned to wght 400 / opsz 40
+  // and subset to Latin: 21.8 KB against the old 15 KB, the only size regression
+  // in this pass and a deliberate one.
+  --font-display: 'Newsreader', 'Iowan Old Style', Georgia, serif;
   --font-sans: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
   --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
@@ -42,7 +49,10 @@
   --space-7: 3rem;
   --space-8: 4rem;
   --space-9: 6rem;
-  --space-section: clamp(3.5rem, 2rem + 5vw, 6rem);
+  // Broadsheet rhythm. WIRED sets 48px top and bottom on desktop; we were at
+  // 56 to 96. Density was the weakest dial on the page (4 of 10) and the reason
+  // it read airy rather than composed, so the ceiling comes down to 72.
+  --space-section: clamp(3rem, 2rem + 3vw, 4.5rem);
 
   // ── Layout ───────────────────────────────────────────────────────────────
   --measure-page: 1180px;
@@ -66,7 +76,6 @@
   --accent: #1a48c4; //  7.27:1 on paper ·  6.71:1 on surface
   --accent-warm: #b4471a; // 5.22:1 on paper — the "now" marker, used once
   --on-accent: #fbfaf7; //   7.27:1 on accent
-  --shadow: 0 1px 2px rgb(22 21 15 / 6%), 0 8px 24px -12px rgb(22 21 15 / 12%);
 }
 
 @mixin dark-tokens {
@@ -80,7 +89,6 @@
   --accent: #7fa0ff; //  7.53:1 on paper ·  7.02:1 on surface
   --accent-warm: #e8895c; // 7.34:1 on paper
   --on-accent: #12110d; //   7.53:1 on accent
-  --shadow: 0 1px 2px rgb(0 0 0 / 40%), 0 8px 24px -12px rgb(0 0 0 / 60%);
 }
 
 // DECIDED — do not "fix" this to a light default.

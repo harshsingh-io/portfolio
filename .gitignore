@@ -45,3 +45,11 @@ portfolio-revamp-v2-plan.md
 # Third-party reference dump (awesome-list of ~2,000 portfolios), not site
 # content. Kept locally for reference; no reason to carry it in the repo.
 inspiration.md
+
+# Agent tooling from `npx skills add`. .claude/skills/* are symlinks into
+# .agents/skills/*, so they are machine-local and would not resolve for anyone
+# cloning this. Not site content. Un-ignore deliberately if the skill set should
+# be versioned for reproducibility.
+.agents/
+.claude/
+skills-lock.json

@@ -2,7 +2,7 @@
 //
 // Every claim carries the facts.yaml IDs it derives from. `scripts/check-facts.mjs`
 // runs on `prebuild` and fails the build if any referenced ID is missing or is not
-// graded `strong` — with a narrow allowlist for the one `partial` fact Harsh
+// graded `strong`, with a narrow allowlist for the one `partial` fact Harsh
 // approved. Nothing goes on this page that cannot be defended in a room.
 //
 // Grading rules that constrain the wording here:
@@ -14,7 +14,7 @@ export const profile = {
   role: 'Backend & Data Engineer',
   // Thesis, in segments so the two nouns that carry the positioning can hold full
   // ink while the connective tissue drops to secondary. Both halves matter equally
-  // — backend AND data is the whole claim — so this emphasises rather than mutes
+  //, backend AND data is the whole claim, so this emphasises rather than mutes
   // either side. Derived from MG-001 (backend) + MG-012 (pipelines) + MG-019 (both).
   thesis: [
     { text: 'I build the ' },
@@ -24,7 +24,7 @@ export const profile = {
     { text: ' that keep its data honest.' },
   ],
   // MG-003 is graded `partial`: defensible as the environment he works in, never
-  // as something he built. "The backend I work on serves" keeps it environmental —
+  // as something he built. "The backend I work on serves" keeps it environmental, 
   // it must never become "built a backend serving". The role itself moved to the
   // facts strip below, so this line now carries only the scale context.
   context: {
@@ -45,7 +45,7 @@ export const profile = {
 // now, where he is (with the UTC offset that actually decides overlap), what he
 // works in, and how to reach him. Deliberately carries no availability line.
 //
-// The stack line repeats the Stack section on purpose — this strip is an index,
+// The stack line repeats the Stack section on purpose, this strip is an index,
 // and an index that makes you scroll to find the answer has failed.
 export const facts = [
   { label: 'Now', lines: ['SDE-1 · MathonGo'] },
@@ -91,7 +91,7 @@ export const cases = [
     body: [
       'Tuned a two-tier connection-pooling setup so read/write spikes during Mock Tests, QFTs and AYNR degrade gracefully instead of exhausting the database.',
       'On the client side, each pod holds a MongoDB driver pool of 15 connections opened at startup, so a checkout costs under 0.1ms. The 16th concurrent request queues against a 1500ms timeout rather than opening an unbounded connection or crashing the pod.',
-      'On the server side, PgBouncer fronts Postgres: roughly 750 persistent client connections collapse onto about 33 real TCP sockets, with a socket reassigned the moment a transaction commits. The pool is sized from the standard formula — vCPU × 2 + spindles, or 16 × 2 + 1.',
+      'On the server side, PgBouncer fronts Postgres: roughly 750 persistent client connections collapse onto about 33 real TCP sockets, with a socket reassigned the moment a transaction commits. The pool is sized from the standard formula: vCPU × 2 + spindles, or 16 × 2 + 1.',
     ],
     schematic: true,
   },
@@ -109,9 +109,9 @@ export const cases = [
       { value: '3,000', label: 'questions in the QC sample', factIds: ['MG-014'] },
     ],
     body: [
-      'Built an ETL pipeline over the Gemini 2.5 Pro API that classifies exam questions by topic, concept, hints and quicknotes — replacing an error-prone manual process owned by the content team.',
+      'Built an ETL pipeline over the Gemini 2.5 Pro API that classifies exam questions by topic, concept, hints and quicknotes, replacing an error-prone manual process owned by the content team.',
       'Image-based Physics, Chemistry and Biology questions needed their context extracted before they could be tagged at all, which is most of what made the naive version fail.',
-      'Precision is 92%, and that number has a method behind it: the content team QC’d a 3,000-question sample — 500 each across Physics, Chemistry, Maths, Biology, English and Logical Reasoning — after several rounds of prompt refinement. It is a measured pass rate on the MVP, not an estimate.',
+      'Precision is 92%, and that number has a method behind it: the content team QC’d a 3,000-question sample (500 each across Physics, Chemistry, Maths, Biology, English and Logical Reasoning) after several rounds of prompt refinement. It is a measured pass rate on the MVP, not an estimate.',
     ],
   },
   {
@@ -122,7 +122,7 @@ export const cases = [
       'Teachers shared files, the content team watermarked them by hand, dropped Drive links into a spreadsheet, and someone ran a script. Now teachers drive it themselves.',
     factIds: ['MG-019', 'MG-020', 'MG-021'],
     stack: ['Java', 'Python', 'Google Drive API', 'Slack API'],
-    // 40→8 and "80%" are the same measurement stated twice — MG-021 carries both.
+    // 40→8 and "80%" are the same measurement stated twice, MG-021 carries both.
     // One of them is padding in a three-metric row, so the ratio goes and the
     // absolute numbers stay.
     metrics: [
@@ -147,7 +147,7 @@ export const cases = [
       { value: 'Weekly', label: 'automated, replacing a manual report', factIds: ['MG-030'] },
     ],
     body: [
-      'Built a weekly quality pipeline for the MARKS question banks. Each user-reported question is scored by its all-time unique-user error rate, and anything above a 0.5% threshold is flagged — alongside a monitored backlog of questions flagged in earlier runs.',
+      'Built a weekly quality pipeline for the MARKS question banks. Each user-reported question is scored by its all-time unique-user error rate, and anything above a 0.5% threshold is flagged, alongside a monitored backlog of questions flagged in earlier runs.',
       'For each flagged question the pipeline reverse-resolves where it actually lives in the product catalogue, updates the Live and Historical Drive workbooks, and posts a digest to the stakeholders on Slack. It replaced a report that used to be assembled by hand every week.',
     ],
   },
@@ -156,6 +156,7 @@ export const cases = [
 export const alsoShipped = [
   {
     id: 'zoom-pipeline',
+    kicker: 'MathonGo',
     title: 'Live-class recording pipeline',
     factIds: ['MG-007', 'MG-008'],
     summary:
@@ -164,15 +165,16 @@ export const alsoShipped = [
   },
   {
     id: 'video-analytics',
+    kicker: 'MathonGo',
     title: 'Serverless video analytics',
-    // A distinct system from the pipeline above — facts.yaml flags the distinction
+    // A distinct system from the pipeline above, facts.yaml flags the distinction
     // twice (MG-007 and MG-010). Do not merge them.
     factIds: ['MG-010', 'MG-011'],
     summary:
       'AWS Lambda and Python pulling VdoCipher metadata into Google Sheets dashboards on an EventBridge cron, with CloudWatch alerting. 2,500+ videos at 99.2% uptime.',
     stack: ['Python', 'AWS Lambda', 'EventBridge', 'CloudWatch'],
   },
-  // DECIDED — reviewed 2026-09-25, full technical depth kept on both of these.
+  // DECIDED, reviewed 2026-09-25, full technical depth kept on both of these.
   //
   // PRJ-005 and PRJ-006 are both marked AI-assisted in facts.yaml, each with an
   // explicit "MUST be able to defend" list: why the Redis Lua script is atomic,
@@ -181,22 +183,24 @@ export const alsoShipped = [
   // invites exactly those questions.
   //
   // The case for trimming was that the README carries the detail anyway. The
-  // case for keeping — which Harsh took — is that the mechanism IS the reason
+  // case for keeping, which Harsh took, is that the mechanism IS the reason
   // these are worth showing: a rate limiter without "Redis Lua for atomic
   // counters" is a tutorial project. The depth guarantees the follow-up; that
   // is good if the defend-lists have been studied, and facts.yaml lists exactly
   // what to study. A conscious trade, not an oversight.
   {
     id: 'rate-limiter',
+    kicker: 'Personal project',
     title: 'Distributed API rate limiter',
     factIds: ['PRJ-005'],
     summary:
-      'A Redis Lua script gives atomic, race-free counters in a single round trip — no check-then-set window. Fixed-window algorithm, tiered per-API-key limits (FREE 100/min, PRO 1000/min), and an annotation-based @RateLimit AOP aspect that intercepts ahead of business logic and returns RFC rate-limit headers.',
+      'A Redis Lua script gives atomic, race-free counters in a single round trip, with no check-then-set window. Fixed-window algorithm, tiered per-API-key limits (FREE 100/min, PRO 1000/min), and an annotation-based @RateLimit AOP aspect that intercepts ahead of business logic and returns RFC rate-limit headers.',
     stack: ['Java', 'Spring Boot 3', 'Spring AOP', 'Redis', 'Lua'],
     href: 'https://github.com/harshsingh-io/rate-limiter',
   },
   {
     id: 'task-queue',
+    kicker: 'Personal project',
     title: 'Distributed job queue',
     factIds: ['PRJ-006'],
     summary:
@@ -211,7 +215,7 @@ export const roles = [
     id: 'mathongo',
     company: 'MathonGo',
     title: 'SDE-1',
-    period: 'Aug 2025 — present',
+    period: 'Aug 2025 to present',
     current: true,
     logo: 'mathongo.webp',
     bullets: [
@@ -220,11 +224,11 @@ export const roles = [
         factIds: ['MG-001'],
       },
       {
-        text: 'Debugged and maintained existing MARKS modules — CPYQB, Digital Books, NCERT, Mock Test, Bookmarks and Exam Updates.',
+        text: 'Debugged and maintained existing MARKS modules: CPYQB, Digital Books, NCERT, Mock Test, Bookmarks and Exam Updates.',
         factIds: ['MG-004'],
       },
       {
-        text: 'Unit and integration tests — JUnit on the backend, PyTest on the ETLs — to catch regressions before release.',
+        text: 'Unit and integration tests (JUnit on the backend, PyTest on the ETLs) to catch regressions before release.',
         factIds: ['MG-005'],
       },
       {
@@ -241,7 +245,7 @@ export const roles = [
     id: 'outlier',
     company: 'Outlier',
     title: 'AI Engineer (Freelance)',
-    period: 'Feb 2025 — Jul 2025',
+    period: 'Feb 2025 to Jul 2025',
     logo: 'outlier.png',
     note: 'a Scale AI company',
     bullets: [
@@ -262,21 +266,21 @@ export const roles = [
 ]
 
 // Persist Ventures and BlueMango Labs have no claims graded `strong`, so they carry
-// no bullets. Collapsed into one line rather than two empty rows — the chronology
+// no bullets. Collapsed into one line rather than two empty rows, the chronology
 // stays continuous without a reader stopping on a blank.
 //
-// DECIDED — reviewed 2026-09-25 and kept bare.
+// DECIDED, reviewed 2026-09-25 and kept bare.
 // The alternative was citing PV-005 ("Built a FastAPI and Redis backend", no
 // metrics) so the row is not a blank that invites "so what did you do there?".
 // That needs PV-005 deliberately allowlisted as a `partial`, the same treatment
-// MG-003 has — and once cited, pass 3 would automatically permit FastAPI back
+// MG-003 has, and once cited, pass 3 would automatically permit FastAPI back
 // into the Stack section, which the stack audit removed. Harsh chose bare.
 // Do not add the line without re-deciding both of those consequences.
 export const earlierRoles = {
   label: 'Earlier',
   items: [
-    { company: 'Persist Ventures', period: 'Nov 2024 — Jan 2025' },
-    { company: 'BlueMango Labs', period: 'Jan 2024 — Sep 2024' },
+    { company: 'Persist Ventures', period: 'Nov 2024 to Jan 2025' },
+    { company: 'BlueMango Labs', period: 'Jan 2024 to Sep 2024' },
   ],
 }
 
@@ -321,7 +325,7 @@ export const stack = [
     evidence: ['video-analytics', 'zoom-pipeline'],
   },
   // The Mobile group is gone. It listed Kotlin, Jetpack Compose, FCM and
-  // Firestore, which were justified by MG-022, MG-024 and MG-028 — and when the
+  // Firestore, which were justified by MG-022, MG-024 and MG-028, and when the
   // mobile line was dropped from the MathonGo role, those facts stopped being
   // cited anywhere, leaving four technologies on the page with nothing behind
   // them. Pass 3 of check-facts now fails the build on exactly this.
@@ -334,8 +338,8 @@ export const stack = [
 export const about = {
   paragraphs: [
     'I work on both sides of the same platform. The Java services that answer a student’s request, and the Python pipelines that decide what those services have to say.',
-    'Most of what I have built at MathonGo started as something a person was doing by hand every week — tagging questions, mapping course files into batches, assembling a quality report. The interesting part is rarely the automation itself. It is working out what the manual process was actually protecting, and making sure the automated one still protects it.',
-    'Outside work I have solved 300+ data structures and algorithms problems, and I build small distributed systems to understand them properly — a rate limiter and a job queue, both of which taught me more about Redis semantics than reading about them did.',
+    'Most of what I have built at MathonGo started as something a person was doing by hand every week: tagging questions, mapping course files into batches, assembling a quality report. The interesting part is rarely the automation itself. It is working out what the manual process was actually protecting, and making sure the automated one still protects it.',
+    'Outside work I have solved 300+ data structures and algorithms problems, and I build small distributed systems to understand them properly: a rate limiter and a job queue, both of which taught me more about Redis semantics than reading about them did.',
   ],
   factIds: ['ACH-001'],
 }

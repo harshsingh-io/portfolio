@@ -12,7 +12,6 @@ export default function About() {
       <div className="shell about__inner">
         <div className="about__body">
           <div className="section__head enter">
-            <p className="eyebrow">About</p>
             <h2 className="display section__title">How I work</h2>
           </div>
 

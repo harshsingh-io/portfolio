@@ -1,10 +1,10 @@
 // The one expressive moment on the site: the two-tier pool from MG-002, drawn.
-// Numbers here must match the case metrics — 15 per pod, ~750 client connections,
+// Numbers here must match the case metrics, 15 per pod, ~750 client connections,
 // ~33 Postgres sockets.
 //
 // Inside `prefers-reduced-motion: no-preference` the flow strokes draw once on
-// entry; otherwise it is a static diagram. It is decorative — the same facts are
-// in the prose above it — so it is hidden from assistive tech and carries a
+// entry; otherwise it is a static diagram. It is decorative, the same facts are
+// in the prose above it, so it is hidden from assistive tech and carries a
 // text alternative for anyone who lands on it.
 
 export default function Schematic() {

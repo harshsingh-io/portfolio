@@ -27,7 +27,7 @@ export default function Contact() {
         form.current.reset()
         setStatus({
           state: 'success',
-          message: 'Thanks — that’s sent. I’ll reply from my inbox.',
+          message: 'Thanks, that’s sent. I’ll reply from my inbox.',
         })
       } else {
         setStatus({
@@ -50,7 +50,6 @@ export default function Contact() {
       <div className="shell contact__inner">
         <div className="contact__lead">
           <div className="section__head enter">
-            <p className="eyebrow">Contact</p>
             <h2 className="display section__title">Get in touch</h2>
           </div>
 

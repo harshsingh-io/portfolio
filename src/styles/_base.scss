@@ -95,7 +95,7 @@ p {
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
-  border-radius: 2px;
+  border-radius: 0;
 }
 
 :focus:not(:focus-visible) {
@@ -126,6 +126,16 @@ p {
 .section {
   padding-block: var(--space-section);
   scroll-margin-top: var(--space-6);
+}
+
+/* Surface alternation, borrowed from Together AI: alternating bands give the
+   page elevation without a single shadow, which is what lets the whole site run
+   on hairlines. Both bands live inside the SAME theme (--paper against
+   --surface, 1.08:1 apart), so this is banding, not the mid-page light/dark
+   inversion that would break theme lock. Contrast was measured against both:
+   --ink is 17.52:1 on paper and 16.18:1 on surface. */
+.section:nth-of-type(even) {
+  background: var(--surface);
 }
 
 .measure {
@@ -189,7 +199,7 @@ p {
   padding: var(--space-3) var(--space-4);
   background: var(--accent);
   color: var(--on-accent);
-  border-radius: 4px;
+  border-radius: 0;
   font-size: var(--step--1);
   font-weight: 500;
   transform: translateY(-200%);
@@ -200,10 +210,14 @@ p {
 }
 
 /* ── Entrance ──────────────────────────────────────────────────────────────
-   Content is never hidden by CSS. `.enter` only *adds* a transition once the
-   element is observed; if JS never runs, everything is already visible at full
-   opacity. That is the difference from the previous build, which set
-   `opacity: 0` in three places and left the hero unsettled for ~4.5s. */
+   This DOES hide content until `.is-in` lands, so the safety lives in
+   useReveal.js, which reveals everything on three separate paths: no
+   IntersectionObserver, reduced-motion, or a 1500ms failsafe if no callback
+   arrives. With JS disabled entirely the CRA root renders nothing at all, so
+   the <noscript> block in index.html is the fallback, not this rule.
+
+   (An earlier version of this comment claimed content stayed visible if JS
+   never ran. It does not. The guarantee is the hook's, not the stylesheet's.) */
 
 @media (prefers-reduced-motion: no-preference) {
   .enter {

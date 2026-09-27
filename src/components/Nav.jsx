@@ -53,7 +53,7 @@ export default function Nav() {
       <div className="shell nav__inner">
         <a href="#home" className="nav__home">
           {profile.name}
-          <span className="nav__home-role"> — {profile.role}</span>
+          <span className="nav__home-role"> · {profile.role}</span>
         </a>
 
         <nav
