@@ -1,0 +1,1204 @@
+/* ══ Shared ═══════════════════════════════════════════════════════════════ */
+
+.shell-rule {
+  width: calc(100% - var(--gutter) * 2);
+  max-width: var(--measure-page);
+  margin-inline: auto;
+}
+
+.section__head {
+  margin-bottom: var(--space-7);
+}
+
+/* Hierarchy is 88 / 60 / 44 at desktop: hero name, section title, case title.
+   --step-4 was in the token file but unused anywhere, which is why the top of the
+   scale felt compressed — the three largest tiers were 88, 44, 32. */
+.section__title {
+  font-size: var(--step-4);
+  margin-top: var(--space-3);
+  max-width: 18ch;
+}
+
+.section__lede {
+  margin-top: var(--space-4);
+  color: var(--ink-2);
+  font-size: var(--step-0);
+}
+
+/* Buttons ---------------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 var(--space-5);
+  border: 1px solid var(--border);
+  border-radius: 0;
+  font-size: var(--step--1);
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color var(--dur-state) var(--ease),
+    border-color var(--dur-state) var(--ease),
+    color var(--dur-state) var(--ease);
+}
+
+.btn:hover {
+  border-color: var(--ink);
+  background: var(--surface);
+}
+
+.btn--primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+}
+
+.btn--primary:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+.btn[disabled] {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Chips ------------------------------------------------------------------ */
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.chip {
+  padding: 0.3em 0.7em;
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  background: var(--surface);
+  color: var(--ink-2);
+  font-size: var(--step--2);
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+/* ══ Nav ══════════════════════════════════════════════════════════════════ */
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--paper);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--dur-state) var(--ease);
+}
+
+.nav.is-scrolled {
+  border-bottom-color: var(--rule);
+}
+
+.nav__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  min-height: clamp(3.5rem, 3rem + 2vw, 4.5rem);
+}
+
+.nav__home {
+  font-size: var(--step--1);
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav__home-role {
+  color: var(--ink-3);
+  font-weight: 400;
+}
+
+.nav__sections {
+  margin-left: auto;
+  min-width: 0;
+}
+
+.nav__list {
+  display: flex;
+  gap: var(--space-5);
+}
+
+.nav__link {
+  position: relative;
+  display: inline-block;
+  padding-block: var(--space-2);
+  font-size: var(--step--1);
+  color: var(--ink-2);
+  text-decoration: none;
+  transition: color var(--dur-state) var(--ease);
+}
+
+/* The rule draws in from the left rather than fading. A fade is a state change
+   you notice after the fact; a rule that extends reads as the page responding. */
+.nav__link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 2px;
+  height: 1px;
+  background: currentcolor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--dur-state) var(--ease);
+}
+
+.nav__link:hover {
+  color: var(--ink);
+}
+
+.nav__link:hover::after {
+  transform: scaleX(1);
+}
+
+.nav__link.is-active {
+  color: var(--ink);
+}
+
+.nav__link.is-active::after {
+  transform: scaleX(1);
+  background: var(--accent);
+}
+
+.nav__theme {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-right: calc(var(--space-3) * -1);
+  border-radius: 0;
+  color: var(--ink-2);
+  transition: color var(--dur-state) var(--ease), background-color var(--dur-state) var(--ease);
+}
+
+.nav__theme:hover {
+  color: var(--ink);
+  background: var(--surface);
+}
+
+/* Sun in light, moon in dark: the rays retract and the disc is clipped. */
+:root[data-theme='dark'] .nav__theme-rays,
+.nav__theme-rays {
+  transition: opacity var(--dur-state) var(--ease);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .nav__theme-rays {
+    opacity: 0;
+  }
+  :root:not([data-theme='light']) .nav__theme-core {
+    r: 5.2;
+  }
+}
+
+:root[data-theme='dark'] .nav__theme-rays {
+  opacity: 0;
+}
+
+:root[data-theme='dark'] .nav__theme-core {
+  r: 5.2;
+}
+
+:root[data-theme='light'] .nav__theme-rays {
+  opacity: 1;
+}
+
+:root[data-theme='light'] .nav__theme-core {
+  r: 3.1;
+}
+
+@media (max-width: 720px) {
+  .nav__home-role {
+    display: none;
+  }
+
+  .nav__list {
+    gap: var(--space-4);
+  }
+
+  .nav__link {
+    font-size: var(--step--2);
+  }
+}
+
+/* The menu button is mobile-only; above 640px the links sit inline as before. */
+.nav__burger {
+  display: none;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 0;
+  color: var(--ink-2);
+  transition: color var(--dur-state) var(--ease), background-color var(--dur-state) var(--ease);
+}
+
+.nav__burger:hover {
+  color: var(--ink);
+  background: var(--surface);
+}
+
+/* Below 640px the five links no longer sit comfortably beside the name. They
+   previously wrapped to a second row that scrolled horizontally — that kept every
+   section one tap away, but a half-visible scrolling strip of links reads as
+   unfinished. Now they collapse into a disclosure panel: one extra tap, but the
+   bar is a bar. Escape closes it and returns focus to the button (see Nav.jsx). */
+@media (max-width: 640px) {
+  .nav__home-role {
+    display: none;
+  }
+
+  .nav__burger {
+    display: grid;
+    order: 3;
+  }
+
+  .nav__theme {
+    order: 2;
+    margin-left: auto;
+    margin-right: 0;
+  }
+
+  .nav__sections {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    margin-left: 0;
+    padding: var(--space-4) var(--gutter) var(--space-5);
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+
+    /* visibility, not display — it keeps the panel out of the tab order when
+       closed and still allows the transition to run. */
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-6px);
+    transition:
+      opacity var(--dur-state) var(--ease),
+      transform var(--dur-state) var(--ease),
+      visibility var(--dur-state);
+  }
+
+  .nav__sections.is-open {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .nav__list {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .nav__link {
+    display: block;
+    padding-block: var(--space-3);
+    font-size: var(--step-0);
+  }
+
+  .nav__list li + li {
+    border-top: 1px solid var(--rule);
+  }
+}
+
+/* ══ Hero ═════════════════════════════════════════════════════════════════ */
+
+.hero {
+  padding-top: clamp(3rem, 1.5rem + 6vw, 6rem);
+  padding-bottom: var(--space-8);
+}
+
+.hero__inner {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--space-6) var(--space-5);
+  align-items: end;
+}
+
+.hero__body {
+  grid-column: 1 / 8;
+}
+
+.hero__eyebrow {
+  margin-bottom: var(--space-4);
+}
+
+.hero__name {
+  font-size: var(--step-5);
+  margin-bottom: var(--space-5);
+}
+
+.hero__thesis {
+  font-size: var(--step-1);
+  line-height: 1.4;
+  color: var(--ink-2);
+  max-width: 32ch;
+  text-wrap: balance;
+}
+
+/* Emphasis by ink weight, not italics or colour — the eye lands on the two nouns
+   that carry the positioning without the line turning into a highlighter. */
+.hero__thesis em {
+  font-style: normal;
+  color: var(--ink);
+}
+
+.hero__context {
+  margin-top: var(--space-4);
+  font-size: var(--step--1);
+  color: var(--ink-3);
+  max-width: 44ch;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+.hero__portrait {
+  grid-column: 8 / 13;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+/* A cut-out with alpha, sitting on the paper rather than boxed. Height is
+   capped against the viewport so the figure always clears the sticky nav
+   instead of being decapitated by it. */
+.hero__portrait img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: min(58vh, 480px);
+  filter: grayscale(1) contrast(1.06);
+  transition: filter 400ms var(--ease);
+}
+
+.hero__portrait:hover img {
+  filter: grayscale(0) contrast(1);
+}
+
+/* Identity strip — four label/value pairs closing the hero, above the numbers.
+   Together they read as a ledger footer: the small facts, then the big ones. */
+.hero__facts {
+  grid-column: 1 / 13;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-5);
+  margin-top: var(--space-7);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--rule);
+}
+
+.hero__fact-label {
+  margin-bottom: var(--space-2);
+}
+
+.hero__fact-value {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: var(--step--1);
+  color: var(--ink-2);
+}
+
+.hero__fact-value a {
+  align-self: flex-start;
+  color: var(--ink-2);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+  transition: color var(--dur-state) var(--ease), border-color var(--dur-state) var(--ease);
+}
+
+.hero__fact-value a:hover {
+  color: var(--accent);
+  border-bottom-color: currentcolor;
+}
+
+.hero__proof {
+  grid-column: 1 / 13;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-5);
+  margin-top: var(--space-6);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--rule);
+}
+
+/* The art direction says the data is the imagery. It was set at --step-2 (24 →
+   32px), which is heading-sized, not image-sized. At --step-4 the three hero
+   numbers are the largest thing on the page after the name, which is the point. */
+.hero__proof-value {
+  font-size: var(--step-4);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.hero__proof-label {
+  margin-top: var(--space-1);
+  font-size: var(--step--1);
+  color: var(--ink-3);
+  max-width: 24ch;
+}
+
+@media (max-width: 860px) {
+  .hero__inner {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .hero__body {
+    grid-column: 1 / -1;
+    order: 2;
+  }
+
+  .hero__portrait {
+    grid-column: 1 / -1;
+    order: 1;
+    justify-content: flex-start;
+  }
+
+  .hero__portrait img {
+    max-height: 34vh;
+  }
+
+  .hero__facts {
+    grid-column: 1 / -1;
+    order: 3;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-5) var(--space-4);
+  }
+
+  .hero__proof {
+    grid-column: 1 / -1;
+    order: 4;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  /* These were a compact `value | label` row at --step-1, which rendered the
+     three numbers at 20px — barely above the 17px body, so the one thing the art
+     direction calls the imagery was a desktop-only effect. Mobile is where most
+     of the traffic is. Stacked and set at --step-3 instead: taller hero, but the
+     numbers are the pitch. */
+  .hero__proof-value {
+    font-size: var(--step-3);
+  }
+
+  .hero__thesis {
+    max-width: none;
+  }
+}
+
+/* ══ Work ═════════════════════════════════════════════════════════════════ */
+
+.work__cases {
+  display: flex;
+  flex-direction: column;
+}
+
+.case {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--space-5);
+  padding-block: var(--space-8);
+  border-top: 1px solid var(--rule);
+}
+
+.case:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.case__head {
+  grid-column: 1 / 5;
+}
+
+@media (min-width: 861px) {
+  .case__head {
+    position: sticky;
+    top: clamp(6rem, 5rem + 3vw, 8rem);
+    align-self: start;
+  }
+}
+
+.case__index {
+  display: block;
+  font-size: var(--step-1);
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+  line-height: 1;
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--rule);
+}
+
+.case__title {
+  font-size: var(--step-3);
+  margin-top: var(--space-3);
+}
+
+.case__standfirst {
+  margin-top: var(--space-4);
+  font-size: var(--step-0);
+  color: var(--ink-2);
+}
+
+.case__detail {
+  grid-column: 6 / 13;
+}
+
+.case__metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: var(--space-5);
+  padding-bottom: var(--space-6);
+  margin-bottom: var(--space-6);
+  border-bottom: 1px solid var(--rule);
+}
+
+/* Each metric sits under its own accent tick, which is what moves the accent from
+   decoration (it was on 4 elements site-wide) into the layout's structure. */
+.case__metric {
+  border-top: 2px solid var(--accent);
+  padding-top: var(--space-3);
+}
+
+.case__metric-value {
+  font-size: var(--step-3);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.case__metric-label {
+  margin-top: var(--space-2);
+  font-size: var(--step--2);
+  color: var(--ink-3);
+  max-width: 20ch;
+}
+
+.case__body p + p {
+  margin-top: var(--space-4);
+}
+
+.case__body {
+  color: var(--ink-2);
+}
+
+.case__detail .chips {
+  margin-top: var(--space-6);
+}
+
+@media (max-width: 860px) {
+  .case {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    padding-block: var(--space-7);
+  }
+
+  .case__head,
+  .case__detail {
+    grid-column: 1 / -1;
+  }
+
+  .case__detail {
+    margin-top: var(--space-5);
+  }
+
+  .case__metrics {
+    gap: var(--space-5);
+  }
+}
+
+/* Also shipped ----------------------------------------------------------- */
+
+.work__also {
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--ink-3);
+}
+
+.work__also-head {
+  margin-bottom: var(--space-5);
+  font-size: var(--step-0);
+  font-weight: 600;
+  color: var(--ink-3);
+}
+
+/* ══ Schematic ════════════════════════════════════════════════════════════ */
+
+/* A 24px drafting grid, at the opacity of a blueprint rather than a spreadsheet.
+   Confined to the one figure on the site: it puts the schematic in the register of
+   a technical drawing without turning the whole page into graph paper. */
+.schematic {
+  margin-top: var(--space-7);
+  padding: var(--space-5);
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  background-color: var(--surface);
+  background-image:
+    linear-gradient(to right, var(--rule) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--rule) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-position: center center;
+}
+
+/* The figure number, in the margin of the caption. */
+.schematic__fig {
+  float: left;
+  margin-right: var(--space-3);
+  padding: 0.1em 0.45em;
+  border: 1px solid var(--border);
+  border-radius: 0;
+  color: var(--ink-2);
+  letter-spacing: 0.04em;
+}
+
+.schematic svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.schematic__box {
+  stroke: var(--border);
+  fill: var(--paper);
+}
+
+.schematic__box--accent {
+  stroke: var(--accent);
+}
+
+/* Fixed px, not a scale step: these sit inside a fixed-viewBox SVG, so they have
+   to scale with the drawing rather than with the viewport. Kept one notch under
+   the --step--1 / --step--2 pair they sit beside. */
+.schematic__label {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  fill: var(--ink);
+}
+
+.schematic__num {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  fill: var(--ink-3);
+}
+
+.schematic__num--float {
+  fill: var(--accent);
+}
+
+.schematic__flow {
+  stroke: var(--border);
+}
+
+.schematic__flow--trunk {
+  stroke: var(--accent);
+}
+
+.schematic__caption {
+  margin-top: var(--space-4);
+  font-size: var(--step--2);
+  color: var(--ink-3);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .enter .schematic__flow {
+    stroke-dasharray: 220;
+    stroke-dashoffset: 220;
+  }
+
+  .enter.is-in .schematic__flow {
+    animation: draw 620ms var(--ease) forwards;
+    animation-delay: calc(120ms * var(--i, 0) + 160ms);
+  }
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .schematic {
+    padding: var(--space-3);
+    overflow-x: auto;
+    /* The diagram is always wider than the viewport here, so keep the scrollbar
+       permanently visible — overlay scrollbars hide until scrolled, which left
+       no indication the diagram could be panned at all. */
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) var(--rule);
+  }
+
+  .schematic::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .schematic::-webkit-scrollbar-track {
+    background: var(--rule);
+    border-radius: 0;
+  }
+
+  .schematic::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 0;
+  }
+
+  .schematic svg {
+    min-width: 520px;
+  }
+}
+
+/* ══ Broadsheet rows ═══════════════════════════════════════════════════════
+   One primitive for Experience and Also-shipped, replacing the old .role* and
+   .side__* blocks. WIRED's story-row pattern: full-bleed single column, one
+   hairline between rows, metadata leading in its own column. Density comes from
+   the rhythm, not from boxes, which is why nothing here is a card.
+
+   The text column stays capped at 68ch via .measure in the markup even though
+   the row runs the full 1180px. A full-width row with an uncapped paragraph is
+   a ~140ch line, which is the trap this layout usually falls into. */
+
+.broadsheet {
+  display: flex;
+  flex-direction: column;
+}
+
+.broadsheet__row {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--space-4) var(--space-5);
+  padding-block: var(--space-6);
+  border-top: 1px solid var(--rule);
+}
+
+.broadsheet__row:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.broadsheet--compact .broadsheet__row {
+  padding-block: var(--space-5);
+}
+
+/* Metadata leads in columns 1-3; everything else sits in 4-13. */
+.broadsheet__kicker {
+  grid-column: 1 / 4;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.broadsheet__row > *:not(.broadsheet__kicker) {
+  grid-column: 4 / 13;
+}
+
+/* Square, like everything else. The one warm-accent mark on the page. */
+.broadsheet__now {
+  width: 7px;
+  height: 7px;
+  background: var(--accent-warm);
+  flex-shrink: 0;
+}
+
+.broadsheet__lede {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.broadsheet__mark {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.broadsheet__title {
+  font-size: var(--step-1);
+}
+
+/* Company on its own line, in the structural face. Serif carries the narrative,
+   sans carries the structure. */
+.broadsheet__org {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: var(--step--1);
+  font-weight: 500;
+  color: var(--ink-2);
+}
+
+.broadsheet__note {
+  font-weight: 400;
+  color: var(--ink-3);
+}
+
+.broadsheet__arrow {
+  flex-shrink: 0;
+  color: var(--ink-3);
+  transition: transform var(--dur-state) var(--ease);
+}
+
+.broadsheet__title a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  text-decoration: none;
+}
+
+.broadsheet__title a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.broadsheet__title a:hover .broadsheet__arrow {
+  transform: translate(1px, -1px);
+  color: var(--accent);
+}
+
+.broadsheet__points li {
+  position: relative;
+  padding-left: var(--space-5);
+  color: var(--ink-2);
+}
+
+.broadsheet__points li + li {
+  margin-top: var(--space-3);
+}
+
+.broadsheet__points li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 6px;
+  height: 1px;
+  background: var(--ink-3);
+}
+
+.broadsheet__summary {
+  margin-bottom: var(--space-4);
+  font-size: var(--step--1);
+  color: var(--ink-2);
+}
+
+.broadsheet__row--quiet .broadsheet__earlier {
+  color: var(--ink-3);
+  font-size: var(--step--1);
+}
+
+.broadsheet__earlier-period {
+  color: var(--ink-3);
+}
+
+.broadsheet__sep {
+  padding-inline: var(--space-2);
+  color: var(--rule);
+}
+
+@media (max-width: 860px) {
+  .broadsheet__row {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-3);
+  }
+
+  .broadsheet__kicker,
+  .broadsheet__row > *:not(.broadsheet__kicker) {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ══ Stack ════════════════════════════════════════════════════════════════ */
+
+.stack__groups {
+  display: flex;
+  flex-direction: column;
+}
+
+.stack__group {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--space-5);
+  padding-block: var(--space-5);
+  border-top: 1px solid var(--rule);
+  align-items: start;
+}
+
+.stack__group:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.stack__group-name {
+  grid-column: 1 / 4;
+  font-size: var(--step-0);
+  font-weight: 500;
+}
+
+.stack__group .chips {
+  grid-column: 4 / 13;
+}
+
+.stack__group.is-secondary .stack__group-name,
+.stack__group.is-secondary .chip {
+  color: var(--ink-3);
+}
+
+@media (max-width: 860px) {
+  .stack__group {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-3);
+  }
+
+  .stack__group-name,
+  .stack__group .chips {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ══ About ════════════════════════════════════════════════════════════════ */
+
+.about__inner {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--space-6) var(--space-5);
+  align-items: start;
+}
+
+.about__body {
+  grid-column: 1 / 8;
+}
+
+.about__prose {
+  color: var(--ink-2);
+}
+
+.about__prose p + p {
+  margin-top: var(--space-4);
+}
+
+.about__figure {
+  grid-column: 9 / 13;
+}
+
+.about__figure img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 0;
+  filter: grayscale(1) contrast(1.04);
+}
+
+@media (max-width: 860px) {
+  .about__inner {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .about__body {
+    grid-column: 1 / -1;
+  }
+
+  .about__figure {
+    grid-column: 1 / -1;
+    max-width: 220px;
+  }
+}
+
+/* ══ Contact ══════════════════════════════════════════════════════════════ */
+
+.contact__inner {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--space-7) var(--space-5);
+  align-items: start;
+}
+
+.contact__lead {
+  grid-column: 1 / 6;
+}
+
+.contact__direct li {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-block: var(--space-3);
+  border-top: 1px solid var(--rule);
+  font-size: var(--step--1);
+}
+
+.contact__direct li:first-child {
+  border-top: 0;
+}
+
+.contact__direct a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+  align-self: flex-start;
+  transition: border-color var(--dur-state) var(--ease), color var(--dur-state) var(--ease);
+}
+
+.contact__direct a:hover {
+  color: var(--accent);
+  border-bottom-color: currentcolor;
+}
+
+.contact__form {
+  grid-column: 7 / 13;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.field label {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  min-height: 44px;
+  padding: var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: var(--step--1);
+  transition: border-color var(--dur-state) var(--ease);
+}
+
+.field textarea {
+  resize: vertical;
+  line-height: 1.55;
+}
+
+.field input:hover,
+.field textarea:hover {
+  border-color: var(--ink-3);
+}
+
+.field input:focus-visible,
+.field textarea:focus-visible {
+  border-color: var(--accent);
+}
+
+.contact__form .btn {
+  align-self: flex-start;
+}
+
+.form-status {
+  font-size: var(--step--1);
+  min-height: 1.5em;
+}
+
+.form-status.is-success {
+  color: var(--accent);
+}
+
+.form-status.is-error {
+  color: var(--accent-warm);
+}
+
+@media (max-width: 860px) {
+  .contact__inner {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .contact__lead,
+  .contact__form {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ══ Footer ═══════════════════════════════════════════════════════════════ */
+
+.footer {
+  border-top: 1px solid var(--rule);
+  padding-block: var(--space-7);
+}
+
+.footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-4) var(--space-6);
+}
+
+.footer__name {
+  font-size: var(--step--1);
+  font-weight: 500;
+}
+
+.footer__role {
+  color: var(--ink-3);
+  font-weight: 400;
+}
+
+.footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.footer__links a,
+.footer__meta a {
+  font-size: var(--step--1);
+  color: var(--ink-3);
+  text-decoration: none;
+  transition: color var(--dur-state) var(--ease);
+}
+
+.footer__links a:hover,
+.footer__meta a:hover {
+  color: var(--ink);
+  text-decoration: underline;
+}
+
+.footer__meta {
+  margin-left: auto;
+  font-size: var(--step--2);
+  color: var(--ink-3);
+}
+
+.footer__copyright {
+  flex-basis: 100%;
+  font-size: var(--step--2);
+  color: var(--ink-3);
+}

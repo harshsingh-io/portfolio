@@ -24,3 +24,32 @@ yarn-error.log*
 
 # Local Netlify folder
 .netlify
+
+# macOS
+.DS_Store
+
+# Never commit — this repository is PUBLIC.
+#
+# facts.yaml is the private fact base: defensibility grades, `[RETIRED — false
+# claim]` tombstones, clarify_notes, the "MUST be able to defend" lists and the
+# AI-assisted flags. Publishing it under Harsh's name would be worse than the
+# problem the revamp fixed. The build reads it locally at prebuild; it is not
+# bundled and does not need to be tracked here.
+#
+# Both files were already untracked, so this loses nothing — it just stops
+# `git add -A` from staging them. If either ever needs versioning, do it in a
+# private repo, or `git add -f` deliberately.
+facts.yaml
+portfolio-revamp-v2-plan.md
+
+# Third-party reference dump (awesome-list of ~2,000 portfolios), not site
+# content. Kept locally for reference; no reason to carry it in the repo.
+inspiration.md
+
+# Agent tooling from `npx skills add`. .claude/skills/* are symlinks into
+# .agents/skills/*, so they are machine-local and would not resolve for anyone
+# cloning this. Not site content. Un-ignore deliberately if the skill set should
+# be versioned for reproducibility.
+.agents/
+.claude/
+skills-lock.json

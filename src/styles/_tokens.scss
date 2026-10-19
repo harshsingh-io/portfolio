@@ -1,0 +1,114 @@
+// Design tokens.
+//
+// Every colour pair below was measured with the WCAG 2.x relative-luminance
+// formula and the ratio is recorded beside it. Text pairs clear 4.5:1; pairs
+// used as interactive boundaries clear 3:1. If you change a hex, re-measure —
+// the previous palette shipped an accent at 4.19:1 for two years.
+
+:root {
+  color-scheme: light dark;
+
+  // ── Type families ────────────────────────────────────────────────────────
+  // Newsreader, not Instrument Serif. The old face is one of two display serifs
+  // named outright as the LLM-default tell, and it had become the single most
+  // recognisable "AI built this" signal on the page. Newsreader is drawn for news
+  // setting, which is the register this direction is actually after, and it is not
+  // the default reach. Shipped as a static instance pinned to wght 400 / opsz 40
+  // and subset to Latin: 21.8 KB against the old 15 KB, the only size regression
+  // in this pass and a deliberate one.
+  --font-display: 'Newsreader', 'Iowan Old Style', Georgia, serif;
+  --font-sans: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  // ── Type scale ───────────────────────────────────────────────────────────
+  // Fluid between 360px and 1440px viewports. Ratio ~1.25 → ~1.333.
+  // The floor was 11 → 12 and 13 → 14. An audit found 138 of 185 text elements
+  // sitting on those two steps — three quarters of the page was micro-type, which
+  // is what made it read as timid. Raised one notch each; the ratio is unchanged.
+  --step--2: clamp(0.75rem, 0.73rem + 0.093vw, 0.8125rem);    // 12 → 13  micro label
+  --step--1: clamp(0.875rem, 0.854rem + 0.093vw, 0.9375rem);  // 14 → 15  small
+  --step-0: clamp(1.0625rem, 1.042rem + 0.093vw, 1.125rem);   // 17 → 18  body
+  --step-1: clamp(1.25rem, 1.167rem + 0.37vw, 1.5rem);        // 20 → 24
+  --step-2: clamp(1.5rem, 1.333rem + 0.741vw, 2rem);          // 24 → 32
+  --step-3: clamp(1.875rem, 1.583rem + 1.296vw, 2.75rem);     // 30 → 44
+  --step-4: clamp(2.25rem, 1.75rem + 2.222vw, 3.75rem);       // 36 → 60
+  --step-5: clamp(2.75rem, 1.833rem + 4.074vw, 5.5rem);       // 44 → 88  hero
+
+  --leading-tight: 1.08;
+  --leading-snug: 1.25;
+  --leading-normal: 1.6;
+  --measure: 68ch;
+
+  // ── Space ────────────────────────────────────────────────────────────────
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  // Broadsheet rhythm. WIRED sets 48px top and bottom on desktop; we were at
+  // 56 to 96. Density was the weakest dial on the page (4 of 10) and the reason
+  // it read airy rather than composed, so the ceiling comes down to 72.
+  --space-section: clamp(3rem, 2rem + 3vw, 4.5rem);
+
+  // ── Layout ───────────────────────────────────────────────────────────────
+  --measure-page: 1180px;
+  --gutter: clamp(1rem, 0.2rem + 3.5vw, 4.5rem);
+  --columns: 12;
+
+  // ── Motion ───────────────────────────────────────────────────────────────
+  // Budget: the hero is fully settled by 300ms. Nothing on this site waits.
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --dur-enter: 260ms;
+  --dur-state: 160ms;
+
+  // ── Colour: light ────────────────────────────────────────────────────────
+  --paper: #fbfaf7;
+  --surface: #f3f1ea;
+  --ink: #16150f; //   17.52:1 on paper · 16.18:1 on surface
+  --ink-2: #4a4740; //  8.88:1 on paper ·  8.20:1 on surface
+  --ink-3: #6e6a60; //  5.17:1 on paper ·  4.77:1 on surface
+  --rule: #e2ded4; //   decorative hairline only — never a control boundary
+  --border: #8e897b; // 3.35:1 on paper ·  3.09:1 on surface — interactive edges
+  --accent: #1a48c4; //  7.27:1 on paper ·  6.71:1 on surface
+  --accent-warm: #b4471a; // 5.22:1 on paper — the "now" marker, used once
+  --on-accent: #fbfaf7; //   7.27:1 on accent
+}
+
+@mixin dark-tokens {
+  --paper: #12110d;
+  --surface: #1a1914;
+  --ink: #f2efe6; //   16.43:1 on paper · 15.31:1 on surface
+  --ink-2: #b9b4a6; //  9.12:1 on paper ·  8.50:1 on surface
+  --ink-3: #8e897b; //  5.41:1 on paper ·  5.04:1 on surface
+  --rule: #2c2a23;
+  --border: #6e6a5b; // 3.49:1 on paper ·  3.25:1 on surface
+  --accent: #7fa0ff; //  7.53:1 on paper ·  7.02:1 on surface
+  --accent-warm: #e8895c; // 7.34:1 on paper
+  --on-accent: #12110d; //   7.53:1 on accent
+}
+
+// DECIDED — do not "fix" this to a light default.
+//
+// Reviewed 2026-09-25 and kept: the default follows the visitor's OS setting.
+// The counter-argument was that Ledger was chosen because light editorial stands
+// out against dark-glow portfolios, and an OS-following default means most
+// visitors never see it. Harsh weighed that and kept OS-following, on the
+// grounds that the serif, hairline grid, mono metrics and asymmetric grid all
+// survive inversion — a dark-preference visitor gets Ledger inverted, not a
+// generic dark portfolio.
+//
+// Known loose end: the OG card is light in both themes, so the social → site
+// transition is inconsistent for dark-mode visitors. Accepted, not overlooked.
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    @include dark-tokens;
+  }
+}
+
+:root[data-theme='dark'] {
+  @include dark-tokens;
+}

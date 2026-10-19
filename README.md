@@ -1,73 +1,143 @@
-# Getting Started with Create React App
-[Webite Link](https://harshsingh-io.github.io/portfolio/)
+# harshsingh.io — portfolio
 
-[![wakatime](https://wakatime.com/badge/user/018ecd32-5efb-491a-be09-136c9f428be6/project/5324f007-5790-424d-a43c-2bce08f83ca1.svg)](https://wakatime.com/badge/user/018ecd32-5efb-491a-be09-136c9f428be6/project/5324f007-5790-424d-a43c-2bce08f83ca1)
+Personal site for Harsh Singh, backend & data engineer.
+Live at **https://singhcerely.tech**.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Create React App + Sass, deployed to GitHub Pages from the `gh-pages` branch.
 
-## Available Scripts
+```bash
+npm install
+npm start        # dev server on :3000
+npm run build    # runs the facts check, then builds
+npm run deploy   # verifies build/CNAME, then publishes build/ to gh-pages
+```
 
+## The two guard rails
 
+Both exist because the previous version of this site failed in exactly these ways.
 
-### `npm start`
+### `scripts/check-facts.mjs` — content provenance
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Runs on `prebuild`. Two passes, because there are two ways a claim goes wrong.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+**Pass 1 — citations resolve.** Every `factIds: [...]` in `src/` must reference an
+ID that exists in `facts.yaml` and is graded `defensibility: strong`.
 
-### `npm test`
+**Pass 2 — no uncited numbers.** Pass 1 only validates the IDs that are *present*;
+it cannot see a number added with no citation at all. That is the shape of the
+original bug — the retired figures ("160K+ docs", "10x concurrent users",
+"reduced migration time by 80%") lived in the `public/index.html` meta
+description, which pass 1 does not even read. Pass 2 scans `src/content/portfolio.js`
+**and** `public/index.html` for claim-shaped numbers (`+` suffix, `%`, `x`
+multiplier, `→` transition, comma-grouped thousands) and requires each to be
+numerically traceable to a cited fact's `claim` or `metric.value`.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Two things that pass 2 deliberately does not read, because both quote the retired
+figures in order to tombstone them: `depth_notes`/`clarify_note` in `facts.yaml`,
+and source comments. Scraping either would whitelist the exact numbers the gate
+exists to catch.
 
-### `npm run build`
+**Pass 3 — the Stack section names nothing the site cannot back.** `portfolio.js`
+declares "Only technologies that appear in a cited fact's `technologies` list" as a
+comment, and that invariant breaks silently: when a fact stops being cited, the
+technologies it justified stay in the Stack section. Neither pass above notices —
+pass 1 only validates `factIds` that are present, pass 2 only reads numbers, and
+"Jetpack Compose" is neither. This pass makes the comment executable. Names are
+normalised for case, punctuation and a trailing API/SDK, so `Gemini 2.5 Pro API`
+matches facts.yaml's `Gemini 2.5 Pro`.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+This is not hypothetical: it fired the first time it ran. Dropping the mobile line
+from the MathonGo role decited MG-022/MG-024/MG-028, which left Kotlin, Jetpack
+Compose, FCM and Firestore sitting in the Stack section with nothing behind them.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+What it still cannot catch: a real number attached to the wrong project. The old
+site put MG-021's genuine "80%" under the tagging work instead of the asset
+platform — both passes see a cited, traceable number. That one needs a reader.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+`facts.yaml` is the single source of truth for every verifiable claim on the site.
 
-### `npm run eject`
+Three `partial`-graded facts are allowlisted in the script because they were
+approved individually, each with a constraint on how it may be phrased (see the
+comments in `src/content/portfolio.js`). Do not add to that allowlist without
+asking Harsh.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+npm run check:facts
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### `scripts/check-cname.mjs` — deploy safety
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Runs before `gh-pages -d build`. Refuses to publish if `build/CNAME` is missing or
+does not say `singhcerely.tech`.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+The custom domain is configured by the `CNAME` file on the published branch. For a
+long time `public/CNAME` here said `harshsingh.io` — a host that no longer resolves
+— while the deployed branch said `singhcerely.tech`. The working value existed only
+on `gh-pages`, one deploy away from being destroyed, with GitHub Pages re-reading
+the file to set the custom-domain field.
 
-## Learn More
+**If the domain ever changes, update `public/CNAME`, the root `CNAME`, the
+`EXPECTED` constant in `check-cname.mjs`, `homepage` in `package.json`, and the
+canonical/OG/JSON-LD URLs in `public/index.html`.** Use an escaped dot when
+find-and-replacing (`harshsingh\.io`) — the GitHub username `harshsingh-io` appears
+~98 times in `src/` and an unescaped pattern matches it too.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Layout
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+src/
+  content/portfolio.js   all site copy, each claim tagged with its facts.yaml IDs
+  components/            one file per section, no barrel files
+  hooks/                 useReveal, useTheme, useHashScroll
+  styles/
+    index.scss           @use order matters: tokens -> base -> components
+    _tokens.scss         design tokens; every colour pair carries its measured ratio
+    _base.scss           reset, layout primitives, motion contract
+    _components.scss     section styles
+public/
+  fonts/                 self-hosted woff2, declared inline in index.html
+  img/                   the LCP portrait, served with a stable preloadable URL
+```
 
-### Code Splitting
+## Things that will bite you
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- **Fonts and the LCP image live in `public/`, not `src/assets/`,** so their URLs
+  are stable and `index.html` can preload them. A webpack-hashed URL cannot be
+  preloaded at author time, and CRA's css-loader cannot resolve a root-relative
+  `url()` at all.
+- **`.enter` is only `opacity: 0` inside `@media (prefers-reduced-motion:
+  no-preference)`.** Under that query content really is hidden until `useReveal`
+  adds `is-in`, so that hook is the guarantee, not the media query: it reveals on
+  three paths (observer fires, IntersectionObserver missing, or a 1.5s failsafe).
+  Under `reduce` the opacity rule never applies. With JS disabled, CRA renders an
+  empty `#root` and the `<noscript>` block is the fallback. Do not "simplify" this
+  by moving the opacity rule out of the media query, and do not delete the
+  failsafe on the assumption that CSS alone keeps the page readable.
+- **`useHashScroll` deliberately avoids `requestAnimationFrame`** (deferred until
+  first paint in some contexts) and deliberately scrolls instantly (`scroll-behavior:
+  smooth` on the root otherwise swallows the programmatic scroll).
+- **Retired anchors** — `#portfolio`, `#mobile`, `#skills`, `#services`,
+  `#testimonial` — are kept alive as zero-height sentinels inside the sections that
+  replaced them. Old links still resolve.
+- **The PWA was removed.** `src/index.js` calls `unregister()` to tear down service
+  workers still installed in returning visitors' browsers, and clears the caches
+  they left. Keep that call for a release or two. (Lighthouse dropped the PWA
+  category in 12.0, so there is no score to protect.)
 
-### Analyzing the Bundle Size
+## Measured
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Lighthouse, production build, local server:
 
-### Making a Progressive Web App
+| | Perf | A11y | Best practices | SEO |
+|---|---|---|---|---|
+| Desktop | 100 | 100 | 100 | 100 |
+| Mobile | 97 | 100 | 100 | 100 |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+CLS 0 on both. JS 54 KB gzip, CSS 5 KB gzip, three self-hosted font files at 67 KB
+total.
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Google Analytics is the largest single request on the page at ~187 KB — more than
+the entire app bundle. Removing it does not change the Lighthouse score but does cut
+total transfer from ~520 KB to ~336 KB and Speed Index from 1.6s to 1.1s. It is kept
+for continuity of the existing property; delete the two `gtag` blocks in
+`public/index.html` if that trade stops being worth it.
