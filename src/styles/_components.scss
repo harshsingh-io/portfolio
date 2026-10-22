@@ -714,27 +714,111 @@
   stroke: var(--accent);
 }
 
+/* A dependency rather than a path something travels: the denylist consulted at
+   two separate moments in Fig. 2. Dashed so it does not read as data flow. */
+.schematic__flow--dep {
+  stroke: var(--accent);
+  stroke-dasharray: 3 3;
+  opacity: 0.75;
+}
+
+/* The arm of a branch that is NOT the interesting outcome — questions under the
+   threshold in Fig. 4. Present because omitting it would overstate what the
+   system does, muted because it is not the point. */
+.schematic__box--muted {
+  stroke: var(--rule);
+}
+
+.schematic__flow--muted {
+  stroke: var(--rule);
+}
+
+/* Fig. 4's threshold, and the questions scored either side of it. */
+.schematic__rule {
+  stroke: var(--accent);
+  stroke-dasharray: 4 4;
+}
+
+.schematic__dot {
+  fill: var(--accent);
+}
+
+.schematic__dot--under {
+  fill: var(--ink-3);
+  opacity: 0.55;
+}
+
 .schematic__caption {
   margin-top: var(--space-4);
   font-size: var(--step--2);
   color: var(--ink-3);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .enter .schematic__flow {
-    stroke-dasharray: 220;
-    stroke-dashoffset: 220;
+/* ── Schematic build-in ──────────────────────────────────────────────────────
+   Each figure assembles itself in stages when it scrolls into view, then rests
+   as a finished static drawing. Order is authored per figure with `--i`. Two
+   primitives only: a `__part` fades in (a box with its labels, or a floating
+   figure), a `__flow` draws itself.
+
+   THREE GATES, all load-bearing:
+
+   1. `prefers-reduced-motion: no-preference`. Every hidden initial state lives
+      ONLY inside this query, so under `reduce` nothing is ever hidden and the
+      figure is simply complete. Same contract `.enter` uses. The global `reduce`
+      rule in _base.scss would also snap the animation to its end state, so this
+      is belt and braces — deliberately, because a figure whose content depends
+      on an animation having run is a figure that can disappear.
+
+   2. `min-width: 561px`. Below that the figure is wider than the viewport and is
+      pan-scrolled from its left edge (see the 560px block above), so most of a
+      build-in would play off to the right where nobody is looking. Phones get
+      the finished drawing, which is the honest answer to a canvas that does not
+      fit rather than motion nobody sees.
+
+   3. `.schematic.is-in` — the FIGURE's own reveal, not the case article's. The
+      figure now carries `.enter` so useReveal observes it directly. It used to
+      inherit the trigger from `.case.enter`, which gets `is-in` as soon as 1% of
+      the article is visible, and the figure sits 663px below the case top in a
+      993px viewport (measured 2026-10-22). The whole sequence therefore finished
+      roughly 580px below the fold, every single time. The animation was real,
+      correct, and had never been seen.
+
+   `pathLength="1"` on every stroked path is what lets one keyframe serve paths
+   of any length: it renormalises the dash units so `stroke-dasharray: 1` is
+   always exactly one path-length. The previous rule hardcoded `220`, which is
+   longer than some of these paths and shorter than others, so each drew at a
+   different apparent speed and the short ones sat invisible for most of their
+   delay before snapping in. */
+@media (min-width: 561px) and (prefers-reduced-motion: no-preference) {
+  .schematic__flow {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
   }
 
-  .enter.is-in .schematic__flow {
-    animation: draw 620ms var(--ease) forwards;
-    animation-delay: calc(120ms * var(--i, 0) + 160ms);
+  .schematic__part {
+    opacity: 0;
+  }
+
+  .schematic.is-in .schematic__flow {
+    animation: schematic-draw 560ms var(--ease) forwards;
+    animation-delay: calc(100ms * var(--i, 0) + 160ms);
+  }
+
+  .schematic.is-in .schematic__part {
+    animation: schematic-appear 280ms var(--ease) forwards;
+    animation-delay: calc(100ms * var(--i, 0) + 160ms);
   }
 }
 
-@keyframes draw {
+@keyframes schematic-draw {
   to {
     stroke-dashoffset: 0;
+  }
+}
+
+@keyframes schematic-appear {
+  to {
+    opacity: 1;
   }
 }
 

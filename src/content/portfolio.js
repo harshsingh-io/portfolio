@@ -91,6 +91,7 @@ export const cases = [
       'The walk is one pass. Redis matches patterns by filtering what a scan returns, not by indexing, so it reads every key no matter how narrow the glob is. Checking N patterns with N scans costs N full traversals of the keyspace; one streaming pass that matches all of them in process costs one. Batches of 5,000, nothing accumulated in memory.',
       'The part I would want to be asked about is the denylist. Protected keys are filtered again at the moment of deletion, not only during preview, because a preview is a snapshot: rules change, keyspaces change, and acting on a stored preview means deleting against a stale picture of what is safe. Anything the filter withholds is reported back counted by the rule that caught it, so a refusal is visible instead of silent.',
     ],
+    schematic: 'cache',
   },
   {
     id: 'pooling',
@@ -113,7 +114,7 @@ export const cases = [
       'On the client side, each pod holds a MongoDB driver pool of 15 connections opened at startup, so a checkout costs under 0.1ms. The 16th concurrent request queues against a 1500ms timeout rather than opening an unbounded connection or crashing the pod.',
       'Postgres is a separate problem with a separate answer. PgBouncer sits in front of it, so roughly 750 persistent client connections collapse onto about 33 real TCP sockets, with a socket reassigned the moment a transaction commits. The pool is sized from the standard formula: vCPU × 2 + spindles, or 16 × 2 + 1.',
     ],
-    schematic: true,
+    schematic: 'pooling',
   },
   {
     id: 'classification',
@@ -133,6 +134,7 @@ export const cases = [
       'Image-based Physics, Chemistry and Biology questions needed their context extracted before they could be tagged at all, which is most of what made the naive version fail.',
       'The 92% is a QC pass rate, not precision: the content team reviewed a 3,000-question sample, 500 each across Physics, Chemistry, Maths, Biology, English and Logical Reasoning, and 92% came back correct. It was measured on the same version that went on to process all 250K, so it describes the real run rather than a pilot.',
     ],
+    schematic: 'classification',
   },
   {
     id: 'quality-pipeline',
@@ -150,6 +152,7 @@ export const cases = [
       'Built a weekly quality pipeline for the MARKS question banks. Each question is scored by the ratio of unique users who reported it to unique users who attempted it, so a question only surfaces if the complaints are large relative to how many people actually saw it. Anything above a 0.5% report rate is flagged, alongside a monitored backlog from earlier runs.',
       'For each flagged question the pipeline reverse-resolves where it actually lives in the product catalogue, updates the Live and Historical Drive workbooks, and posts a digest to the stakeholders on Slack. It replaced a report that used to be assembled by hand every week.',
     ],
+    schematic: 'quality',
   },
 ]
 

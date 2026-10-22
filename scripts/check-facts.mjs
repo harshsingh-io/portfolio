@@ -197,7 +197,16 @@ for (const id of cited) {
   for (const n of numbersIn(fact.assertion)) allowed.add(n)
 }
 
-const SCANNED = ['src/content/portfolio.js', 'public/index.html']
+// Schematic.jsx joined this list on 2026-10-22. The figures are made of almost
+// nothing BUT numbers — 15, 1500ms, ~750, ~33, 5,000, 250K+, 92%, 0.5% — and it
+// was the one surface on the site the gate could not see, so a figure invented
+// in a drawing would have shipped silently. SVG coordinates are bare integers
+// and none of the claim shapes match a bare integer, so they cost nothing here.
+const SCANNED = [
+  'src/content/portfolio.js',
+  'src/components/Schematic.jsx',
+  'public/index.html',
+]
 
 for (const rel of SCANNED) {
   const text = readFileSync(join(root, rel), 'utf8')

@@ -6,6 +6,14 @@ import Schematic from './Schematic'
 const NUMBER_WORDS = ['No', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven']
 const CASE_COUNT_WORD = NUMBER_WORDS[cases.length] ?? String(cases.length)
 
+// Fig. numbers come from page order, not from the figure definitions. Hardcoding
+// them in Schematic.jsx put "Fig. 2" on the first case the moment a second figure
+// was added — the same defect as spelling the case count above by hand. Reorder a
+// case or drop one and the captions renumber themselves.
+const FIGURE_NUMBERS = new Map(
+  cases.filter((c) => c.schematic).map((c, i) => [c.schematic, i + 1])
+)
+
 function Case({ item }) {
   return (
     <article className="case enter" id={`case-${item.id}`}>
@@ -33,7 +41,9 @@ function Case({ item }) {
           ))}
         </div>
 
-        {item.schematic && <Schematic />}
+        {item.schematic && (
+          <Schematic kind={item.schematic} n={FIGURE_NUMBERS.get(item.schematic)} />
+        )}
 
         <ul className="chips" aria-label="Technologies used">
           {item.stack.map((tech) => (
