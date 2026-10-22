@@ -547,6 +547,26 @@
   filter: grayscale(0) contrast(1);
 }
 
+/* Dark mode needs its own hover, and the reason is specificity rather than
+   taste. The dark base rule is `:root[data-theme='dark'] .hero__portrait img`
+   at (0,3,1); the hover above is `.hero__portrait:hover img` at (0,2,1), so it
+   lost every time and the portrait never went colour in dark mode. These are
+   (0,4,1) and win.
+
+   contrast stays at 1.25 here rather than dropping to 1 like the light hover
+   does. In light mode 1.06 is a mild boost worth releasing on hover; in dark
+   mode 1.25 is what undoes the asset's baked shadow lift, so releasing it would
+   hand back the faded look at the exact moment the reader is looking closest. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .hero__portrait:hover img {
+    filter: grayscale(0) contrast(1.25);
+  }
+}
+
+:root[data-theme='dark'] .hero__portrait:hover img {
+  filter: grayscale(0) contrast(1.25);
+}
+
 /* Identity strip — four label/value pairs closing the hero, above the numbers.
    Together they read as a ledger footer: the small facts, then the big ones. */
 .hero__facts {
