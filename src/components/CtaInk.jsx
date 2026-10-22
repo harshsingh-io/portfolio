@@ -30,7 +30,13 @@ import { useEffect, useRef } from 'react'
 // attachment maths considerably shorter than the reference's.
 
 const STRANDS = 12
-const ARM_RADIUS = 150 // how close the pointer must come before ink forms
+// How close the pointer must come before ink forms. Small on purpose: at 150
+// the ink armed from 150px AWAY from any button, so strands grew out of empty
+// space below the row where there is no button at all. Ink belongs to the
+// button, so you have to actually reach it — the reference used an 8px pad for
+// the same reason. Once formed, strands stretch and snap at their own maxDist,
+// which is what gives the pull its range.
+const ARM_PAD = 10
 const TAU = Math.PI * 2
 const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v))
 
@@ -109,6 +115,7 @@ export default function CtaInk({ targetRef }) {
     let pointer = { x: 0, y: 0, inside: false }
     let box = null // canvas bounding rect in page coords
     let buttons = []
+    let anchorIdx = -1
     let last = performance.now()
 
     function measure() {
@@ -125,18 +132,19 @@ export default function CtaInk({ targetRef }) {
     }
 
     function nearestButton(x, y) {
-      let best = null
+      let bestI = -1
       let bestD = Infinity
-      for (const b of buttons) {
+      for (let i = 0; i < buttons.length; i++) {
+        const b = buttons[i]
         const dx = x - clamp(x, b.x, b.x + b.w)
         const dy = y - clamp(y, b.y, b.y + b.h)
         const d = Math.hypot(dx, dy)
         if (d < bestD) {
           bestD = d
-          best = b
+          bestI = i
         }
       }
-      return { button: best, dist: bestD }
+      return { index: bestI, dist: bestD }
     }
 
     function snap(s) {
@@ -201,22 +209,30 @@ export default function CtaInk({ targetRef }) {
       const ink = getComputedStyle(canvas).color
       ctx.clearRect(0, 0, box.width, box.height)
 
-      const { button, dist } = pointer.inside ? nearestButton(pointer.x, pointer.y) : { button: null, dist: Infinity }
-      const arming = !!button && dist < ARM_RADIUS
+      const near = pointer.inside ? nearestButton(pointer.x, pointer.y) : { index: -1, dist: Infinity }
+      const arming = near.index >= 0 && near.dist < ARM_PAD
 
       if (arming) {
+        // The anchor is latched when the ink forms and held until it is gone.
+        // Re-deriving it each frame let a stretched strand jump to a different
+        // button the moment that one became the nearer of the two.
+        if (!strands.length) anchorIdx = near.index
         if (!strands.length) strands = Array.from({ length: STRANDS }, (_, i) => makeStrand(i, pointer.x, pointer.y))
         else strands = strands.map((s, i) => (s.snapped ? makeStrand(i, pointer.x, pointer.y) : s))
       }
 
+      // Read through the index rather than holding the rect: measure() rebuilds
+      // these on resize and scroll, and a held rect would go stale.
+      const anchor = anchorIdx >= 0 ? buttons[anchorIdx] : null
+
       let alive = 0
-      if (strands.length && button) {
-        const base = nearestArcLength(pointer.x - button.x, pointer.y - button.y, button.w, button.h)
+      if (strands.length && anchor) {
+        const base = nearestArcLength(pointer.x - anchor.x, pointer.y - anchor.y, anchor.w, anchor.h)
         for (const s of strands) {
           if (s.snapped) continue
-          const a = rectPointAt(base + s.spread, button.w, button.h)
-          s.ax = button.x + a.x
-          s.ay = button.y + a.y
+          const a = rectPointAt(base + s.spread, anchor.w, anchor.h)
+          s.ax = anchor.x + a.x
+          s.ay = anchor.y + a.y
           s.hx = pointer.x + s.offX
           s.hy = pointer.y + s.offY
           const d = Math.hypot(s.hx - s.ax, s.hy - s.ay)
@@ -237,11 +253,14 @@ export default function CtaInk({ targetRef }) {
           s.midY += s.vy * f
           s.bead.t = (s.bead.t + s.bead.speed * f) % 1
         }
-        if (!alive) strands = []
-        else draw(ink)
+        if (!alive) {
+          strands = []
+          anchorIdx = -1
+        } else draw(ink)
       } else if (strands.length) {
         strands.forEach((s) => !s.snapped && snap(s))
         strands = []
+        anchorIdx = -1
       }
 
       for (let i = particles.length - 1; i >= 0; i--) {
@@ -282,7 +301,7 @@ export default function CtaInk({ targetRef }) {
       const y = e.clientY - box.top
       pointer = { x, y, inside: true }
       const { dist } = nearestButton(x, y)
-      if (dist < ARM_RADIUS || strands.length) kick()
+      if (dist < ARM_PAD || strands.length) kick()
     }
 
     function onLeave() {
