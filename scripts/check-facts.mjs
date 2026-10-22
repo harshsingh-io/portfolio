@@ -73,6 +73,13 @@ function parseFacts(text) {
     if (!current) continue
     const kv = line.match(/^\s+(defensibility|scope|claim):\s*(.+)$/)
     if (kv) current[kv[1]] = kv[2].trim().replace(/^["']|["']$/g, '')
+    // depth_notes needs the QUOTED value, not the rest of the line: an entry may
+    // carry a trailing YAML comment (`depth_notes: ""  # Harsh to fill`) and a
+    // naive capture reads that comment as content, so an empty field looks full.
+    // That is not hypothetical — it defeated the first version of this check and
+    // an audit script before it.
+    const depth = line.match(/^\s+depth_notes:\s*"((?:[^"\\]|\\.)*)"/)
+    if (depth) current.depth_notes = depth[1]
     // `assertion` is what the fact ACTUALLY claims: the claim line and the
     // metric values. It deliberately excludes depth_notes and clarify_note,
     // which quote the retired and false figures in order to tombstone them —
@@ -322,6 +329,20 @@ if (problems.length) {
 
 const usedAllowlist = Object.keys(ALLOWLIST).filter((id) => cited.includes(id))
 const staleAllowlist = Object.keys(ALLOWLIST).filter((id) => !cited.includes(id))
+// A WARNING, not a failure, and deliberately so.
+//
+// depth_notes is what Harsh must be able to say out loud about a claim. A fact
+// cited on the site with the field still empty is a published claim with no
+// written prep behind it — which is survivable (he may simply know it) but is
+// worth seeing on every build. MG-038 shipped in exactly that state on
+// 2026-10-22.
+//
+// This does not fail the build because the field is HIS to write, and a gate that
+// blocks a deploy until someone else types something is a gate that gets deleted.
+// The three hard passes enforce what can be checked mechanically; this one just
+// refuses to let the gap go quiet.
+const citedNoDepth = cited.filter((id) => !(facts.get(id)?.depth_notes || '').trim())
+
 const scannedCount = SCANNED.reduce(
   (n, rel) => n + claimTokens(readFileSync(join(root, rel), 'utf8')).length,
   0
@@ -334,6 +355,11 @@ console.log(
     `\n    pass 2 — ${scannedCount} claim-shaped numbers across ${SCANNED.length} files, all traceable` +
     `\n    pass 3 — ${backedTech.size} technologies backed by cited facts, Stack section and hero strip clean` +
     `\n    pass 4 — ${RETIRED_PHRASINGS.length} retired phrasings absent from copy, head and comments` +
+    (citedNoDepth.length
+      ? `\n\n  ! cited with no depth_notes: ${citedNoDepth.join(', ')}` +
+        `\n    These are live on the site with nothing written down about how to` +
+        `\n    defend them. Fill depth_notes in facts.yaml.`
+      : '') +
     (staleAllowlist.length
       ? `\n\n  ! allowlist entries no longer cited: ${staleAllowlist.join(', ')}` +
         `\n    Remove them — a stale entry silently re-permits a \`partial\` fact later.`

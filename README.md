@@ -73,6 +73,12 @@ correction must **paraphrase** the old wording, not quote it. There is
 deliberately no escape marker to exempt a line — an exemption is how a gate like
 this rots, and paraphrasing costs a tombstone nothing.
 
+**One warning, not a pass.** The build also prints `cited with no depth_notes:
+...` for any fact that is live on the site with that field empty — a published
+claim with nothing written down about how to defend it. It does **not** fail the
+build, because the field is Harsh's to write and a gate that blocks a deploy
+until someone else types something is a gate that gets deleted.
+
 What none of this catches: a real number attached to the wrong project. The old
 site put MG-021's genuine "80%" under the tagging work instead of the asset
 platform — every pass sees a cited, traceable number in permitted words. That one
