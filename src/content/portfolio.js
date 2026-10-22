@@ -52,7 +52,12 @@ export const facts = [
   { label: 'Based', lines: ['Bengaluru, India', 'IST · UTC+5:30'] },
   {
     label: 'Stack',
-    lines: ['Java · Spring Boot · Python', 'PostgreSQL · MongoDB · Redis'],
+    // Node joined this strip 2026-10-22, late. The strip is the index a scanner
+    // reads instead of scrolling, and it was omitting the language of the LEAD
+    // case while the About section two screens down had the same gap. Both are
+    // backed by MG-031. Three short lines rather than two long ones: an index
+    // that wraps mid-list is harder to scan than one that breaks where you would.
+    lines: ['Java · Spring Boot', 'Node.js · Python', 'PostgreSQL · MongoDB · Redis'],
   },
   {
     label: 'Links',
@@ -401,14 +406,31 @@ export const stack = [
   // MG-022 and MG-028 are `partial` and would need Harsh's approval again.
 ]
 
+// REWRITTEN 2026-10-22, after the case list changed under it.
+//
+// Three things were wrong rather than merely tired. Para 1 said "Java services
+// and Python pipelines" while two of the four cases above it — including the
+// lead — are Node, so the section contradicted the evidence a reader had just
+// scrolled past. Para 2's examples were tagging questions and mapping course
+// files, both demoted to Also shipped the same day, so its illustrations pointed
+// at two-line entries further down the page. And nothing here claimed the one
+// thing the page now actually demonstrates: what you put around a model so its
+// output is safe to ship.
+//
+// The last sentence is the sharpest claim on the site and it is deliberately
+// placed last, where it is the thing a reader leaves with. It is also the one
+// most likely to be asked about, which is the point — MG-041 is graded strong
+// and the 11% is the evidence that the cap did real work.
 export const about = {
   paragraphs: [
-    'I work on both sides of the same platform. The Java services that answer a student’s request, and the Python pipelines that decide what those services have to say.',
-    'Most of what I have built at MathonGo started as something a person was doing by hand every week: tagging questions, mapping course files into batches, assembling a quality report. The interesting part is rarely the automation itself. It is working out what the manual process was actually protecting, and making sure the automated one still protects it.',
+    'I work on both sides of the same platform: the services that answer a student\u2019s request, and the pipelines that decide what those services have to say. Which language depends on where the problem sits \u2014 Java and Spring Boot in the exam backend, Node and Python for most of what feeds it.',
+    'Most of what I have built at MathonGo started as something a person was doing by hand every week: clearing caches, curating question lists, assembling a quality report. The interesting part is rarely the automation itself. It is working out what the manual process was actually protecting, and making sure the automated one still protects it.',
+    'Several of them now have a model somewhere in the middle, which only moves that question rather than answering it. A model asked to score will rationalise, so the limits worth having live in code, where it cannot argue with them.',
     'Outside work I have solved 300+ data structures and algorithms problems, and I build small distributed systems to understand them properly: a rate limiter and a job queue, both of which taught me more about Redis semantics than reading about them did.',
   ],
-  factIds: ['ACH-001'],
+  factIds: ['ACH-001', 'MG-031', 'MG-040', 'MG-041', 'MG-030'],
 }
+
 
 export const nav = [
   { href: '#work', label: 'Work' },
