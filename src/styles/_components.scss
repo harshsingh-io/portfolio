@@ -363,47 +363,60 @@
 }
 
 .hero__actions {
-  position: relative;
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-3);
   margin-top: var(--space-6);
+
+  /* The three CTAs are driven as ONE element by Tendrils.jsx — the strands root
+     along this box's perimeter, not any single link's. transform-origin is the
+     centre so the spring rotation pivots about the group. */
+  transform-origin: 50% 50%;
+  will-change: transform;
 }
 
-/* The ink canvas. Bled well past the buttons so a strand can stretch toward a
-   pointer that has not reached them yet; the arming radius is 150px and the
-   strands break around 125-195px, so 200px of bleed is the smallest that never
-   clips one mid-stretch.
-   
-   `color` is what the canvas paints with — it reads it through
-   getComputedStyle every frame, which is how the ink follows the theme without
-   the component knowing anything about themes.
-   
-   Behind the buttons and inert: z-index 0 against the buttons' own stacking,
-   and pointer-events none so it cannot intercept a click on a CTA. */
-.hero__ink {
-  position: absolute;
-  top: -200px;
-  left: -200px;
-
-  /* calc, NOT `inset: -200px`. A canvas is a REPLACED element, so when its
-     width is auto the used width is its intrinsic width — the width attribute —
-     and the opposing offset is simply dropped as over-constrained. The element
-     therefore never stretched to the insets, and because the script sets the
-     attribute from the measured rect each time, every measure doubled it:
-     600 -> 1200 -> 2400. Sizing from the parent breaks the loop, and the script
-     now only ever writes the backing store. */
-  width: calc(100% + 400px);
-  height: calc(100% + 400px);
-
-  z-index: 0;
-  color: var(--ink);
+/* ══ Gooey tendrils ═══════════════════════════════════════════════════════
+   Decorative, pointer-only, and mounted by Tendrils.jsx which refuses to run
+   at all under `prefers-reduced-motion: reduce` or on a coarse pointer. There
+   is no content here, so absence is the correct reduced-motion behaviour
+   rather than an instant version of it. */
+.goo__canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
+
+  /* Under the sticky nav (z-index 50) so the strands never cross the menu,
+     over the hero so they read as being in front of the page. */
+  z-index: 20;
 }
 
-.hero__actions .btn {
-  position: relative;
-  z-index: 1;
+.goo__glove {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 48px;
+  height: 48px;
+  pointer-events: none;
+  z-index: 21;
+  opacity: 0;
+  will-change: transform;
+
+  /* Rotates about the fingertip so the drawn tip always sits on the real
+     pointer position. Must match HOTSPOT in Tendrils.jsx. */
+  transform-origin: 24.5px 5px;
+  filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.22));
+  transition: opacity 150ms var(--ease);
+}
+
+/* The system cursor is hidden ONLY while the pointer is inside the activation
+   zone around the buttons, and the class comes straight back off on exit. The
+   reference hides it globally with !important, which on a page that is not a
+   single button means every other link loses its pointer. */
+.is-goo,
+.is-goo .hero__actions .btn {
+  cursor: none;
 }
 
 .hero__portrait {
