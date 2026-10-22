@@ -40,16 +40,48 @@ function Artwork() {
     <div className="hero__art" aria-hidden="true">
       <svg viewBox="0 0 1200 925" preserveAspectRatio="xMidYMax meet" focusable="false">
         <defs>
-          <pattern id="ha-dots" width="30" height="30" patternUnits="userSpaceOnUse">
-            <circle cx="1.6" cy="1.6" r="1.6" className="hero__art-dot-fill" />
+          {/* Three dot patterns on the SAME 30px lattice and the same 1.6/1.6
+              offset, so the bigger dots land exactly on top of the small ones
+              rather than beside them. Stacking them behind masks of shrinking
+              extent is what makes the dots appear to GROW toward a focus —
+              a pattern cannot vary per tile, so size has to come from which
+              layers survive their mask. */}
+          <pattern id="ha-dots-s" width="30" height="30" patternUnits="userSpaceOnUse">
+            <circle cx="1.6" cy="1.6" r="1.7" className="hero__art-dot-fill" />
+          </pattern>
+          <pattern id="ha-dots-m" width="30" height="30" patternUnits="userSpaceOnUse">
+            <circle cx="1.6" cy="1.6" r="3.6" className="hero__art-dot-lit" />
+          </pattern>
+          <pattern id="ha-dots-l" width="30" height="30" patternUnits="userSpaceOnUse">
+            <circle cx="1.6" cy="1.6" r="5.4" className="hero__art-dot-lit" />
           </pattern>
           <radialGradient id="ha-fade" cx="56%" cy="44%" r="64%">
             <stop offset="0%" stopColor="#fff" stopOpacity="1" />
             <stop offset="58%" stopColor="#fff" stopOpacity="0.9" />
             <stop offset="100%" stopColor="#fff" stopOpacity="0" />
           </radialGradient>
+          {/* The bloom sits in the OPEN grid to the LEFT of the figure. Centred
+              on the figure it was completely hidden — the portrait is opaque,
+              so a bloom behind it is a bloom nobody sees. The figure occupies
+              x 460-1158 of this 1200 box; the dots are only visible below
+              that. */}
+          <radialGradient id="ha-bloom-m" cx="26%" cy="52%" r="34%">
+            <stop offset="0%" stopColor="#fff" stopOpacity="1" />
+            <stop offset="60%" stopColor="#fff" stopOpacity="0.55" />
+            <stop offset="100%" stopColor="#fff" stopOpacity="0" />
+          </radialGradient>
+          <radialGradient id="ha-bloom-l" cx="26%" cy="52%" r="19%">
+            <stop offset="0%" stopColor="#fff" stopOpacity="1" />
+            <stop offset="100%" stopColor="#fff" stopOpacity="0" />
+          </radialGradient>
           <mask id="ha-mask">
             <rect width="1200" height="925" fill="url(#ha-fade)" />
+          </mask>
+          <mask id="ha-mask-m">
+            <rect width="1200" height="925" fill="url(#ha-bloom-m)" />
+          </mask>
+          <mask id="ha-mask-l">
+            <rect width="1200" height="925" fill="url(#ha-bloom-l)" />
           </mask>
         </defs>
 
@@ -61,8 +93,22 @@ function Artwork() {
           width="1200"
           height="925"
           className="hero__art-grid"
-          fill="url(#ha-dots)"
+          fill="url(#ha-dots-s)"
           mask="url(#ha-mask)"
+        />
+        <rect
+          width="1200"
+          height="925"
+          className="hero__art-grid-m"
+          fill="url(#ha-dots-m)"
+          mask="url(#ha-mask-m)"
+        />
+        <rect
+          width="1200"
+          height="925"
+          className="hero__art-grid-l"
+          fill="url(#ha-dots-l)"
+          mask="url(#ha-mask-l)"
         />
 
         {/* FIG. 01, upper left, with its leader angling in toward the figure. */}

@@ -464,6 +464,7 @@
   --art-paper: #eeeae2;
   --art-paper-2: #f3f0e8;
   --art-dot: #d8d4c8;
+  --art-dot-lit: #1a48c4;
   --art-paper-lit: #e4e3e6;
 }
 
@@ -474,6 +475,8 @@
     --art-paper: #4a463c;
     --art-paper-2: #4a463c;
     --art-dot: #6d6a60;
+  --art-dot-lit: #8aa7ff;
+    --art-dot-lit: #8aa7ff;
     --art-paper-lit: #51504a;
   }
 }
@@ -484,6 +487,7 @@
   --art-paper: #4a463c;
   --art-paper-2: #4a463c;
   --art-dot: #6d6a60;
+  --art-dot-lit: #8aa7ff;
   --art-paper-lit: #51504a;
 }
 
@@ -512,6 +516,13 @@
 
 .hero__art-dot-fill {
   fill: var(--art-dot);
+}
+
+/* The dots inside the bloom carry the accent, so the grid gains colour toward
+   the focus as well as size. Low alpha because three layers stack here. */
+.hero__art-dot-lit {
+  fill: var(--art-dot-lit);
+  opacity: 0.7;
 }
 
 .hero__art-line {
@@ -1704,16 +1715,23 @@
     animation: art-arrive 400ms var(--ease) 900ms forwards;
   }
 
-  /* THE AMBIENT LIVES ON THE GRID. It was a radial glow behind the figure and
-     an occasional twitch on the markers; both are gone. One slow breath across
-     the dots is quieter and reads as the drawing being alive rather than as
-     something blinking at you.
+  /* THE AMBIENT IS THE BLOOM, NOT A BLINK. Fading the whole grid together was
+     exactly that — every dot changing in lockstep reads as the lights flicking.
+     The base layer is now completely static, and only the two bloom layers
+     move, so what changes is how far the large dots reach rather than how
+     bright everything is.
 
-     The keyframe starts and ends at the resting opacity so there is no step
-     when the loop begins at 1.2s, and it is opacity-only, so it stays on the
-     compositor and off the main thread. */
-  .hero__art-grid {
-    animation: grid-breathe 7s ease-in-out 1.2s infinite;
+     The two periods are 9s and 13s on purpose. They share no small common
+     multiple, so the superposition does not visibly repeat for almost two
+     minutes and the drift reads as organic rather than as a loop.
+
+     Opacity only, so both stay on the compositor and off the main thread. */
+  .hero__art-grid-m {
+    animation: bloom-mid 9s ease-in-out 1.2s infinite;
+  }
+
+  .hero__art-grid-l {
+    animation: bloom-core 13s ease-in-out 1.2s infinite;
   }
 
   .hero__art-orbit {
@@ -1790,12 +1808,22 @@
   }
 }
 
-@keyframes grid-breathe {
+@keyframes bloom-mid {
   0%,
   100% {
-    opacity: 1;
+    opacity: 0.5;
   }
   50% {
-    opacity: 0.62;
+    opacity: 1;
+  }
+}
+
+@keyframes bloom-core {
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.85;
   }
 }
