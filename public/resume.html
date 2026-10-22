@@ -142,16 +142,22 @@
         <p class="techs">Java · Spring Boot · MongoDB · PostgreSQL · PgBouncer</p>
       </li>
       <li class="item">
-        <p class="item-title">250,000 questions, reclassified and measured</p>
-        <p>The content team was tagging exam questions by hand. An LLM pipeline replaced the tagging; a sampled QC process replaced the guesswork about whether it worked.</p>
-        <p class="figures">250K+ questions reclassified · 92% QC pass rate on a sampled review · 3,000 questions in the QC sample</p>
-        <p class="techs">Python · Gemini 2.5 Pro · ETL · MongoDB</p>
+        <p class="item-title">Which questions are worth a student’s time</p>
+        <p>A student cannot practise seventeen thousand past questions. Ranking them by difficulty is someone’s opinion; ranking them by how closely they resemble what the exam is asking now is a measurement.</p>
+        <p class="figures">13,154 questions scored against their chapter · 11% corrected by a cap the model cannot override · 63% of input tokens served from cache</p>
+        <p class="techs">Node.js · MongoDB · OpenRouter</p>
       </li>
       <li class="item">
         <p class="item-title">Catching bad questions before students do</p>
         <p>If a lot of the students who attempt a question go on to report it, the question is usually the problem. A weekly pass turns that ratio into a list someone can act on.</p>
         <p class="figures">0.5% unique-user error-rate threshold · Weekly automated, replacing a manual report</p>
         <p class="techs">Python · Google Drive API · Slack API</p>
+      </li>
+      <li class="item">
+        <p class="item-title">Question classification pipeline</p>
+        <p>An ETL over the Gemini 2.5 Pro API that tags exam questions by topic, concept and hints, replacing manual tagging by the content team. Image-based Physics, Chemistry and Biology questions have their context extracted first, which was most of what made the naive version fail. 250K+ questions reclassified, with a 3,000-question sample reviewed at a 92% QC pass rate.</p>
+        
+        <p class="techs">Python · Gemini 2.5 Pro · ETL · MongoDB</p>
       </li>
       <li class="item">
         <p class="item-title">Self-serve LMS asset platform</p>

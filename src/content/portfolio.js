@@ -116,25 +116,36 @@ export const cases = [
     ],
     schematic: 'pooling',
   },
+  // REPLACED the classification case 2026-10-22. Harsh's own read was that the
+  // tagging pipeline was "just a normal task" — an ETL with a model in it. This
+  // is the same domain and a different class of work: every selection decision
+  // here has a measurement behind it, and the guardrails are the interesting
+  // part. Classification moved to Also shipped rather than being dropped; its
+  // numbers are still real.
+  //
+  // MG-040..044 are graded strong/solo, AI-ASSISTED IMPLEMENTATION, his design.
+  // `solo` makes "Designed" available, which raises rather than lowers the bar:
+  // everything below has to be defensible unaided.
   {
-    id: 'classification',
+    id: 'bucket-tagging',
     index: '03',
-    title: '250,000 questions, reclassified and measured',
+    title: 'Which questions are worth a student’s time',
     standfirst:
-      'The content team was tagging exam questions by hand. An LLM pipeline replaced the tagging; a sampled QC process replaced the guesswork about whether it worked.',
-    factIds: ['MG-012', 'MG-013', 'MG-014'],
-    stack: ['Python', 'Gemini 2.5 Pro', 'ETL', 'MongoDB'],
+      'A student cannot practise seventeen thousand past questions. Ranking them by difficulty is someone’s opinion; ranking them by how closely they resemble what the exam is asking now is a measurement.',
+    factIds: ['MG-040', 'MG-041', 'MG-042', 'MG-043'],
+    stack: ['Node.js', 'MongoDB', 'OpenRouter'],
     metrics: [
-      { value: '250K+', label: 'questions reclassified', factIds: ['MG-013'] },
-      { value: '92%', label: 'QC pass rate on a sampled review', factIds: ['MG-014'] },
-      { value: '3,000', label: 'questions in the QC sample', factIds: ['MG-014'] },
+      { value: '13,154', label: 'questions scored against their chapter', factIds: ['MG-040'] },
+      { value: '11%', label: 'corrected by a cap the model cannot override', factIds: ['MG-041'] },
+      { value: '63%', label: 'of input tokens served from cache', factIds: ['MG-043'] },
     ],
     body: [
-      'Built an ETL pipeline over the Gemini 2.5 Pro API that classifies exam questions by topic, concept, hints and quicknotes, replacing an error-prone manual process owned by the content team.',
-      'Image-based Physics, Chemistry and Biology questions needed their context extracted before they could be tagged at all, which is most of what made the naive version fail.',
-      'The 92% is a QC pass rate, not precision: the content team reviewed a 3,000-question sample, 500 each across Physics, Chemistry, Maths, Biology, English and Logical Reasoning, and 92% came back correct. It was measured on the same version that went on to process all 250K, so it describes the real run rather than a pilot.',
+      'Two curated buckets hang off every chapter of the JEE Main course, and the question they answer is: if a student can only do a few dozen questions here, which ones? Each of 13,154 past questions is scored out of 100 for how likely its topic, format and reasoning are to show up again, judged against a profile of what the last two years of papers actually asked.',
+      'A model asked to score will rationalise, so the limits live in code where it cannot argue with them. The one I would want to be asked about refuses a high score when a question’s topic appears nowhere in its chapter’s recent profile — it stops the model bridging a dead topic to a live one, inflating an old question because something adjacent is trending. That single cap corrected 1,492 of the 13,154 scores, 11% of the run, which is the difference between a guardrail and a precaution.',
+      'Picking the top N by score would have failed, and the scores say why: 54% of questions score above 85, so a global threshold separates almost nothing, and the most pattern-heavy subject has three times the share of top-band scores of the flattest one, so a single ranking would have produced a bucket dominated by one subject. Instead each chapter competes against itself for its own quota, slots are shared across topics by largest-remainder apportionment so no topic is silently rounded away, and at most 30% of any topic’s picks may come from the two most recent years — recency bias measured, not assumed.',
+      'Cost came from ordering rather than from a cache library. Questions are scored chapter by chapter, so the chapter’s profile sits unchanged at the front of every request in that batch and becomes a cacheable prefix: 63% of input tokens were served from cache, and the full 13,154-question run cost about 1,290 rupees.',
     ],
-    schematic: 'classification',
+    schematic: 'buckets',
   },
   {
     id: 'quality-pipeline',
@@ -157,6 +168,15 @@ export const cases = [
 ]
 
 export const alsoShipped = [
+  {
+    id: 'classification',
+    kicker: 'MathonGo',
+    title: 'Question classification pipeline',
+    factIds: ['MG-012', 'MG-013', 'MG-014'],
+    summary:
+      'An ETL over the Gemini 2.5 Pro API that tags exam questions by topic, concept and hints, replacing manual tagging by the content team. Image-based Physics, Chemistry and Biology questions have their context extracted first, which was most of what made the naive version fail. 250K+ questions reclassified, with a 3,000-question sample reviewed at a 92% QC pass rate.',
+    stack: ['Python', 'Gemini 2.5 Pro', 'ETL', 'MongoDB'],
+  },
   // DEMOTED from a lead case 2026-10-22. Five cases was one too many, and this was
   // the weakest of them on mechanism: its interesting part is the outcome (40 hrs/week
   // to 8), not how it works, so a reader who clicked in for the engineering found a

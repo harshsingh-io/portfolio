@@ -162,41 +162,44 @@ function Cache() {
   )
 }
 
-// ── Fig. 3 · classification (case 03) ────────────────────────────────────────
-// The branch is the point. A text question goes straight to the classifier; an
-// image-based Physics, Chemistry or Biology question has to have its context
-// extracted before it can be tagged at all, and the prose says that detour is
-// most of what made the work hard. Drawing both inlets makes the longer route
-// visible rather than asserted. The QC figure hangs off the output because 3,000
-// is a sample of the 250K+, not a second pipeline.
-function Classification() {
+// ── Fig. 3 · bucket tagging (case 03) ───────────────────────────────────────
+// The shape of the argument, not the shape of the code. Scoring is the top row
+// and is the part a model does; the bottom row is everything that happens to the
+// model's answer afterwards, which is where the work actually is. The caps box
+// is drawn in the path rather than beside it because nothing reaches a quota
+// without passing through it — the model cannot route around a clamp applied
+// after it has already answered.
+function Buckets() {
   return (
     <>
-      <Flow d="M150 44 C 250 44, 280 104, 352 110" i={1} />
-      <Flow d="M150 180 L 176 180" i={3} />
-      <Flow d="M326 180 C 340 180, 340 130, 352 124" i={5} />
-      <Flow d="M544 116 L 572 116" variant="schematic__flow--trunk" i={7} />
+      <Flow d="M158 50 L 186 50" i={1} />
+      <Flow d="M336 50 L 364 50" i={3} />
+      <Flow d="M444 80 C 444 112, 300 110, 268 138" i={5} />
+      <Flow d="M356 168 L 388 168" i={7} />
+      <Flow d="M556 168 L 584 168" variant="schematic__flow--trunk" i={9} />
 
-      <Node x={8} y={16} w={142} h={56} label="text question" i={0} />
-      <Node x={8} y={152} w={142} h={56} label="image question" i={2} />
-      <Node x={176} y={152} w={150} h={56} label="extract context" i={4} />
+      <Node x={8} y={22} w={150} h={56} label="2025–26 papers" i={0} />
+      <Node x={186} y={22} w={150} h={56} label="chapter profile" i={2} />
+      <Node x={364} y={22} w={166} h={56} label="score each" note="13,154 questions" i={4} />
+
       <Node
-        x={352}
-        y={84}
-        w={192}
-        h={64}
-        label="classify"
-        note="topic · concept · hints"
+        x={180}
+        y={138}
+        w={176}
+        h={60}
+        label="caps, in code"
+        note="11% corrected"
         variant="schematic__box--accent"
         i={6}
       />
-      <Node x={572} y={92} w={100} h={48} label="bank" i={8} />
+      <Node x={388} y={138} w={168} h={60} label="per-chapter quota" note="30% recent ceiling" i={8} />
+      <Node x={584} y={138} w={88} h={60} label="bucket" i={10} />
 
-      <Float x={184} y={132} accent={false} i={5}>
-        most of the work
+      <Float x={286} y={100} i={5}>
+        after the model answers
       </Float>
-      <Float x={352} y={178} i={9}>
-        250K+ classified · 3,000 sampled at 92%
+      <Float x={548} y={44} i={11}>
+        63% cached
       </Float>
     </>
   )
@@ -290,15 +293,15 @@ const FIGURES = {
       </>
     ),
   },
-  classification: {
-    Body: Classification,
+  buckets: {
+    Body: Buckets,
     title:
-      'Two kinds of question enter the pipeline. A text question goes directly to the classifier. An image-based question must first have its context extracted, which is the longer path and most of the difficulty. Both then get topic, concept and hint tags written back to the question bank. A sample of 3,000 questions was reviewed for quality and 92 percent passed.',
+      'Questions from the two most recent papers are read to build a profile of what each chapter is currently being asked. Every one of 13,154 historical questions is then scored out of 100 against its own chapter profile. Caps applied in code after the model answers correct scores the model should not have given, which affected 11 percent of the run. What survives is allocated by a per-chapter quota, with at most 30 percent of any topic coming from the most recent two years, and the result becomes the chapter bucket.',
     caption: (
       <>
-        The image branch is the work. Everything else is an ETL;
-        <span className="mono"> extract context</span> is why the job needed a
-        model at all.
+        The model scores. Everything after it is the part that decides what a
+        student sees, and none of it is negotiable by the model:
+        <span className="mono"> caps</span> apply to an answer already given.
       </>
     ),
   },
