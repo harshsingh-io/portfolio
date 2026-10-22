@@ -135,28 +135,8 @@ export const cases = [
     ],
   },
   {
-    id: 'lms-assets',
-    index: '04',
-    title: 'Forty hours a week, down to eight',
-    standfirst:
-      'Teachers shared files, the content team watermarked them by hand, dropped Drive links into a spreadsheet, and someone ran a script. Now teachers drive it themselves.',
-    factIds: ['MG-019', 'MG-020', 'MG-021'],
-    stack: ['Java', 'Python', 'Google Drive API', 'Slack API'],
-    // 40→8 and "80%" are the same measurement stated twice, MG-021 carries both.
-    // One of them is padding in a three-metric row, so the ratio goes and the
-    // absolute numbers stay.
-    metrics: [
-      { value: '40→8', label: 'hrs/week of manual work', factIds: ['MG-021'] },
-      { value: '1,000+', label: 'multi-format files ingested', factIds: ['MG-020'] },
-    ],
-    body: [
-      'Built a self-serve platform for MathonGo LMS course assets, end to end. Teachers upload PDFs, slides, class notes and DPP notes and configure placement from a panel; the backend ingests them through the Google Drive API and maps them into the right courses and batches automatically.',
-      'The content team went from owning the whole chain to owning only QC, triggered by a Slack notification when a teacher uploads. That took their manual asset workload from about 40 hours a week to about 8.',
-    ],
-  },
-  {
     id: 'quality-pipeline',
-    index: '05',
+    index: '04',
     title: 'Catching bad questions before students do',
     standfirst:
       'If a lot of the students who attempt a question go on to report it, the question is usually the problem. A weekly pass turns that ratio into a list someone can act on.',
@@ -174,6 +154,20 @@ export const cases = [
 ]
 
 export const alsoShipped = [
+  // DEMOTED from a lead case 2026-10-22. Five cases was one too many, and this was
+  // the weakest of them on mechanism: its interesting part is the outcome (40 hrs/week
+  // to 8), not how it works, so a reader who clicked in for the engineering found a
+  // workflow description. The numbers are the point and they survive intact here.
+  // MG-019/020/021 stay cited, so the Stack section keeps Google Drive API and Slack API.
+  {
+    id: 'lms-assets',
+    kicker: 'MathonGo',
+    title: 'Self-serve LMS asset platform',
+    factIds: ['MG-019', 'MG-020', 'MG-021'],
+    summary:
+      'Teachers upload PDFs, slides and notes and configure placement themselves; the backend ingests through the Google Drive API and maps them into the right courses and batches, with a Slack notification putting the content team on QC only. 1,000+ multi-format files ingested, and their manual asset work went from about 40 hrs/week to about 8.',
+    stack: ['Java', 'Python', 'Google Drive API', 'Slack API'],
+  },
   {
     id: 'zoom-pipeline',
     kicker: 'MathonGo',
@@ -193,6 +187,22 @@ export const alsoShipped = [
     summary:
       'AWS Lambda and Python pulling VdoCipher metadata into Google Sheets dashboards on an EventBridge cron, with CloudWatch alerting. 2,500+ videos under automated monitoring.',
     stack: ['Python', 'AWS Lambda', 'EventBridge', 'CloudWatch'],
+  },
+  // MG-038, added 2026-10-22 once blame confirmed the scope. The only one of the
+  // five internal-panel facts with a design idea rather than a feature list, and
+  // the partial-failure question is answered in the code: no transaction, writes
+  // settled independently, every target reported back as updated/created/failed.
+  //
+  // PUBLICATION SAFETY: mechanism only. No collection names, no field names, no
+  // product internals — the same bar the lead case clears.
+  {
+    id: 'banner-reconcile',
+    kicker: 'MathonGo',
+    title: 'Editing a campaign as one operation',
+    factIds: ['MG-038'],
+    summary:
+      'A dashboard campaign is stored as one banner per screen, so editing it meant one call per screen. The API now takes the campaign plus the screens it should cover and converges on that: existing screens updated, missing ones cloned from a sibling with the edit applied. Writes settle independently rather than in a transaction, and each screen reports back as updated, created or failed, so a half-applied campaign is visible.',
+    stack: ['Node.js', 'Express', 'MongoDB'],
   },
   // DECIDED, reviewed 2026-09-25, full technical depth kept on both of these.
   //
@@ -232,7 +242,7 @@ export const alsoShipped = [
     title: 'Distributed job queue',
     factIds: ['PRJ-006'],
     summary:
-      'At-least-once execution, with concurrent double-runs ruled out by a Redisson lock plus a status guard taken inside it: a worker only proceeds if the job is still pending or failed, and persists RUNNING before doing any work, so a second worker finds it taken and drops it. Exponential-backoff retries at 1s/2s/4s, a dead-letter queue with manual replay, Redis sorted sets for timestamp-ordered delayed scheduling, and Postgres tracking the full lifecycle across pending, running, done, failed, dead-letter and cancelled.',
+      'At-least-once execution, with concurrent double-runs ruled out by a Redisson lock plus a status guard taken inside it: a worker proceeds only if the job is still pending or failed, and persists RUNNING before doing any work, so a second worker finds it taken and drops it. Then exponential-backoff retries at 1s/2s/4s, a dead-letter queue, Redis sorted sets for delayed scheduling, and a six-state lifecycle in Postgres.',
     stack: ['Java 17', 'Spring Boot 3', 'Spring Data JPA', 'Redis', 'Redisson', 'PostgreSQL'],
     href: 'https://github.com/harshsingh-io/task_queue',
   },
@@ -318,6 +328,9 @@ export const earlierRoles = {
 export const stack = [
   {
     group: 'Backend',
+    // Node.js and Express were missing until 2026-10-22 while the LEAD CASE was a
+    // Node.js tool — a reader scanning this index would not have known he writes it.
+    // Both are backed by MG-031, so pass 3 permits them.
     items: [
       'Java',
       'Spring Boot 3',
@@ -331,8 +344,10 @@ export const stack = [
       'PgBouncer',
       'REST',
       'JUnit',
+      'Node.js',
+      'Express',
     ],
-    evidence: ['pooling', 'rate-limiter', 'task-queue'],
+    evidence: ['cache-invalidation', 'pooling', 'rate-limiter', 'task-queue'],
   },
   {
     group: 'Data & pipelines',

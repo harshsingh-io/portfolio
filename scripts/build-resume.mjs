@@ -27,6 +27,39 @@
 // everything after it down 112px. Shaving ~16px above that item pulled it back
 // onto page 1 and recovered the entire shift.
 //
+// NO STACK SECTION, and that is the page budget talking. Adding the campaign-
+// reconciliation item took the document to 2086px effective — three pages, with
+// the third holding nothing but Education. Of the four ways out, only two gave a
+// comfortable fit: dropping the grouped Stack section (-123px, 109px headroom) or
+// dropping every per-item technology line (-199px). The per-item lines are the
+// ones a technical reader actually uses — they say what each project was built
+// with — and the grouped section repeated them with nothing added, so the group
+// went. Every technology it listed still appears in the document: in an item's own
+// tech line, a role bullet, or a summary. Verified by set difference, not assumed.
+//
+// AND NO FLAT KEYWORD LINE IN THE HEADER EITHER — tried and measured, 2026-10-22.
+// The argument for one was ATS: with the grouped section gone, the technologies
+// are spread across ten per-item lines and the prose rather than sitting in one
+// block. The argument assumed a single line. It cannot be a single line: 25 names
+// is 283 characters, which wraps to three lines in a 688px column, and dropping
+// the type to 8.8px still wraps to three. Fifty pixels of mono tooling between the
+// job title and the contact details is the loudest thing on the page, bigger than
+// the thesis, and it reads as "here are all the words, match one" — the exact
+// register the grouped section was cut to escape. It also cost 147px rather than
+// 55px, because the extra height pushed a work item across the page-1 fold and
+// that item jumped whole. Three pages again, Education orphaned again.
+//
+// Every one of those 25 names already appears in the document. An ATS reads text,
+// not visual grouping. If a concentrated keyword block is ever genuinely needed,
+// the END of the document measured at 2 pages with 47px of headroom — but 47px is
+// inside the range where one printer-margin setting flips it, so it is not free.
+//
+// Shrinking margins does NOT work here and is measured, not guessed: taking .item
+// to 5px and bullets to 2px removes 22px of raw height and moves the effective
+// bottom by zero, because the Education block simply starts 22px higher and still
+// straddles the fold, so it is still pushed whole to the next page. Under ~38px of
+// raw saving you buy nothing but a tighter-looking page.
+//
 // So: lengthening the copy in portfolio.js can cost a third page in a single
 // step, and that third page would hold two lines of Education. If you add a case
 // or a role bullet, re-measure at 688px rather than eyeballing it on screen —
@@ -50,12 +83,12 @@ function loadContent() {
     throw new Error('portfolio.js now has imports; load it as a real module instead')
   }
   const body = `${src.replace(/^export const /gm, 'const ')}
-    return { profile, roles, earlierRoles, cases, alsoShipped, stack }`
+    return { profile, roles, earlierRoles, cases, alsoShipped }`
   // eslint-disable-next-line no-new-func
   return new Function(body)()
 }
 
-const { profile, roles, earlierRoles, cases, alsoShipped, stack } = loadContent()
+const { profile, roles, earlierRoles, cases, alsoShipped } = loadContent()
 
 // Education is not a claim about work, so it is not in facts.yaml. Recovered
 // from the JSON-LD this site shipped before the rebuild (git show f62d748).
@@ -182,10 +215,6 @@ const html = `<!doctype html>
      Outlier's last bullet at the same left margin, and without this it scans as
      a fourth bullet. The bullets carry an em-dash marker, this does not. */
   .earlier { margin-top: 9px; color: var(--ink-3); font-size: 9pt; }
-  .stack-row { display: flex; gap: 10px; margin-bottom: 3px; font-size: 9.2pt; }
-  .stack-row dt { flex: 0 0 104px; color: var(--ink); font-weight: 600; }
-  .stack-row dd { margin: 0; }
-  dl { margin: 0; }
 
   /* On paper the @page margin IS the margin, so the screen padding has to go or
      it is added on top of it. Measured: 2127px of content at the print column
@@ -237,17 +266,6 @@ ${workSection('Selected work at MathonGo', employerWork)}${workSection(
   'Personal projects',
   personalWork
 )}
-  <h3>Stack</h3>
-  <dl>
-${stack
-  .map(
-    (g) => `    <div class="stack-row"><dt>${esc(g.group)}</dt><dd>${esc(
-      g.items.join(' · ')
-    )}</dd></div>`
-  )
-  .join('\n')}
-  </dl>
-
   <h3>Education</h3>
   <section class="block">
     <h2>${esc(EDUCATION.school)}</h2>

@@ -164,25 +164,35 @@ public/
 - **Retired anchors** — `#portfolio`, `#mobile`, `#skills`, `#services`,
   `#testimonial` — are kept alive as zero-height sentinels inside the sections that
   replaced them. Old links still resolve.
-- **The PWA was removed.** `src/index.js` calls `unregister()` to tear down service
-  workers still installed in returning visitors' browsers, and clears the caches
-  they left. Keep that call for a release or two. (Lighthouse dropped the PWA
-  category in 12.0, so there is no score to protect.)
+- **The PWA was removed, and the teardown is permanent.** `src/index.js` calls
+  `unregister()` to kill service workers still installed in returning visitors'
+  browsers, and clears the caches they left. **DECIDED 2026-10-22: this stays
+  indefinitely, do not delete it.** The earlier note said "keep it for a release
+  or two", which would have meant that anyone who had not loaded the site since
+  September kept a stale cached shell forever — a visitor with no way to know they
+  are reading old copy. The call costs a few bytes; a stale shell costs
+  correctness, and this site's whole point is that its claims are current.
+  (Lighthouse dropped the PWA category in 12.0, so there is no score to protect.)
 
 ## Measured
 
-Lighthouse, production build, local server. Measured 2026-09-26, before the
-résumé CTA and pass 4 — both of which add a link and comments, not runtime work,
-so the scores are stale in date rather than in substance. Re-measure before
-quoting them anywhere that matters.
+Lighthouse 13.5.0, production build, local static server. **Re-measured
+2026-10-22** on the commit that added the résumé CTA.
 
 | | Perf | A11y | Best practices | SEO |
 |---|---|---|---|---|
 | Desktop | 100 | 100 | 100 | 100 |
 | Mobile | 97 | 100 | 100 | 100 |
 
-CLS 0 on both. JS 56 KB gzip, CSS 5 KB gzip, three self-hosted font files at 67 KB
-total.
+Lighthouse 13 adds an *agentic browsing* category; it scores 100 on both.
+
+| | LCP | CLS | TBT | Speed Index |
+|---|---|---|---|---|
+| Desktop | 0.5s | 0 | 0ms | 0.3s |
+| Mobile | 2.6s | 0 | 10ms | 1.1s |
+
+JS 56 KB gzip, CSS 5 KB gzip, three self-hosted font files at 67 KB total, ~505 KB
+transferred in all.
 
 Google Analytics is the largest single request on the page at ~187 KB — more than
 the entire app bundle. Removing it does not change the Lighthouse score but does cut

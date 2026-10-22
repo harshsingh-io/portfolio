@@ -1,6 +1,11 @@
 import { cases, alsoShipped, anchorAliases } from '../content/portfolio'
 import Schematic from './Schematic'
 
+// Spelled out because the heading is prose, not a stat. Falls back to the digit
+// rather than rendering "undefined" if the list ever outgrows the list.
+const NUMBER_WORDS = ['No', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven']
+const CASE_COUNT_WORD = NUMBER_WORDS[cases.length] ?? String(cases.length)
+
 function Case({ item }) {
   return (
     <article className="case enter" id={`case-${item.id}`}>
@@ -52,8 +57,13 @@ export default function Work() {
       <div className="shell">
         <div className="section__head enter">
           <p className="eyebrow">Selected work</p>
+          {/* Counted from the array, not typed. It has already been wrong twice:
+              "Four things I built" survived the fifth case being added, and
+              "Five systems" survived the LMS case being demoted to Also shipped
+              on 2026-10-22. A number in prose that must equal an array length is
+              a claim like any other, so it is derived rather than maintained. */}
           <h2 className="display section__title">
-            Five systems, and how they actually work
+            {CASE_COUNT_WORD} systems, and how they actually work
           </h2>
         </div>
 
