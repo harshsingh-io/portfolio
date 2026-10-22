@@ -371,9 +371,57 @@
 
 .hero__portrait {
   grid-column: 8 / 13;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
+  position: relative;
+  /* fit-content so the ::before below is measured against the IMAGE, not against
+     the full grid column, which is wider than the figure. */
+  width: fit-content;
+  margin-left: auto;
+
+  /* Pulled down so the bottom of the figure lands exactly on the hairline above
+     the facts strip, so the waist crop reads as the figure standing on the
+     page's own structure rather than as an arbitrary cut. TWO gaps have to be
+     cancelled, not one: the grid's row gap AND the strip's own margin. Pulling
+     only --space-7 left it 32px short. */
+  margin-bottom: calc((var(--space-6) + var(--space-7)) * -1);
+}
+
+/* The block the figure stands in front of. Starts 22% down so the head and
+   shoulders break the top edge — a frame around the whole figure would box it
+   in, which is the thing a cut-out is for avoiding.
+
+   THE TWO TONES ARE NOT THE SAME DECISION. In light mode the block is the warm
+   grey it looks like, and the dark suit against it measures 8.78:1 — the block
+   is doing the contrast work. In dark mode the obvious move, a block slightly
+   lighter than the page, makes things WORSE: the lifted blazer sits at L=0.050,
+   so a #1E1E1C panel drops it from 1.79:1 against the page to 1.59:1, and a
+   lighter one is worse still, because the panel is moving toward the blazer's
+   own luminance rather than away from it. Anything light enough to separate
+   properly would have to clear L=0.20, which is a bright slab beside a serif
+   headline. So dark mode goes the other way and recesses: a shade darker than
+   the page, which reads as a well rather than a panel and nudges the blazer to
+   1.88:1 instead of away from it. */
+.hero__portrait::before {
+  content: '';
+  position: absolute;
+  inset: 22% 0 0 0;
+  background: #eeeae2;
+  z-index: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .hero__portrait::before {
+    background: #0b0a08;
+  }
+}
+
+:root[data-theme='dark'] .hero__portrait::before {
+  background: #0b0a08;
+}
+
+/* The figure stands in front of the block. */
+.hero__portrait img {
+  position: relative;
+  z-index: 1;
 }
 
 /* A cut-out, with its shadows lifted — changed 2026-10-22, and the lift is the
@@ -490,6 +538,13 @@
     grid-column: 1 / -1;
     order: 1;
     justify-content: flex-start;
+    margin-left: 0;
+
+    /* The desktop pull is cancelled here. Below this breakpoint the figure is
+       ABOVE the body copy rather than beside it, so a negative bottom margin
+       would drag the heading up into the portrait instead of landing it on a
+       hairline that is no longer underneath it. */
+    margin-bottom: 0;
   }
 
   .hero__portrait img {

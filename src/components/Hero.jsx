@@ -16,6 +16,7 @@ const AVIF = '/img/portrait-320.avif 320w, /img/portrait-400.avif 400w, /img/por
 const WEBP = '/img/portrait-320.webp 320w, /img/portrait-400.webp 400w, /img/portrait-760.webp 760w'
 const SIZES = '(max-width: 860px) 200px, 380px'
 
+
 export default function Hero() {
   return (
     <section id="home" className="hero">
@@ -67,6 +68,10 @@ export default function Hero() {
           </div>
         </div>
 
+        {/* The block is a ::before on the figure, not an element: it is pure
+            decoration and should not be in the DOM for a screen reader to meet.
+            `inset: 22%` from the top is what lets the head break the top edge —
+            the figure is not boxed, it stands in front of a panel. */}
         <figure className="hero__portrait">
           {/* LCP element. Dimensions are explicit and the source is local, so
               there is no layout shift and no cross-origin redirect to wait on. */}
