@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Harsh Singh · Backend &amp; Data Engineer</title>
+<style>
+  /* resume.html is standalone — it does not load the app's CSS bundle, so the
+     two faces it uses have to be declared here or it falls back to system sans
+     with no visible error. Same stable /fonts/ URLs index.html uses. */
+  @font-face {
+    font-family: 'Geist'; font-style: normal; font-weight: 100 900; font-display: swap;
+    src: url('/fonts/geist-sans-var.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Geist Mono'; font-style: normal; font-weight: 100 900; font-display: swap;
+    src: url('/fonts/geist-mono-var.woff2') format('woff2');
+  }
+
+  @page { size: A4; margin: 13mm 14mm; }
+  :root {
+    --ink: #16150f; --ink-2: #413e37; --ink-3: #6e6a60;
+    --rule: #d6d2c6; --accent: #1a48c4;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0 auto; max-width: 860px; padding: 44px 36px; background: #fff;
+    color: var(--ink-2); font-size: 10pt; line-height: 1.48;
+    font-family: Geist, -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  }
+  p { margin: 0 0 3px; }
+  a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--rule); }
+  header { border-bottom: 1.5px solid var(--ink); padding-bottom: 9px; margin-bottom: 14px; }
+  h1 { margin: 0; color: var(--ink); font-size: 20pt; font-weight: 600; letter-spacing: -0.02em; }
+  .role { margin: 1px 0 7px; color: var(--accent); font-size: 10pt; font-weight: 500; }
+  /* 8.4pt rather than 8.8: at the print column the four contact items wrapped,
+     dropping the LinkedIn URL alone onto a second line at the top of the page. */
+  .contact { font-size: 8.4pt; color: var(--ink-3); }
+  .thesis { margin: 0 0 12px; color: var(--ink); font-size: 10.5pt; }
+  h2 { margin: 0; color: var(--ink); font-size: 11pt; font-weight: 600; letter-spacing: -0.01em; }
+  h2 .note { color: var(--ink-3); font-size: 8.8pt; font-weight: 400; }
+  h3 {
+    margin: 15px 0 8px; padding-bottom: 4px; border-bottom: 1px solid var(--rule);
+    color: var(--ink); font-size: 8.5pt; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .meta, .figures, .techs, .repo, .earlier {
+    font-family: 'Geist Mono', ui-monospace, Menlo, monospace;
+  }
+  .meta { margin: 0 0 5px; color: var(--ink-3); font-size: 8.5pt; }
+  .block { margin-bottom: 11px; break-inside: avoid; }
+  ul { margin: 0; padding: 0; list-style: none; }
+  .block li { margin-bottom: 3px; padding-left: 11px; text-indent: -11px; }
+  .block li::before { content: '— '; color: var(--ink-3); }
+  .item { margin-bottom: 7px; break-inside: avoid; }
+  .item-title { color: var(--ink); font-weight: 600; }
+  .repo { color: var(--accent); font-size: 8.2pt; font-weight: 400; border: 0; }
+  /* Hanging indent on both mono tails. When a figures line wrapped, the orphan
+     word landed flush-left under the bold title and read for a beat as a new
+     line of content rather than a continuation. Three of nine items wrap. */
+  .figures, .techs { padding-left: 13px; text-indent: -13px; font-size: 8.6pt; }
+  .figures { color: var(--ink); }
+  .techs { color: var(--ink-3); }
+  /* Spaced off the bullets above it: the Earlier line sits directly under
+     Outlier's last bullet at the same left margin, and without this it scans as
+     a fourth bullet. The bullets carry an em-dash marker, this does not. */
+  .earlier { margin-top: 9px; color: var(--ink-3); font-size: 9pt; }
+  .stack-row { display: flex; gap: 10px; margin-bottom: 3px; font-size: 9.2pt; }
+  .stack-row dt { flex: 0 0 104px; color: var(--ink); font-weight: 600; }
+  .stack-row dd { margin: 0; }
+  dl { margin: 0; }
+
+  /* On paper the @page margin IS the margin, so the screen padding has to go or
+     it is added on top of it. Measured: 2127px of content at the print column
+     width (182mm x 271mm = 688 x 1024 CSS px) with the padding, 1932px without.
+     One A4 page is 1024px, so the padding is the whole difference between two
+     pages and three — and the third held nothing but the Education block, with
+     its heading orphaned at the foot of page two.
+
+     break-after:avoid on h3 stops a section heading being stranded from the
+     block it introduces, independently of the length.
+
+     Do NOT hide .note here. The only one left is the "(a Scale AI company)"
+     qualifier on Outlier, which is a credential and must print. An earlier
+     draft hid it alongside per-line fact IDs that no longer exist in the output.
+
+     (No backticks in these comments: the whole document is one JS template
+     literal, so a backtick here is a syntax error in the generator.) */
+  @media print {
+    body { padding: 0; max-width: none; }
+    h3 { break-after: avoid; }
+  }
+</style>
+</head>
+<body>
+  <header>
+    <h1>Harsh Singh</h1>
+    <p class="role">Backend &amp; Data Engineer</p>
+    <p class="contact">
+      Bengaluru, India · <a href="mailto:harshsingh704888@gmail.com">harshsingh704888@gmail.com</a>
+      · <a href="https://singhcerely.tech">singhcerely.tech</a>
+      · <a href="https://github.com/harshsingh-io">github.com/harshsingh-io</a>
+      · <a href="https://www.linkedin.com/in/harshsingh-io">linkedin.com/in/harshsingh-io</a>
+    </p>
+  </header>
+
+  <p class="thesis">I build the services that run MathonGo’s exam platform, and the pipelines that keep its data honest. The backend I work on serves 300K+ daily active users.</p>
+
+  <h3>Experience</h3>
+    <section class="block">
+      <h2>MathonGo</h2>
+      <p class="meta">SDE-1 · Aug 2025 to present</p>
+      <ul>
+        <li>Backend services for the MARKS platform in Java and Spring Boot against PostgreSQL and MongoDB, plus Python for the ETL pipelines.</li>
+        <li>Debugged and maintained existing MARKS modules: CPYQB, Digital Books, NCERT, Mock Test, Bookmarks and Exam Updates.</li>
+        <li>Unit and integration tests (JUnit on the backend, PyTest on the ETLs) to catch regressions before release.</li>
+        <li>Content-level migrations across MathonGo’s platforms: MARKS, Quizrr and the main MathonGo product, in both directions.</li>
+        <li>Design and code reviews, and production debugging.</li>
+      </ul>
+    </section>
+    <section class="block">
+      <h2>Outlier <span class="note">(a Scale AI company)</span></h2>
+      <p class="meta">AI Engineer (Freelance) · Feb 2025 to Jul 2025</p>
+      <ul>
+        <li>Wrote 500+ tested code solutions with error handling as ground-truth training examples for code-generation models.</li>
+        <li>Evaluated AI-generated code for correctness, security vulnerabilities and performance bottlenecks, delivering detailed reviews.</li>
+        <li>Standardised annotation workflows while training agentic models.</li>
+      </ul>
+    </section>
+    <p class="earlier">Earlier · Persist Ventures, Nov 2024 to Jan 2025 · BlueMango Labs, Jan 2024 to Sep 2024</p>
+
+  <h3>Selected work at MathonGo</h3>
+  <ul>
+      <li class="item">
+        <p class="item-title">Clearing a cache without clearing the wrong thing</p>
+        <p>Invalidating part of a shared Redis keyspace by hand is one wildcard away from flushing something load-bearing. This makes you look before it lets you delete, and refuses the keys nobody should be touching.</p>
+        <p class="figures">20 product areas mapped before any of it was built · 5,000 keys per scan batch, nothing held in memory</p>
+        <p class="techs">Node.js · Redis · MongoDB · Express</p>
+      </li>
+      <li class="item">
+        <p class="item-title">Surviving exam-day load</p>
+        <p>Mock tests put tens of thousands of submissions through the platform in the same few minutes. Two datastores, two different ways of not falling over.</p>
+        <p class="figures">15 connections per pod · 1500ms queue timeout before failure · 750→33 pod connections to Postgres sockets</p>
+        <p class="techs">Java · Spring Boot · MongoDB · PostgreSQL · PgBouncer</p>
+      </li>
+      <li class="item">
+        <p class="item-title">250,000 questions, reclassified and measured</p>
+        <p>The content team was tagging exam questions by hand. An LLM pipeline replaced the tagging; a sampled QC process replaced the guesswork about whether it worked.</p>
+        <p class="figures">250K+ questions reclassified · 92% QC pass rate on a sampled review · 3,000 questions in the QC sample</p>
+        <p class="techs">Python · Gemini 2.5 Pro · ETL · MongoDB</p>
+      </li>
+      <li class="item">
+        <p class="item-title">Forty hours a week, down to eight</p>
+        <p>Teachers shared files, the content team watermarked them by hand, dropped Drive links into a spreadsheet, and someone ran a script. Now teachers drive it themselves.</p>
+        <p class="figures">40→8 hrs/week of manual work · 1,000+ multi-format files ingested</p>
+        <p class="techs">Java · Python · Google Drive API · Slack API</p>
+      </li>
+      <li class="item">
+        <p class="item-title">Catching bad questions before students do</p>
+        <p>If a lot of the students who attempt a question go on to report it, the question is usually the problem. A weekly pass turns that ratio into a list someone can act on.</p>
+        <p class="figures">0.5% unique-user error-rate threshold · Weekly automated, replacing a manual report</p>
+        <p class="techs">Python · Google Drive API · Slack API</p>
+      </li>
+      <li class="item">
+        <p class="item-title">Live-class recording pipeline</p>
+        <p>Zoom and VdoCipher webhooks into Spring Boot REST endpoints and S3, handling 100+ recordings a month and removing 5+ hrs/week of manual uploading from the content team.</p>
+        
+        <p class="techs">Java · Spring Boot · Zoom · VdoCipher · S3</p>
+      </li>
+      <li class="item">
+        <p class="item-title">Serverless video analytics</p>
+        <p>AWS Lambda and Python pulling VdoCipher metadata into Google Sheets dashboards on an EventBridge cron, with CloudWatch alerting. 2,500+ videos under automated monitoring.</p>
+        
+        <p class="techs">Python · AWS Lambda · EventBridge · CloudWatch</p>
+      </li>
+  </ul>
+  <h3>Personal projects</h3>
+  <ul>
+      <li class="item">
+        <p class="item-title">Distributed API rate limiter <a class="repo" href="https://github.com/harshsingh-io/rate-limiter">github.com/harshsingh-io/rate-limiter</a></p>
+        <p>A Redis Lua script gives atomic, race-free counters in a single round trip, with no check-then-set window. Fixed-window algorithm, tiered per-API-key limits (FREE 100/min, PRO 1000/min), and an annotation-based @RateLimit AOP aspect that intercepts ahead of business logic and returns the conventional X-RateLimit headers, plus Retry-After on a 429.</p>
+        
+        <p class="techs">Java · Spring Boot 3 · Spring AOP · Redis · Lua</p>
+      </li>
+      <li class="item">
+        <p class="item-title">Distributed job queue <a class="repo" href="https://github.com/harshsingh-io/task_queue">github.com/harshsingh-io/task_queue</a></p>
+        <p>At-least-once execution, with concurrent double-runs ruled out by a Redisson lock plus a status guard taken inside it: a worker only proceeds if the job is still pending or failed, and persists RUNNING before doing any work, so a second worker finds it taken and drops it. Exponential-backoff retries at 1s/2s/4s, a dead-letter queue with manual replay, Redis sorted sets for timestamp-ordered delayed scheduling, and Postgres tracking the full lifecycle across pending, running, done, failed, dead-letter and cancelled.</p>
+        
+        <p class="techs">Java 17 · Spring Boot 3 · Spring Data JPA · Redis · Redisson · PostgreSQL</p>
+      </li>
+  </ul>
+
+  <h3>Stack</h3>
+  <dl>
+    <div class="stack-row"><dt>Backend</dt><dd>Java · Spring Boot 3 · Spring AOP · Spring Data JPA · PostgreSQL · MongoDB · Redis · Redisson · Lua · PgBouncer · REST · JUnit</dd></div>
+    <div class="stack-row"><dt>Data &amp; pipelines</dt><dd>Python · PyTest · ETL · Gemini 2.5 Pro API · Google Drive API · Slack API · Google Sheets</dd></div>
+    <div class="stack-row"><dt>Cloud</dt><dd>AWS Lambda · S3 · EventBridge · CloudWatch</dd></div>
+  </dl>
+
+  <h3>Education</h3>
+  <section class="block">
+    <h2>Sagar Institute of Research &amp; Technology, Bhopal</h2>
+    <p class="meta">B.Tech, Computer Science</p>
+  </section>
+</body>
+</html>
