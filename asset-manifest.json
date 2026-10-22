@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.f5e81e96.css",
-    "main.js": "/static/js/main.7f11cf69.js",
+    "main.css": "/static/css/main.4347a42a.css",
+    "main.js": "/static/js/main.c0600c5b.js",
     "static/media/about@2x.webp": "/static/media/about@2x.c162c5dff5229ccb4e9d.webp",
     "static/media/about.webp": "/static/media/about.633d67e45dbf6ca5d7e5.webp",
     "index.html": "/index.html",
@@ -9,7 +9,7 @@
     "static/media/logo-outlier.webp": "/static/media/logo-outlier.1641ae4fd8e02a6663ba.webp"
   },
   "entrypoints": [
-    "static/css/main.f5e81e96.css",
-    "static/js/main.7f11cf69.js"
+    "static/css/main.4347a42a.css",
+    "static/js/main.c0600c5b.js"
   ]
 }
