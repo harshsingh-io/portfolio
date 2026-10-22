@@ -363,10 +363,47 @@
 }
 
 .hero__actions {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-3);
   margin-top: var(--space-6);
+}
+
+/* The ink canvas. Bled well past the buttons so a strand can stretch toward a
+   pointer that has not reached them yet; the arming radius is 150px and the
+   strands break around 125-195px, so 200px of bleed is the smallest that never
+   clips one mid-stretch.
+   
+   `color` is what the canvas paints with — it reads it through
+   getComputedStyle every frame, which is how the ink follows the theme without
+   the component knowing anything about themes.
+   
+   Behind the buttons and inert: z-index 0 against the buttons' own stacking,
+   and pointer-events none so it cannot intercept a click on a CTA. */
+.hero__ink {
+  position: absolute;
+  top: -200px;
+  left: -200px;
+
+  /* calc, NOT `inset: -200px`. A canvas is a REPLACED element, so when its
+     width is auto the used width is its intrinsic width — the width attribute —
+     and the opposing offset is simply dropped as over-constrained. The element
+     therefore never stretched to the insets, and because the script sets the
+     attribute from the measured rect each time, every measure doubled it:
+     600 -> 1200 -> 2400. Sizing from the parent breaks the loop, and the script
+     now only ever writes the backing store. */
+  width: calc(100% + 400px);
+  height: calc(100% + 400px);
+
+  z-index: 0;
+  color: var(--ink);
+  pointer-events: none;
+}
+
+.hero__actions .btn {
+  position: relative;
+  z-index: 1;
 }
 
 .hero__portrait {

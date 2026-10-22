@@ -1,4 +1,6 @@
+import { useRef } from 'react'
 import { profile, proof, facts } from '../content/portfolio'
+import CtaInk from './CtaInk'
 
 // Served from public/ rather than imported, so the URLs are stable and index.html
 // can <link rel="preload"> them. This is the LCP element; a hashed webpack URL is
@@ -97,6 +99,8 @@ function Artwork() {
 }
 
 export default function Hero() {
+  const actionsRef = useRef(null)
+
   return (
     <section id="home" className="hero">
       <div className="shell hero__inner">
@@ -129,7 +133,11 @@ export default function Hero() {
               src/content/portfolio.js on every prebuild, so it renders the same
               gated copy as this page and cannot drift from it or reintroduce a
               retired figure. It is a print-to-PDF page, not a PDF. */}
-          <div className="hero__actions">
+          {/* The ink canvas is a sibling of the buttons, not a wrapper, so it
+              cannot affect their layout or their hit areas. It paints behind
+              them and is pointer-events: none. */}
+          <div className="hero__actions" ref={actionsRef}>
+            <CtaInk targetRef={actionsRef} />
             <a className="btn btn--primary" href={`mailto:${profile.email}`}>
               Get in touch
             </a>
