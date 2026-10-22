@@ -69,16 +69,35 @@ export const facts = [
 export const proof = [
   { value: '250K+', unit: 'questions reclassified', factIds: ['MG-013'] },
   { value: '40→8', unit: 'hrs/week of manual work', factIds: ['MG-021'] },
-  { value: '99.2%', unit: 'uptime across 2,500+ videos', factIds: ['MG-011'] },
+  { value: '2,500+', unit: 'videos under automated monitoring', factIds: ['MG-011'] },
 ]
 
 export const cases = [
   {
-    id: 'pooling',
+    id: 'cache-invalidation',
     index: '01',
+    title: 'Clearing a cache without clearing the wrong thing',
+    standfirst:
+      'Invalidating part of a shared Redis keyspace by hand is one wildcard away from flushing something load-bearing. This makes you look before it lets you delete, and refuses the keys nobody should be touching.',
+    factIds: ['MG-031', 'MG-032', 'MG-033', 'MG-034'],
+    stack: ['Node.js', 'Redis', 'MongoDB', 'Express'],
+    metrics: [
+      { value: '20', label: 'product areas mapped before any of it was built', factIds: ['MG-034'] },
+      { value: '5,000', label: 'keys per scan batch, nothing held in memory', factIds: ['MG-033'] },
+    ],
+    body: [
+      'You cannot safely clear what you have not mapped, so the first thing I wrote was not the tool. It was an inventory of the keyspace: which cache keys each of 20 product areas owns, and what breaks if they go. Everything after that is built against it.',
+      'Clearing runs in two steps. A preview resolves whatever you are targeting into key patterns, walks the keyspace, and stores what it found as a job. Deleting is a separate call against that stored job, so the destructive step is something you confirm rather than something you trigger.',
+      'The walk is one pass. Redis matches patterns by filtering what a scan returns, not by indexing, so it reads every key no matter how narrow the glob is. Checking N patterns with N scans costs N full traversals of the keyspace; one streaming pass that matches all of them in process costs one. Batches of 5,000, nothing accumulated in memory.',
+      'The part I would want to be asked about is the denylist. Protected keys are filtered again at the moment of deletion, not only during preview, because a preview is a snapshot: rules change, keyspaces change, and acting on a stored preview means deleting against a stale picture of what is safe. Anything the filter withholds is reported back counted by the rule that caught it, so a refusal is visible instead of silent.',
+    ],
+  },
+  {
+    id: 'pooling',
+    index: '02',
     title: 'Surviving exam-day load',
     standfirst:
-      'Mock tests put tens of thousands of submissions through the platform in the same few minutes. Two pools, at different layers, keep the database from being the thing that falls over.',
+      'Mock tests put tens of thousands of submissions through the platform in the same few minutes. Two datastores, two different ways of not falling over.',
     factIds: ['MG-002', 'MG-001', 'MG-003'],
     stack: ['Java', 'Spring Boot', 'MongoDB', 'PostgreSQL', 'PgBouncer'],
     metrics: [
@@ -86,18 +105,19 @@ export const cases = [
       { value: '1500ms', label: 'queue timeout before failure', factIds: ['MG-002'] },
       { value: '750→33', label: 'pod connections to Postgres sockets', factIds: ['MG-002'] },
     ],
-    // Deliberately "Tuned". MG-002's scope is contributed-a-part, which bans
-    // Designed/Architected until Harsh confirms he designed the architecture.
+    // "Tuned" is correct and settled: confirmed 2026-10-22 that he tuned an
+    // existing setup rather than designing it, so scope stays contributed-a-part
+    // and Designed/Architected stay banned.
     body: [
-      'Tuned a two-tier connection-pooling setup so read/write spikes during Mock Tests, QFTs and AYNR degrade gracefully instead of exhausting the database.',
+      'The MARKS backend talks to two datastores, and each needed a different answer to the same question: what happens when ten thousand people submit at once. Tuned both so a Mock Test, QFT or AYNR spike degrades instead of exhausting a database.',
       'On the client side, each pod holds a MongoDB driver pool of 15 connections opened at startup, so a checkout costs under 0.1ms. The 16th concurrent request queues against a 1500ms timeout rather than opening an unbounded connection or crashing the pod.',
-      'On the server side, PgBouncer fronts Postgres: roughly 750 persistent client connections collapse onto about 33 real TCP sockets, with a socket reassigned the moment a transaction commits. The pool is sized from the standard formula: vCPU × 2 + spindles, or 16 × 2 + 1.',
+      'Postgres is a separate problem with a separate answer. PgBouncer sits in front of it, so roughly 750 persistent client connections collapse onto about 33 real TCP sockets, with a socket reassigned the moment a transaction commits. The pool is sized from the standard formula: vCPU × 2 + spindles, or 16 × 2 + 1.',
     ],
     schematic: true,
   },
   {
     id: 'classification',
-    index: '02',
+    index: '03',
     title: '250,000 questions, reclassified and measured',
     standfirst:
       'The content team was tagging exam questions by hand. An LLM pipeline replaced the tagging; a sampled QC process replaced the guesswork about whether it worked.',
@@ -105,18 +125,18 @@ export const cases = [
     stack: ['Python', 'Gemini 2.5 Pro', 'ETL', 'MongoDB'],
     metrics: [
       { value: '250K+', label: 'questions reclassified', factIds: ['MG-013'] },
-      { value: '92%', label: 'classification precision', factIds: ['MG-014'] },
+      { value: '92%', label: 'QC pass rate on a sampled review', factIds: ['MG-014'] },
       { value: '3,000', label: 'questions in the QC sample', factIds: ['MG-014'] },
     ],
     body: [
       'Built an ETL pipeline over the Gemini 2.5 Pro API that classifies exam questions by topic, concept, hints and quicknotes, replacing an error-prone manual process owned by the content team.',
       'Image-based Physics, Chemistry and Biology questions needed their context extracted before they could be tagged at all, which is most of what made the naive version fail.',
-      'Precision is 92%, and that number has a method behind it: the content team QC’d a 3,000-question sample (500 each across Physics, Chemistry, Maths, Biology, English and Logical Reasoning) after several rounds of prompt refinement. It is a measured pass rate on the MVP, not an estimate.',
+      'The 92% is a QC pass rate, not precision: the content team reviewed a 3,000-question sample, 500 each across Physics, Chemistry, Maths, Biology, English and Logical Reasoning, and 92% came back correct. It was measured on the same version that went on to process all 250K, so it describes the real run rather than a pilot.',
     ],
   },
   {
     id: 'lms-assets',
-    index: '03',
+    index: '04',
     title: 'Forty hours a week, down to eight',
     standfirst:
       'Teachers shared files, the content team watermarked them by hand, dropped Drive links into a spreadsheet, and someone ran a script. Now teachers drive it themselves.',
@@ -136,10 +156,10 @@ export const cases = [
   },
   {
     id: 'quality-pipeline',
-    index: '04',
+    index: '05',
     title: 'Catching bad questions before students do',
     standfirst:
-      'Student error rates are a signal about the question, not only about the student. A weekly pass turns that signal into a list someone can act on.',
+      'If a lot of the students who attempt a question go on to report it, the question is usually the problem. A weekly pass turns that ratio into a list someone can act on.',
     factIds: ['MG-030'],
     stack: ['Python', 'Google Drive API', 'Slack API'],
     metrics: [
@@ -147,7 +167,7 @@ export const cases = [
       { value: 'Weekly', label: 'automated, replacing a manual report', factIds: ['MG-030'] },
     ],
     body: [
-      'Built a weekly quality pipeline for the MARKS question banks. Each user-reported question is scored by its all-time unique-user error rate, and anything above a 0.5% threshold is flagged, alongside a monitored backlog of questions flagged in earlier runs.',
+      'Built a weekly quality pipeline for the MARKS question banks. Each question is scored by the ratio of unique users who reported it to unique users who attempted it, so a question only surfaces if the complaints are large relative to how many people actually saw it. Anything above a 0.5% report rate is flagged, alongside a monitored backlog from earlier runs.',
       'For each flagged question the pipeline reverse-resolves where it actually lives in the product catalogue, updates the Live and Historical Drive workbooks, and posts a digest to the stakeholders on Slack. It replaced a report that used to be assembled by hand every week.',
     ],
   },
@@ -194,7 +214,7 @@ export const alsoShipped = [
     title: 'Distributed API rate limiter',
     factIds: ['PRJ-005'],
     summary:
-      'A Redis Lua script gives atomic, race-free counters in a single round trip, with no check-then-set window. Fixed-window algorithm, tiered per-API-key limits (FREE 100/min, PRO 1000/min), and an annotation-based @RateLimit AOP aspect that intercepts ahead of business logic and returns RFC rate-limit headers.',
+      'A Redis Lua script gives atomic, race-free counters in a single round trip, with no check-then-set window. Fixed-window algorithm, tiered per-API-key limits (FREE 100/min, PRO 1000/min), and an annotation-based @RateLimit AOP aspect that intercepts ahead of business logic and returns the conventional X-RateLimit headers, plus Retry-After on a 429.',
     stack: ['Java', 'Spring Boot 3', 'Spring AOP', 'Redis', 'Lua'],
     href: 'https://github.com/harshsingh-io/rate-limiter',
   },
@@ -204,8 +224,8 @@ export const alsoShipped = [
     title: 'Distributed job queue',
     factIds: ['PRJ-006'],
     summary:
-      'Redisson per-job distributed locks make execution idempotent across workers. Exponential-backoff retries at 1s/2s/4s, a dead-letter queue with manual replay, Redis sorted sets for timestamp-ordered delayed scheduling, and PostgreSQL jsonb tracking the PENDING → RUNNING → FAILED lifecycle.',
-    stack: ['Java 17', 'Spring Boot 3', 'Redis', 'Redisson', 'PostgreSQL'],
+      'At-least-once execution, with concurrent double-runs ruled out by a Redisson lock plus a status guard taken inside it: a worker only proceeds if the job is still pending or failed, and persists RUNNING before doing any work, so a second worker finds it taken and drops it. Exponential-backoff retries at 1s/2s/4s, a dead-letter queue with manual replay, Redis sorted sets for timestamp-ordered delayed scheduling, and Postgres tracking the full lifecycle across pending, running, done, failed, dead-letter and cancelled.',
+    stack: ['Java 17', 'Spring Boot 3', 'Spring Data JPA', 'Redis', 'Redisson', 'PostgreSQL'],
     href: 'https://github.com/harshsingh-io/task_queue',
   },
 ]
@@ -348,7 +368,7 @@ export const nav = [
   { href: '#work', label: 'Work' },
   { href: '#experience', label: 'Experience' },
   { href: '#stack', label: 'Stack' },
-  { href: '#about', label: 'About' },
+  { href: '#about', label: 'How I work' },
   { href: '#contact', label: 'Contact' },
 ]
 

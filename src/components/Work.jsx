@@ -53,7 +53,7 @@ export default function Work() {
         <div className="section__head enter">
           <p className="eyebrow">Selected work</p>
           <h2 className="display section__title">
-            Four things I built, and how they actually work
+            Five systems, and how they actually work
           </h2>
         </div>
 
