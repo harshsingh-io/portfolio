@@ -742,9 +742,14 @@
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
+  /* COPY FIRST ONCE STACKED. The portrait used to take order 1, which meant a
+     tablet opened on ~550px of photograph with the name pushed under it —
+     a portfolio whose first screen does not say who it belongs to. It also
+     inverted the entrance: the name animates at 0ms and the portrait at
+     200ms, which only reads correctly if the name is above. */
   .hero__body {
     grid-column: 1 / -1;
-    order: 2;
+    order: 1;
   }
 
   /* THE DRAWING STAYS BELOW 860px, and the whole trick is holding one ratio.
@@ -760,7 +765,7 @@
      never exceeds 100% of the column it sits in. */
   .hero__portrait {
     grid-column: 1 / -1;
-    order: 1;
+    order: 2;
 
     /* Capped so the figure does not become enormous on a tablet, where 58% of
        a 720px column would be 418px.
