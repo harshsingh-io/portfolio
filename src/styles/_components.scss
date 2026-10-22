@@ -643,11 +643,25 @@
     order: 2;
   }
 
+  /* THE DRAWING STAYS BELOW 860px, and the whole trick is holding one ratio.
+     The SVG's geometry assumes the figure occupies x 460-1158 of a 1200-wide
+     box — 58% of the artwork, flush to its right. Break that and the arch
+     lands beside the figure instead of behind it, which is exactly what
+     happened when the figure was a fixed 200px pinned to the left: the art had
+     to be switched off and replaced by a plain panel.
+
+     So the figure is sized as a PERCENTAGE of the artwork rather than in
+     pixels, and the artwork is the column. The composition is then identical
+     at every width, and nothing can overflow the gutter because the artwork
+     never exceeds 100% of the column it sits in. */
   .hero__portrait {
     grid-column: 1 / -1;
     order: 1;
-    justify-content: flex-start;
-    margin-left: 0;
+
+    /* Capped so the figure does not become enormous on a tablet, where 58% of
+       a 720px column would be 418px. */
+    width: min(100%, 520px);
+    margin-left: auto;
 
     /* The desktop pull is cancelled here. Below this breakpoint the figure is
        ABOVE the body copy rather than beside it, so a negative bottom margin
@@ -656,24 +670,49 @@
     margin-bottom: 0;
   }
 
-  .hero__portrait img {
-    max-height: 34vh;
+  /* The ratio is set on <picture>, NOT on the img. <picture> is the flex item
+     here, so a percentage on the img resolves against a shrink-wrapped box
+     rather than against the column — which is why 58% silently produced 38.5%
+     at 768px and 51.4% at 425px while happening to look right at 375 and 320. */
+  .hero__portrait picture {
+    display: block;
+    width: 58%;
+
+    /* auto, not justify-content: the figure is a block, not a flex container —
+       it stopped being one when it became width:fit-content for the desktop
+       artwork. A stale justify-content here silently did nothing and left the
+       figure pinned to the left of its own artwork. */
+    margin-left: auto;
+    margin-right: 3.5%;
   }
 
-  /* The drawing comes off below this breakpoint. At ~200px wide the arch, the
-     leaders and the labels are too cramped to read as anything, and the masked
-     grid is real paint cost on a phone. The square panel takes its place,
-     because that is the composition rather than the decoration. */
+  .hero__portrait img {
+    width: 100%;
+    max-width: none;
+    max-height: none;
+  }
+
   .hero__art {
-    inset: 0;
+    inset: -6% 0 0 0;
   }
 
   .hero__art svg {
+    display: block;
+  }
+
+  /* The plain panel was the stand-in for the drawing. The drawing is here. */
+  .hero__art::before {
     display: none;
   }
 
-  .hero__art::before {
-    display: block;
+  /* The labels are in viewBox units, so they shrink with the artwork and have
+     to be scaled up to stay readable. 24, not 30: at 30 the right-hand label
+     grows to ~333 units wide, which starts it at x=852 and puts it against the
+     head, whose right edge at that height is x=844. 24 gives ~266 units,
+     starting at x=919 — 40 units clear. Renders around 10px at both 768 and
+     560, which matches the eyebrow. */
+  .hero__art-label {
+    font-size: 24px;
   }
 
   .hero__facts {
@@ -1021,6 +1060,16 @@
 }
 
 @media (max-width: 560px) {
+  /* The two text labels come off here and the drawing stays. At this column
+     width they would render under 8px even scaled, and BENGALURU / IST would
+     additionally collide with the figure, which at 58% leaves it nowhere to
+     sit. The arch, grid, leaders, arc and crosses all still read — they are
+     geometry, and geometry survives scaling in a way that 9px mono does not.
+     BASED / Bengaluru is directly below the hero at this width anyway. */
+  .hero__art-label {
+    display: none;
+  }
+
   .schematic {
     padding: var(--space-3);
     overflow-x: auto;
