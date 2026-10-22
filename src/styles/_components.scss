@@ -368,9 +368,11 @@
   gap: var(--space-3);
   margin-top: var(--space-6);
 
-  /* The three CTAs are driven as ONE element by Tendrils.jsx — the strands root
-     along this box's perimeter, not any single link's. transform-origin is the
-     centre so the spring rotation pivots about the group. */
+}
+
+/* Each CTA is its own goo target: Tendrils.jsx springs and rotates them
+   individually, so the origin has to be on the button, not the row. */
+.hero__actions .btn {
   transform-origin: 50% 50%;
   will-change: transform;
 }

@@ -1,8 +1,13 @@
 import { useEffect, useRef } from 'react'
 
 // Gooey ink tendrils between the pointer and the hero CTAs, ported from the
-// reference Harsh supplied. The three buttons are treated as ONE element: the
-// strands root along the perimeter of `.hero__actions`, not of any single link.
+// reference Harsh supplied. EACH BUTTON IS ITS OWN TARGET: its own strands, its
+// own spring transform, its own perimeter. Hovering Résumé goos Résumé and
+// leaves the other two alone.
+//
+// One shared canvas draws all of them. The buttons sit ~12px apart, so a
+// pointer in the gap can legitimately be within grabbing range of two at once
+// and both will web up — that is correct, not a bug.
 //
 // FOUR THINGS IN THE REFERENCE ARE NOT PORTED VERBATIM, each because it would
 // break something the rest of the site guarantees:
@@ -46,26 +51,37 @@ export default function Tendrils() {
 
     const canvas = canvasRef.current
     const glove = gloveRef.current
-    const group = document.querySelector('.hero__actions')
-    if (!canvas || !glove || !group) return undefined
+    const buttons = [...document.querySelectorAll('.hero__actions .btn')]
+    if (!canvas || !glove || !buttons.length) return undefined
     const ctx = canvas.getContext('2d')
 
     let width = 0
     let height = 0
     let ink = '#12110d'
-    const base = { cx: 0, cy: 0, w: 0, h: 0 }
 
-    // Read the group's UNTRANSFORMED box. Reading it while a transform is
-    // applied feeds the physics its own output and the whole thing jitters.
+    // One record per button. `base` is its UNTRANSFORMED layout box — reading
+    // it while a transform is applied feeds the physics its own output and the
+    // whole thing jitters.
+    const targets = buttons.map((el) => ({
+      el,
+      base: { cx: 0, cy: 0, w: 0, h: 0 },
+      g: { x: 0, y: 0, rot: 0, scale: 1, vx: 0, vy: 0, vr: 0, vs: 0 },
+      strands: [],
+      connected: false,
+      activeCount: 0,
+    }))
+
     const measure = () => {
-      const prev = group.style.transform
-      group.style.transform = 'none'
-      const r = group.getBoundingClientRect()
-      group.style.transform = prev
-      base.cx = r.left + r.width / 2
-      base.cy = r.top + r.height / 2
-      base.w = r.width
-      base.h = r.height
+      for (const t of targets) {
+        const prev = t.el.style.transform
+        t.el.style.transform = 'none'
+        const r = t.el.getBoundingClientRect()
+        t.el.style.transform = prev
+        t.base.cx = r.left + r.width / 2
+        t.base.cy = r.top + r.height / 2
+        t.base.w = r.width
+        t.base.h = r.height
+      }
       ink = getComputedStyle(document.documentElement).getPropertyValue('--ink').trim() || ink
     }
 
@@ -79,68 +95,72 @@ export default function Tendrils() {
       measure()
     }
 
-    // ── group transform, spring-driven ──────────────────────────────────────
-    const g = { x: 0, y: 0, rot: 0, scale: 1, vx: 0, vy: 0, vr: 0, vs: 0 }
-    const spring = (o, k, vk, target, stiff, damp, f) => {
-      o[vk] += (target - o[k]) * stiff * f
+    // ── spring, shared ──────────────────────────────────────────────────────
+    const spring = (o, k, vk, to, stiff, damp, f) => {
+      o[vk] += (to - o[k]) * stiff * f
       o[vk] *= Math.pow(damp, f)
       o[k] += o[vk] * f
     }
 
-    const toLocal = (px, py) => {
-      const a = (-g.rot * Math.PI) / 180
+    const toLocal = (t, px, py) => {
+      const a = (-t.g.rot * Math.PI) / 180
       const c = Math.cos(a)
       const s = Math.sin(a)
-      const dx = px - base.cx - g.x
-      const dy = py - base.cy - g.y
-      return { x: (dx * c - dy * s) / g.scale, y: (dx * s + dy * c) / g.scale }
+      const dx = px - t.base.cx - t.g.x
+      const dy = py - t.base.cy - t.g.y
+      return { x: (dx * c - dy * s) / t.g.scale, y: (dx * s + dy * c) / t.g.scale }
     }
-    const toScreen = (lx, ly) => {
-      const a = (g.rot * Math.PI) / 180
+    const toScreen = (t, lx, ly) => {
+      const a = (t.g.rot * Math.PI) / 180
       const c = Math.cos(a)
       const s = Math.sin(a)
-      const x = lx * g.scale
-      const y = ly * g.scale
-      return { x: base.cx + g.x + x * c - y * s, y: base.cy + g.y + x * s + y * c }
+      const x = lx * t.g.scale
+      const y = ly * t.g.scale
+      return {
+        x: t.base.cx + t.g.x + x * c - y * s,
+        y: t.base.cy + t.g.y + x * s + y * c,
+      }
     }
 
     // ── rectangle perimeter, walked by arc length ───────────────────────────
-    const perim = () => 2 * (base.w + base.h)
-
-    const arcLengthAt = (px, py) => {
-      const hw = base.w / 2
-      const hh = base.h / 2
+    const arcLengthAt = (t, px, py) => {
+      const { w, h } = t.base
+      const hw = w / 2
+      const hh = h / 2
       const dT = Math.abs(py + hh)
       const dB = Math.abs(py - hh)
       const dL = Math.abs(px + hw)
       const dR = Math.abs(px - hw)
       const m = Math.min(dT, dB, dL, dR)
       if (m === dT) return clamp(px, -hw, hw) + hw
-      if (m === dR) return base.w + (clamp(py, -hh, hh) + hh)
-      if (m === dB) return base.w + base.h + (hw - clamp(px, -hw, hw))
-      return 2 * base.w + base.h + (hh - clamp(py, -hh, hh))
+      if (m === dR) return w + (clamp(py, -hh, hh) + hh)
+      if (m === dB) return w + h + (hw - clamp(px, -hw, hw))
+      return 2 * w + h + (hh - clamp(py, -hh, hh))
     }
 
-    const pointAt = (sRaw) => {
-      const P = perim()
-      const hw = base.w / 2
-      const hh = base.h / 2
+    const pointAt = (t, sRaw) => {
+      const { w, h } = t.base
+      const P = 2 * (w + h)
+      const hw = w / 2
+      const hh = h / 2
       let s = ((sRaw % P) + P) % P
-      if (s < base.w) return { x: -hw + s, y: -hh }
-      s -= base.w
-      if (s < base.h) return { x: hw, y: -hh + s }
-      s -= base.h
-      if (s < base.w) return { x: hw - s, y: hh }
-      s -= base.w
+      if (s < w) return { x: -hw + s, y: -hh }
+      s -= w
+      if (s < h) return { x: hw, y: -hh + s }
+      s -= h
+      if (s < w) return { x: hw - s, y: hh }
+      s -= w
       return { x: -hw, y: hh - s }
     }
 
-    const nearGroup = (px, py, pad) => {
-      const p = toLocal(px, py)
-      const dx = Math.abs(p.x) - base.w / 2
-      const dy = Math.abs(p.y) - base.h / 2
+    const near = (t, px, py, pad) => {
+      const p = toLocal(t, px, py)
+      const dx = Math.abs(p.x) - t.base.w / 2
+      const dy = Math.abs(p.y) - t.base.h / 2
       return Math.hypot(Math.max(dx, 0), Math.max(dy, 0)) <= pad
     }
+
+    const nearAny = (px, py, pad) => targets.some((t) => near(t, px, py, pad))
 
     // ── pointer ─────────────────────────────────────────────────────────────
     const mouse = { x: -9999, y: -9999, present: false }
@@ -150,14 +170,13 @@ export default function Tendrils() {
     let inZone = false
 
     // ── strands ─────────────────────────────────────────────────────────────
-    let strands = []
-    let connected = false
-    let activeCount = 0
     const particles = []
 
-    const makeStrand = (i, x, y) => {
+    const makeStrand = (t, i, x, y) => {
       const norm = i / (STRAND_COUNT - 1) - 0.5
-      const spread = Math.min(base.w * 0.9, 190)
+      // Spread scales with the button, so a narrow "GitHub" does not get the
+      // same 190px fan as a wide one and fling strands off its ends.
+      const spread = Math.min(t.base.w * 0.9, 190)
       return {
         spreadOffset: norm * spread + (Math.random() - 0.5) * 8,
         handOffsetX: norm * 16 + (Math.random() - 0.5) * 5,
@@ -196,15 +215,15 @@ export default function Tendrils() {
       }
     }
 
-    const connect = (x, y) => {
-      if (!connected) {
-        strands = Array.from({ length: STRAND_COUNT }, (_, i) => makeStrand(i, x, y))
-        connected = true
+    const connect = (t, x, y) => {
+      if (!t.connected) {
+        t.strands = Array.from({ length: STRAND_COUNT }, (_, i) => makeStrand(t, i, x, y))
+        t.connected = true
         return
       }
       // Only regrow what already snapped, so surviving strands do not pop.
-      for (let i = 0; i < strands.length; i += 1) {
-        if (strands[i].snapped) strands[i] = makeStrand(i, x, y)
+      for (let i = 0; i < t.strands.length; i += 1) {
+        if (t.strands[i].snapped) t.strands[i] = makeStrand(t, i, x, y)
       }
     }
 
@@ -224,9 +243,11 @@ export default function Tendrils() {
     }
 
     const release = () => {
-      if (connected) strands.forEach((s) => !s.snapped && snap(s))
-      connected = false
-      activeCount = 0
+      for (const t of targets) {
+        if (t.connected) t.strands.forEach((s) => !s.snapped && snap(s))
+        t.connected = false
+        t.activeCount = 0
+      }
     }
 
     // Leaving the activation zone must NOT kill the strands. The zone is 130px
@@ -273,79 +294,84 @@ export default function Tendrils() {
         y: mouse.y + ox * ts + oy * tc,
       })
 
-      const pull = connected ? activeCount / STRAND_COUNT : 0
-      spring(g, 'x', 'vx', clamp((mouse.x - base.cx) * 0.07, -28, 28) * pull, 0.12, 0.8, f)
-      spring(g, 'y', 'vy', clamp((mouse.y - base.cy) * 0.07, -22, 22) * pull, 0.12, 0.8, f)
-      spring(g, 'rot', 'vr', clamp((mouse.x - base.cx) * 0.012, -5, 5) * pull, 0.12, 0.8, f)
-      spring(g, 'scale', 'vs', pull > 0 ? 1.02 : 1, 0.2, 0.75, f)
-
-      const over = mouse.present && nearGroup(mouse.x, mouse.y, HOVER_PAD)
       const palm = glovePoint(PALM.x, PALM.y)
-      if (over) connect(palm.x, palm.y)
 
-      activeCount = 0
-      if (connected) {
-        const lp = toLocal(palm.x, palm.y)
-        const s0 = arcLengthAt(lp.x, lp.y)
-        for (const s of strands) {
-          if (s.snapped) continue
-          const lpt = pointAt(s0 + s.spreadOffset)
-          const a = toScreen(lpt.x, lpt.y)
-          const h = glovePoint(PALM.x + s.handOffsetX, PALM.y + s.handOffsetY)
-          s.ax = a.x
-          s.ay = a.y
-          s.hx = h.x
-          s.hy = h.y
+      for (const t of targets) {
+        const pull = t.connected ? t.activeCount / STRAND_COUNT : 0
+        spring(t.g, 'x', 'vx', clamp((mouse.x - t.base.cx) * 0.07, -24, 24) * pull, 0.12, 0.8, f)
+        spring(t.g, 'y', 'vy', clamp((mouse.y - t.base.cy) * 0.07, -20, 20) * pull, 0.12, 0.8, f)
+        spring(t.g, 'rot', 'vr', clamp((mouse.x - t.base.cx) * 0.012, -5, 5) * pull, 0.12, 0.8, f)
+        spring(t.g, 'scale', 'vs', pull > 0 ? 1.03 : 1, 0.2, 0.75, f)
+
+        const over = mouse.present && near(t, mouse.x, mouse.y, HOVER_PAD)
+        if (over) connect(t, palm.x, palm.y)
+
+        t.activeCount = 0
+        if (!t.connected) continue
+
+        const lp = toLocal(t, palm.x, palm.y)
+        const s0 = arcLengthAt(t, lp.x, lp.y)
+        for (const st of t.strands) {
+          if (st.snapped) continue
+          const lpt = pointAt(t, s0 + st.spreadOffset)
+          const a = toScreen(t, lpt.x, lpt.y)
+          const h = glovePoint(PALM.x + st.handOffsetX, PALM.y + st.handOffsetY)
+          st.ax = a.x
+          st.ay = a.y
+          st.hx = h.x
+          st.hy = h.y
           const dist = Math.hypot(h.x - a.x, h.y - a.y)
-          if (dist > s.maxDist && !over) {
-            snap(s)
+          if (dist > st.maxDist && !over) {
+            snap(st)
             continue
           }
-          activeCount += 1
-          s.tension = Math.min(1, dist / s.maxDist)
+          t.activeCount += 1
+          st.tension = Math.min(1, dist / st.maxDist)
           const tmx = (a.x + h.x) / 2
-          const tmy = (a.y + h.y) / 2 + dist * s.sagFactor
-          s.vx += (tmx - s.midX) * s.stiff * f
-          s.vy += (tmy - s.midY) * s.stiff * f
-          const d = Math.pow(s.damping, f)
-          s.vx *= d
-          s.vy *= d
-          s.midX += s.vx * f
-          s.midY += s.vy * f
-          for (const b of s.beads) b.t = (b.t + b.speed * f) % 1
+          const tmy = (a.y + h.y) / 2 + dist * st.sagFactor
+          st.vx += (tmx - st.midX) * st.stiff * f
+          st.vy += (tmy - st.midY) * st.stiff * f
+          const d = Math.pow(st.damping, f)
+          st.vx *= d
+          st.vy *= d
+          st.midX += st.vx * f
+          st.midY += st.vy * f
+          for (const b of st.beads) b.t = (b.t + b.speed * f) % 1
         }
-        if (activeCount === 0) connected = false
+        if (t.activeCount === 0) t.connected = false
       }
 
       ctx.clearRect(0, 0, width, height)
 
-      if (connected) {
-        ctx.fillStyle = ink
-        ctx.strokeStyle = ink
-        ctx.lineCap = 'round'
-        for (const s of strands) {
-          if (s.snapped) continue
-          const w = Math.max(0.45, s.thickness * (1 - s.tension * 0.62))
+      ctx.fillStyle = ink
+      ctx.strokeStyle = ink
+      ctx.lineCap = 'round'
+      for (const t of targets) {
+        if (!t.connected) continue
+        for (const st of t.strands) {
+          if (st.snapped) continue
+          const w = Math.max(0.45, st.thickness * (1 - st.tension * 0.62))
           ctx.beginPath()
-          ctx.arc(s.ax, s.ay, w * 2.1, 0, TAU)
+          ctx.arc(st.ax, st.ay, w * 2.1, 0, TAU)
           ctx.fill()
           ctx.lineWidth = w
           ctx.beginPath()
-          ctx.moveTo(s.ax, s.ay)
-          ctx.quadraticCurveTo(s.midX, s.midY, s.hx, s.hy)
+          ctx.moveTo(st.ax, st.ay)
+          ctx.quadraticCurveTo(st.midX, st.midY, st.hx, st.hy)
           ctx.stroke()
-          for (const b of s.beads) {
-            const p = curvePoint(s, b.t)
+          for (const b of st.beads) {
+            const pt = curvePoint(st, b.t)
             ctx.beginPath()
-            ctx.arc(p.x, p.y, b.size * (1 - s.tension * 0.5), 0, TAU)
+            ctx.arc(pt.x, pt.y, b.size * (1 - st.tension * 0.5), 0, TAU)
             ctx.fill()
           }
         }
+        // Sticky cross-fibres, within this button's own fan only.
         ctx.lineWidth = 0.85
         ctx.globalAlpha = 0.85
-        for (let i = 0; i < strands.length - 1; i += 1) {
-          const s1 = strands[i]
-          const s2 = strands[i + 1]
+        for (let i = 0; i < t.strands.length - 1; i += 1) {
+          const s1 = t.strands[i]
+          const s2 = t.strands[i + 1]
           if (s1.snapped || s2.snapped || !s1.bridge) continue
           const p1 = curvePoint(s1, s1.bridgeT1)
           const p2 = curvePoint(s2, s2.bridgeT2)
@@ -375,30 +401,39 @@ export default function Tendrils() {
       }
       ctx.globalAlpha = 1
 
-      group.style.transform =
-        `translate(${g.x.toFixed(2)}px, ${g.y.toFixed(2)}px) ` +
-        `rotate(${g.rot.toFixed(3)}deg) scale(${g.scale.toFixed(4)})`
+      for (const t of targets) {
+        t.el.style.transform =
+          `translate(${t.g.x.toFixed(2)}px, ${t.g.y.toFixed(2)}px) ` +
+          `rotate(${t.g.rot.toFixed(3)}deg) scale(${t.g.scale.toFixed(4)})`
+      }
       glove.style.transform =
         `translate(${mouse.x - HOTSPOT.x}px, ${mouse.y - HOTSPOT.y}px) rotate(${tilt.toFixed(2)}deg)`
 
-      // Idle = nothing on screen and the group has settled back. Stop the loop
-      // rather than spin it at 60fps over a static hero.
+      const anyConnected = targets.some((t) => t.connected)
+
       // The glove belongs on screen for as long as something is attached to it.
-      if (!inZone && !connected && mouse.present) {
+      if (!inZone && !anyConnected && mouse.present) {
         mouse.present = false
         glove.style.opacity = '0'
       }
 
+      // Idle = nothing drawn and every button has sprung back. Stop the loop
+      // rather than spin it at 60fps over a static hero.
       const settled =
-        !connected &&
+        !anyConnected &&
         particles.length === 0 &&
-        Math.abs(g.x) < 0.1 &&
-        Math.abs(g.y) < 0.1 &&
-        Math.abs(g.rot) < 0.05 &&
-        Math.abs(g.scale - 1) < 0.002
+        targets.every(
+          (t) =>
+            Math.abs(t.g.x) < 0.1 &&
+            Math.abs(t.g.y) < 0.1 &&
+            Math.abs(t.g.rot) < 0.05 &&
+            Math.abs(t.g.scale - 1) < 0.002
+        )
       if (settled && !inZone) {
         running = false
-        group.style.transform = ''
+        targets.forEach((t) => {
+          t.el.style.transform = ''
+        })
         ctx.clearRect(0, 0, width, height)
         return
       }
@@ -416,7 +451,7 @@ export default function Tendrils() {
       mouse.x = e.clientX
       mouse.y = e.clientY
       const wasIn = inZone
-      inZone = nearGroup(mouse.x, mouse.y, ZONE_PAD)
+      inZone = nearAny(mouse.x, mouse.y, ZONE_PAD)
       if (inZone && !wasIn) {
         mouse.present = true
         lastFrameX = mouse.x
@@ -428,7 +463,7 @@ export default function Tendrils() {
         exitZone()
         start()
       }
-      if (connected) start()
+      if (targets.some((t) => t.connected)) start()
       if (inZone) start()
     }
 
@@ -453,7 +488,9 @@ export default function Tendrils() {
       window.removeEventListener('blur', leaveWindow)
       document.documentElement.removeEventListener('pointerleave', leaveWindow)
       document.documentElement.classList.remove('is-goo')
-      group.style.transform = ''
+      targets.forEach((t) => {
+        t.el.style.transform = ''
+      })
     }
   }, [])
 
