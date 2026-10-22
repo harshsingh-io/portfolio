@@ -659,9 +659,16 @@
     order: 1;
 
     /* Capped so the figure does not become enormous on a tablet, where 58% of
-       a 720px column would be 418px. */
+       a 720px column would be 418px.
+
+       LEFT-aligned, not right. The desktop composition is right-anchored
+       because the figure shares a row with the copy; once the layout stacks,
+       every line of text starts at the gutter and a right-anchored block sat
+       ~200px adrift of all of it at 768px. Aligning the artwork's left edge
+       with the text's left edge puts the whole hero on one margin. */
     width: min(100%, 520px);
-    margin-left: auto;
+    margin-left: 0;
+    margin-right: auto;
 
     /* The desktop pull is cancelled here. Below this breakpoint the figure is
        ABOVE the body copy rather than beside it, so a negative bottom margin
