@@ -12,6 +12,18 @@
 export const profile = {
   name: 'Harsh Singh',
   role: 'Backend & Data Engineer',
+  // CORRECTED 2026-10-22. This used to name a MathonGo product that does not
+  // exist. MathonGo is the parent and a course platform; MARKS is the practice
+  // platform; Quizrr is the test-series platform. Inventing a product name for
+  // the company you work at is the kind of error an interviewer spots in five
+  // seconds, and it was in the single most prominent sentence on the site.
+  // (Paraphrased deliberately: pass 4 now denylists the old wording and reads
+  // comments, so quoting it here would fail the build.)
+  // MARKS is named rather than described because the cases below say "the MARKS
+  // backend" repeatedly — a reader meeting it cold in case 02 is better served
+  // by having met it here. Breadth across the other products stays where it
+  // belongs, in the Experience bullets (MG-016).
+  //
   // Thesis, in segments so the two nouns that carry the positioning can hold full
   // ink while the connective tissue drops to secondary. Both halves matter equally
   //, backend AND data is the whole claim, so this emphasises rather than mutes
@@ -19,7 +31,7 @@ export const profile = {
   thesis: [
     { text: 'I build the ' },
     { text: 'services', em: true },
-    { text: ' that run MathonGo’s exam platform, and the ' },
+    { text: ' that run MARKS, MathonGo’s practice platform, and the ' },
     { text: 'pipelines', em: true },
     { text: ' that keep its data honest.' },
   ],
@@ -423,7 +435,7 @@ export const stack = [
 // and the 11% is the evidence that the cap did real work.
 export const about = {
   paragraphs: [
-    'I work on both sides of the same platform: the services that answer a student\u2019s request, and the pipelines that decide what those services have to say. Which language depends on where the problem sits \u2014 Java and Spring Boot in the exam backend, Node and Python for most of what feeds it.',
+    'I work on both sides of the same platform: the services that answer a student\u2019s request, and the pipelines that decide what those services have to say. Which language depends on where the problem sits \u2014 Java and Spring Boot in the MARKS backend, Node and Python for most of what feeds it.',
     'Most of what I have built at MathonGo started as something a person was doing by hand every week: clearing caches, curating question lists, assembling a quality report. The interesting part is rarely the automation itself. It is working out what the manual process was actually protecting, and making sure the automated one still protects it.',
     'Several of them now have a model somewhere in the middle, which only moves that question rather than answering it. A model asked to score will rationalise, so the limits worth having live in code, where it cannot argue with them.',
     'Outside work I have solved 300+ data structures and algorithms problems, and I build small distributed systems to understand them properly: a rate limiter and a job queue, both of which taught me more about Redis semantics than reading about them did.',

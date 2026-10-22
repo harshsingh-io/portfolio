@@ -311,6 +311,7 @@ const RETIRED_PHRASINGS = [
   ['idempotent execution', 'PRJ-006: at-least-once, with concurrent double-runs ruled out'],
   ['99.2% uptime', 'MG-011: graded strong, but pulled from the site — he cannot say how it was measured'],
   ['RFC-compliant rate limit', 'PRJ-005: the headers are conventional, not an RFC standard'],
+  ['exam platform', 'MathonGo has no product by that name: MathonGo is the parent and a course platform, MARKS is the practice platform, Quizrr is the test-series platform'],
 ]
 
 for (const rel of SCANNED) {
