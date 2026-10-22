@@ -401,18 +401,18 @@
   :root:not([data-theme='light']) .hero__portrait {
     --art-blue: #8aa7ff;
     --art-muted: #99968f;
-    --art-paper: #252722;
-    --art-paper-2: #2b2d27;
-    --art-dot: #55564f;
+    --art-paper: #4a463c;
+    --art-paper-2: #4a463c;
+    --art-dot: #6d6a60;
   }
 }
 
 :root[data-theme='dark'] .hero__portrait {
   --art-blue: #8aa7ff;
   --art-muted: #99968f;
-  --art-paper: #252722;
-  --art-paper-2: #2b2d27;
-  --art-dot: #55564f;
+  --art-paper: #4a463c;
+  --art-paper-2: #4a463c;
+  --art-dot: #6d6a60;
 }
 
 /* The art layer. Wider and taller than the figure so the drawing has margins
@@ -485,22 +485,32 @@
   z-index: 1;
 }
 
-/* Dark mode darkens the figure, per Harsh's spec. Recorded because it is a
-   deliberate trade and the number is not the flattering one: the panel behind
-   it sits at L=0.019 and the blazer at L=0.050, so dimming the figure moves it
-   TOWARD the panel. Measured through the full chain it takes the blazer from
-   1.27:1 to 1.18:1 against the panel. It is a look, not a legibility win, and
-   what keeps the figure readable at that ratio is the lapel and shoulder
-   highlights rather than the mean. If the suit ever reads as a silhouette,
-   brightness is the dial — upward, not down. */
+/* Dark mode RESTORES the figure's blacks rather than dimming it, because
+   dimming was what made it look faded.
+   
+   The cause was mine: the asset carries a baked shadow lift (v*0.80+30) added
+   when the figure stood on the bare page, which put its black point at 0.090 —
+   there was no black anywhere in the image, which is the definition of washed
+   out. brightness(0.9) then dimmed the whole thing without restoring any of it.
+   
+   contrast(1.25) very nearly inverts that bake (it maps to v*1.25-0.125 against
+   the lift's v*0.8+0.118) and brings the black point to 0.000 with 0.00% of
+   pixels crushed. The arch comes up to meet it at #4a463c, because at the old
+   #252722 a de-lifted suit measured 1.00:1 against it and vanished.
+   
+   Measured, the pair beats the old pair on every axis: suit against the arch
+   1.60:1 where it was 1.20:1, face 2.74:1, black point 0.000 where it was
+   0.090. The arch is more visible than before and that is the cost — on a dark
+   page you cannot have a rich dark suit AND a dark panel behind it, because
+   both are competing for the same end of the range. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) .hero__portrait img {
-    filter: grayscale(1) brightness(0.9);
+    filter: grayscale(1) contrast(1.25);
   }
 }
 
 :root[data-theme='dark'] .hero__portrait img {
-  filter: grayscale(1) brightness(0.9);
+  filter: grayscale(1) contrast(1.25);
 }
 
 /* A cut-out, with its shadows lifted — changed 2026-10-22, and the lift is the
