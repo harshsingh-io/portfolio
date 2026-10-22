@@ -389,17 +389,33 @@
    shoulders break the top edge — a frame around the whole figure would box it
    in, which is the thing a cut-out is for avoiding.
 
-   THE TWO TONES ARE NOT THE SAME DECISION. In light mode the block is the warm
-   grey it looks like, and the dark suit against it measures 8.78:1 — the block
-   is doing the contrast work. In dark mode the obvious move, a block slightly
-   lighter than the page, makes things WORSE: the lifted blazer sits at L=0.050,
-   so a #1E1E1C panel drops it from 1.79:1 against the page to 1.59:1, and a
-   lighter one is worse still, because the panel is moving toward the blazer's
-   own luminance rather than away from it. Anything light enough to separate
-   properly would have to clear L=0.20, which is a bright slab beside a serif
-   headline. So dark mode goes the other way and recesses: a shade darker than
-   the page, which reads as a well rather than a panel and nudges the blazer to
-   1.88:1 instead of away from it. */
+   THE TWO TONES ARE NOT THE SAME DECISION, and dark mode needs a second change
+   to work at all. In light mode the block is the warm grey it looks like and the
+   suit measures 8.78:1 against it — the block does the contrast work unaided.
+
+   #252525 in dark mode is Harsh's call and it sits at L=0.0185, which is on the
+   wrong side of the lifted blazer at L=0.050: against the bare page the blazer
+   reads 1.79:1, against this panel it would read 1.46:1, because the panel is
+   moving toward the blazer's luminance rather than away from it. A panel cannot
+   get far enough below the blazer to help, and reaching the other side needs
+   L>0.20, which is a bright slab beside a serif headline.
+
+   So the separation is restored on the image instead of the panel: dark mode
+   adds brightness(1.3) to the figure only. Measured through the real filter
+   chain against the shipped asset, that takes the blazer from 1.27:1 to 1.63:1
+   against the panel, and the face to 7.96:1. Light mode is untouched, where no
+   lift is wanted — there the block alone gives the suit 10.44:1.
+
+   1.63:1 is still a shade under the 1.79:1 the figure had on the bare page, so
+   the panel is a compositional choice rather than a contrast win, and the lift
+   is what keeps it from being a loss. The band average understates what you
+   see: it samples the shadow side, while the lapel and shoulder highlights are
+   what actually carry the silhouette.
+
+   Measure the chain, not the stylesheet, if you change any of this. Working it
+   out on paper here gave 2.08:1 by forgetting that grayscale runs before
+   contrast and brightness. Clipping at 1.3 is 0.03% of subject pixels — the
+   glasses glint and a few hair highlights, not skin. */
 .hero__portrait::before {
   content: '';
   position: absolute;
@@ -410,12 +426,20 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) .hero__portrait::before {
-    background: #0b0a08;
+    background: #252525;
+  }
+
+  :root:not([data-theme='light']) .hero__portrait img {
+    filter: grayscale(1) contrast(1.06) brightness(1.3);
   }
 }
 
 :root[data-theme='dark'] .hero__portrait::before {
-  background: #0b0a08;
+  background: #252525;
+}
+
+:root[data-theme='dark'] .hero__portrait img {
+  filter: grayscale(1) contrast(1.06) brightness(1.3);
 }
 
 /* The figure stands in front of the block. */
