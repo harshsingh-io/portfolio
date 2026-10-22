@@ -376,9 +376,27 @@
   align-items: flex-end;
 }
 
-/* A cut-out with alpha, sitting on the paper rather than boxed. Height is
-   capped against the viewport so the figure always clears the sticky nav
-   instead of being decapitated by it. */
+/* A cut-out, with its shadows lifted — changed 2026-10-22, and the lift is the
+   whole point. Measured on the dark page, the previous portrait put the blazer
+   at 1.29:1, the t-shirt at 1.34:1 and the hair at 1.38:1 while the face sat at
+   5.90:1. Only the face was visible, so it read as a head floating over a smudge.
+
+   A plate behind it was tried and rejected: it fixes the contrast but puts back
+   a background that was deliberately removed. Instead the asset ships with a
+   per-channel shadow lift baked in (v * 0.80 + 30), which raises the blazer to
+   1.69:1 and the t-shirt to 2.2:1 without touching the midtones — the face is
+   unchanged at 5.97:1. A stronger curve reaches 2.67:1 but turns a navy suit
+   into flat mid-grey, which is a worse photograph.
+
+   1.69:1 sounds thin and is fine here: contrast minimums are written for text,
+   and the lapel and shoulder highlights carry the silhouette. Check it against
+   the page, not in isolation, if you change the curve.
+
+   The lift is baked per-channel rather than as grayscale so the image is still
+   colour underneath, which is what lets the hover below reveal it.
+
+   Height is capped against the viewport so the figure always clears the sticky
+   nav instead of being decapitated by it. */
 .hero__portrait img {
   width: auto;
   max-width: 100%;

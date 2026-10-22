@@ -4,12 +4,17 @@ import { profile, proof, facts } from '../content/portfolio'
 // can <link rel="preload"> them. This is the LCP element; a hashed webpack URL is
 // not knowable at author time and left it undiscoverable until the bundle ran.
 //
+// Still transparent cut-outs, deliberately — the background was removed on
+// purpose and putting a plate back behind it was tried and rejected. What the
+// asset carries instead is a baked shadow lift so the dark suit separates from
+// the dark page; see the contrast note on .hero__portrait img.
+//
 // Width descriptors rather than 1x/2x: on a phone this slot renders the portrait
 // at roughly 160 CSS px, so a density-based set was shipping a 760px-wide image
 // to fill a 142px box.
 const AVIF = '/img/portrait-320.avif 320w, /img/portrait-400.avif 400w, /img/portrait-760.avif 760w'
 const WEBP = '/img/portrait-320.webp 320w, /img/portrait-400.webp 400w, /img/portrait-760.webp 760w'
-const SIZES = '(max-width: 860px) 160px, 380px'
+const SIZES = '(max-width: 860px) 200px, 380px'
 
 export default function Hero() {
   return (
@@ -73,7 +78,7 @@ export default function Hero() {
               sizes={SIZES}
               alt={`${profile.name}, ${profile.role}`}
               width="380"
-              height="691"
+              height="475"
               fetchpriority="high"
               decoding="async"
             />
