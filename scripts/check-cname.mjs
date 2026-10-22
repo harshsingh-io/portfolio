@@ -38,4 +38,18 @@ if (actual !== EXPECTED) {
   process.exit(1)
 }
 
-console.log(`  ✓ build/CNAME is "${actual}" — safe to publish`)
+// The hero links /resume.html, so a build missing that file ships a dead CTA —
+// which is the exact failure the "no résumé" decision was avoiding before the
+// page existed. It is generated in `prebuild`, so this only trips if someone
+// deploys a stale or hand-assembled build/ directory.
+if (!existsSync(join(root, 'build', 'resume.html'))) {
+  console.error(
+    `\n  ✗ deploy blocked — build/resume.html is missing.\n` +
+      `      The hero's Résumé button links /resume.html; publishing without it\n` +
+      `      ships a 404 on a primary CTA. Run \`npm run build\` rather than\n` +
+      `      deploying an existing build/ directory.\n`
+  )
+  process.exit(1)
+}
+
+console.log(`  ✓ build/CNAME is "${actual}" — safe to publish, résumé present`)

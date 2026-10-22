@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 // Provenance gate. Runs on `prebuild`.
 //
-// Two passes, because there are two ways a claim goes wrong.
+// Four passes, because there are four ways a claim goes wrong.
 //
 // PASS 1 — citations resolve.
-//   Every `factIds: [...]` in src/ must reference an ID that exists in facts.yaml
-//   and is graded `defensibility: strong`. Three `partial` facts are allowlisted
-//   because Harsh approved them individually, each with a constraint on how it may
-//   be phrased (see the comments in src/content/portfolio.js).
+//   Every `factIds: [...]` in src/ must reference an ID that exists in facts.yaml,
+//   is graded `defensibility: strong`, AND has a graded `scope`. One `partial`
+//   fact is allowlisted because Harsh approved it individually, with a constraint
+//   on how it may be phrased (see the comments in src/content/portfolio.js).
 //
 // PASS 2 — no uncited numbers.
 //   Pass 1 only validates the IDs that are present. It cannot see a number that
@@ -30,9 +30,19 @@
 //   pass 1 only validates factIds that are present, pass 2 only reads numbers,
 //   and "Jetpack Compose" is neither. This pass makes the comment executable.
 //
-//   What this does NOT catch: a real number attached to the wrong project. The old
+// PASS 4 — retired phrasings stay retired.
+//   Passes 1-3 are about IDs, numbers and technology names. None of them reads a
+//   sentence. So when "92% measured precision" was corrected to "92% QC pass
+//   rate" in the copy, the identical phrase survived in the index.html meta
+//   description and all three passes stayed green: 92 is a real cited number and
+//   "precision" is the word that was false. Pass 4 is a denylist of wordings
+//   already found to be wrong. It cannot judge a new sentence, only stop an old
+//   false one from reappearing.
+//
+//   What none of this catches: a real number attached to the wrong project. The old
 //   site put MG-021's genuine "80%" under the tagging work instead of the asset
-//   platform. Both passes see a cited, traceable number. That one needs a reader.
+//   platform. Every pass sees a cited, traceable number in permitted words. That
+//   one needs a reader. The gate verifies provenance, not truth.
 
 import { readFileSync, readdirSync, statSync } from 'node:fs'
 import { join, dirname } from 'node:path'
@@ -154,6 +164,20 @@ for (const ref of refs) {
       `${ref.file}:${ref.line}  ${ref.id} is graded \`${fact.defensibility}\`, not \`strong\`` +
         `\n      claim: ${(fact.claim || '').slice(0, 96)}`
     )
+  } else if (fact.scope === 'ungraded' || !fact.scope) {
+    // `scope` decides which verbs the copy may use: contributed-a-part bans
+    // Designed and Architected, solo permits them. Until this session the pass
+    // read `defensibility` only, so a fact graded strong with scope still
+    // ungraded was fully citable with no constraint on how it was phrased —
+    // which is precisely the MG-002 trap (commit authorship proved he wrote the
+    // code, it did not prove he decided the design). Grading one field without
+    // the other is not a grading.
+    problems.push(
+      `${ref.file}:${ref.line}  ${ref.id} is graded \`strong\` but its \`scope\` is ungraded` +
+        `\n      claim: ${(fact.claim || '').slice(0, 96)}` +
+        `\n      scope decides the permitted verbs. Set solo / pair / contributed-a-part` +
+        `\n      in facts.yaml before citing it.`
+    )
   }
 }
 
@@ -239,6 +263,52 @@ if (strip) {
   )
 }
 
+// ── PASS 4 ─────────────────────────────────────────────────────────────────
+// Retired phrasings must not come back.
+//
+// This exists because of an actual recurrence, not a hypothetical. On
+// 2026-10-22 five claims were corrected in portfolio.js — and the
+// public/index.html meta description kept saying "92% measured precision" for
+// another day, because every pass above is about numbers and IDs. 92 is a real,
+// cited, traceable number; "precision" is the part that was false, and nothing
+// read the words. The same miss left a source comment telling a future reader
+// that a Redisson lock "guarantees idempotency".
+//
+// A denylist is the cheap half of a semantic check: it cannot tell whether a new
+// sentence is true, but it can guarantee a sentence already found to be false
+// never silently reappears — in copy, in the document head, or in a comment
+// (which is why this pass reads comments, where passes 2 and 3 skip them).
+//
+// Consequence, and it fired the first time this ran: a comment that tombstones a
+// correction must PARAPHRASE the old wording, not quote it. There is deliberately
+// no escape marker to exempt a line — an exemption is how a gate like this rots,
+// and paraphrasing costs a tombstone nothing. This file is not in SCANNED, which
+// is the only reason the quoted examples above are allowed to exist.
+//
+// Add a row whenever a claim is corrected. Each one is a wording that was on the
+// site and was wrong; the fact ID's clarify_note carries the full reasoning.
+const RETIRED_PHRASINGS = [
+  ['two-tier connection pool', 'MG-002: two datastores, two pooling problems, not two tiers of one path'],
+  ['measured precision', 'MG-014: the 92% is a QC pass rate on a sample, not precision'],
+  ['classification precision', 'MG-014: same — it is a QC pass rate'],
+  ['guarantees idempotency', 'PRJ-006: the lock serialises; execution is at-least-once'],
+  ['idempotent execution', 'PRJ-006: at-least-once, with concurrent double-runs ruled out'],
+  ['99.2% uptime', 'MG-011: graded strong, but pulled from the site — he cannot say how it was measured'],
+  ['RFC-compliant rate limit', 'PRJ-005: the headers are conventional, not an RFC standard'],
+]
+
+for (const rel of SCANNED) {
+  const text = readFileSync(join(root, rel), 'utf8').toLowerCase()
+  for (const [phrase, why] of RETIRED_PHRASINGS) {
+    if (!text.includes(phrase.toLowerCase())) continue
+    problems.push(
+      `${rel}  retired phrasing is back: "${phrase}"` +
+        `\n      ${why}` +
+        `\n      This wording was corrected because it was false. Do not restore it.`
+    )
+  }
+}
+
 // ── Report ─────────────────────────────────────────────────────────────────
 if (problems.length) {
   console.error('\n  ✗ facts check failed\n')
@@ -263,6 +333,7 @@ console.log(
     (usedAllowlist.length ? ` (allowlisted partials: ${usedAllowlist.join(', ')})` : '') +
     `\n    pass 2 — ${scannedCount} claim-shaped numbers across ${SCANNED.length} files, all traceable` +
     `\n    pass 3 — ${backedTech.size} technologies backed by cited facts, Stack section and hero strip clean` +
+    `\n    pass 4 — ${RETIRED_PHRASINGS.length} retired phrasings absent from copy, head and comments` +
     (staleAllowlist.length
       ? `\n\n  ! allowlist entries no longer cited: ${staleAllowlist.join(', ')}` +
         `\n    Remove them — a stale entry silently re-permits a \`partial\` fact later.`

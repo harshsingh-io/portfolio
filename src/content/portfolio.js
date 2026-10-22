@@ -109,7 +109,7 @@ export const cases = [
     // existing setup rather than designing it, so scope stays contributed-a-part
     // and Designed/Architected stay banned.
     body: [
-      'The MARKS backend talks to two datastores, and each needed a different answer to the same question: what happens when ten thousand people submit at once. Tuned both so a Mock Test, QFT or AYNR spike degrades instead of exhausting a database.',
+      'The MARKS backend talks to two datastores, and each needed a different answer to the same question: what happens when ten thousand people submit at once. Tuned both so the big timed events (mock tests, QFTs, AYNR) degrade instead of exhausting a database.',
       'On the client side, each pod holds a MongoDB driver pool of 15 connections opened at startup, so a checkout costs under 0.1ms. The 16th concurrent request queues against a 1500ms timeout rather than opening an unbounded connection or crashing the pod.',
       'Postgres is a separate problem with a separate answer. PgBouncer sits in front of it, so roughly 750 persistent client connections collapse onto about 33 real TCP sockets, with a socket reassigned the moment a transaction commits. The pool is sized from the standard formula: vCPU × 2 + spindles, or 16 × 2 + 1.',
     ],
@@ -191,16 +191,24 @@ export const alsoShipped = [
     // twice (MG-007 and MG-010). Do not merge them.
     factIds: ['MG-010', 'MG-011'],
     summary:
-      'AWS Lambda and Python pulling VdoCipher metadata into Google Sheets dashboards on an EventBridge cron, with CloudWatch alerting. 2,500+ videos at 99.2% uptime.',
+      'AWS Lambda and Python pulling VdoCipher metadata into Google Sheets dashboards on an EventBridge cron, with CloudWatch alerting. 2,500+ videos under automated monitoring.',
     stack: ['Python', 'AWS Lambda', 'EventBridge', 'CloudWatch'],
   },
   // DECIDED, reviewed 2026-09-25, full technical depth kept on both of these.
   //
   // PRJ-005 and PRJ-006 are both marked AI-assisted in facts.yaml, each with an
   // explicit "MUST be able to defend" list: why the Redis Lua script is atomic,
-  // fixed versus sliding window, how the Redisson lock guarantees idempotency,
-  // the PENDING → RUNNING → FAILED state machine. Publishing at this depth
-  // invites exactly those questions.
+  // fixed versus sliding window, why the Redisson lock plus the status guard
+  // taken inside it rules out a concurrent double-run without making execution
+  // idempotent, and the six-state lifecycle. Publishing at this depth invites
+  // exactly those questions.
+  //
+  // CORRECTED 2026-10-22 along with the copy below. This list used to credit the
+  // lock with a property it does not have, and would have sent a reader off to
+  // study the wrong defence: a lock serialises, it does not make a re-run a
+  // no-op. The queue is at-least-once. (Paraphrased on purpose — pass 4 of
+  // check-facts reads comments, so a tombstone that quotes the dead wording
+  // verbatim fails the build. Describe the error, do not reproduce it.)
   //
   // The case for trimming was that the README carries the detail anyway. The
   // case for keeping, which Harsh took, is that the mechanism IS the reason
