@@ -115,7 +115,7 @@ export const cases = [
     index: '02',
     title: 'Surviving exam-day load',
     standfirst:
-      'Mock tests put tens of thousands of submissions through the platform in the same few minutes. Two datastores, two different ways of not falling over.',
+      'A live test on Quizrr puts tens of thousands of submissions through the platform in the same few minutes. Two datastores, two different ways of not falling over.',
     factIds: ['MG-002', 'MG-001', 'MG-003'],
     stack: ['Java', 'Spring Boot', 'MongoDB', 'PostgreSQL', 'PgBouncer'],
     metrics: [
@@ -123,11 +123,16 @@ export const cases = [
       { value: '1500ms', label: 'queue timeout before failure', factIds: ['MG-002'] },
       { value: '750→33', label: 'pod connections to Postgres sockets', factIds: ['MG-002'] },
     ],
+    // PRODUCT CORRECTED 2026-10-22: this is QUIZRR, the test-series platform,
+    // not MARKS. The fact itself had the wrong product, so the page inherited it.
+    // Cases 01, 03 and 04 are MARKS; this one is not. Both are MathonGo products
+    // and they are not interchangeable.
+    //
     // "Tuned" is correct and settled: confirmed 2026-10-22 that he tuned an
     // existing setup rather than designing it, so scope stays contributed-a-part
     // and Designed/Architected stay banned.
     body: [
-      'The MARKS backend talks to two datastores, and each needed a different answer to the same question: what happens when ten thousand people submit at once. Tuned both so the big timed events (mock tests, QFTs, AYNR) degrade instead of exhausting a database.',
+      'The Quizrr backend talks to two datastores, and each needed a different answer to the same question: what happens when ten thousand people submit at once. Tuned both so the big timed events (AYJR, AYNR) degrade instead of exhausting a database.',
       'On the client side, each pod holds a MongoDB driver pool of 15 connections opened at startup, so a checkout costs under 0.1ms. The 16th concurrent request queues against a 1500ms timeout rather than opening an unbounded connection or crashing the pod.',
       'Postgres is a separate problem with a separate answer. PgBouncer sits in front of it, so roughly 750 persistent client connections collapse onto about 33 real TCP sockets, with a socket reassigned the moment a transaction commits. The pool is sized from the standard formula: vCPU × 2 + spindles, or 16 × 2 + 1.',
     ],
@@ -157,7 +162,7 @@ export const cases = [
       { value: '63%', label: 'of input tokens served from cache', factIds: ['MG-043'] },
     ],
     body: [
-      'Two curated buckets hang off every chapter of the JEE Main course, and the question they answer is: if a student can only do a few dozen questions here, which ones? Each of 13,154 past questions is scored out of 100 for how likely its topic, format and reasoning are to show up again, judged against a profile of what the last two years of papers actually asked.',
+      'Two curated buckets hang off every JEE Main chapter in MARKS, behind the premium tier, and the question they answer is: if a student can only do a few dozen questions here, which ones? Each of 13,154 past questions is scored out of 100 for how likely its topic, format and reasoning are to show up again, judged against a profile of what the last two years of papers actually asked.',
       'A model asked to score will rationalise, so the limits live in code where it cannot argue with them. The one I would want to be asked about refuses a high score when a question’s topic appears nowhere in its chapter’s recent profile — it stops the model bridging a dead topic to a live one, inflating an old question because something adjacent is trending. That single cap corrected 1,492 of the 13,154 scores, 11% of the run, which is the difference between a guardrail and a precaution.',
       'Picking the top N by score would have failed, and the scores say why: 54% of questions score above 85, so a global threshold separates almost nothing, and the most pattern-heavy subject has three times the share of top-band scores of the flattest one, so a single ranking would have produced a bucket dominated by one subject. Instead each chapter competes against itself for its own quota, slots are shared across topics by largest-remainder apportionment so no topic is silently rounded away, and at most 30% of any topic’s picks may come from the two most recent years — recency bias measured, not assumed.',
       'Cost came from ordering rather than from a cache library. Questions are scored chapter by chapter, so the chapter’s profile sits unchanged at the front of every request in that batch and becomes a cacheable prefix: 63% of input tokens were served from cache, and the full 13,154-question run cost about 1,290 rupees.',
