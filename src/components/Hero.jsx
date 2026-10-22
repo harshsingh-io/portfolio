@@ -65,23 +65,44 @@ function Artwork() {
               so a bloom behind it is a bloom nobody sees. The figure occupies
               x 460-1158 of this 1200 box; the dots are only visible below
               that. */}
-          <radialGradient id="ha-bloom-m" cx="26%" cy="52%" r="34%">
+          {/* userSpaceOnUse, so the centres are fixed in viewBox units and the
+              whole gradient travels when the rect carrying it is transformed.
+              With the default objectBoundingBox the percentages would be
+              re-resolved against the moving box and the bloom would stay put. */}
+          <radialGradient id="ha-bloom-m" gradientUnits="userSpaceOnUse" cx="312" cy="481" r="400">
             <stop offset="0%" stopColor="#fff" stopOpacity="1" />
             <stop offset="60%" stopColor="#fff" stopOpacity="0.55" />
             <stop offset="100%" stopColor="#fff" stopOpacity="0" />
           </radialGradient>
-          <radialGradient id="ha-bloom-l" cx="26%" cy="52%" r="19%">
+          <radialGradient id="ha-bloom-l" gradientUnits="userSpaceOnUse" cx="312" cy="481" r="225">
             <stop offset="0%" stopColor="#fff" stopOpacity="1" />
             <stop offset="100%" stopColor="#fff" stopOpacity="0" />
           </radialGradient>
           <mask id="ha-mask">
             <rect width="1200" height="925" fill="url(#ha-fade)" />
           </mask>
+          {/* Oversized on every side so the bloom can wander without ever
+              dragging the mask's own edge into the visible grid — outside the
+              rect the mask is black, which would hide the dots entirely. */}
           <mask id="ha-mask-m">
-            <rect width="1200" height="925" fill="url(#ha-bloom-m)" />
+            <rect
+              className="hero__bloom-m"
+              x="-700"
+              y="-600"
+              width="2600"
+              height="2125"
+              fill="url(#ha-bloom-m)"
+            />
           </mask>
           <mask id="ha-mask-l">
-            <rect width="1200" height="925" fill="url(#ha-bloom-l)" />
+            <rect
+              className="hero__bloom-l"
+              x="-700"
+              y="-600"
+              width="2600"
+              height="2125"
+              fill="url(#ha-bloom-l)"
+            />
           </mask>
         </defs>
 

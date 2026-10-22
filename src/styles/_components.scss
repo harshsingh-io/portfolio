@@ -1726,6 +1726,24 @@
      minutes and the drift reads as organic rather than as a loop.
 
      Opacity only, so both stay on the compositor and off the main thread. */
+  /* THE BLOOM TRAVELS. Pulsing it in place was still a blink, just a local
+     one — the centre never moved, so the same patch of dots swelled and shrank
+     forever. What moves now is the mask: each bloom's gradient rides a rect
+     that wanders, so the dots themselves never move and the field of large
+     ones sweeps across them.
+
+     Four-stop paths rather than a circle, and 17s against 23s, so the two
+     blooms separate, cross and recombine instead of orbiting in step. */
+  .hero__bloom-m {
+    animation: drift-mid 17s ease-in-out 1.2s infinite;
+  }
+
+  .hero__bloom-l {
+    animation: drift-core 23s ease-in-out 1.2s infinite;
+  }
+
+  /* A little breath on top of the travel, so dots at the fringe fade as the
+     bloom arrives rather than snapping to full size. */
   .hero__art-grid-m {
     animation: bloom-mid 9s ease-in-out 1.2s infinite;
   }
@@ -1808,10 +1826,42 @@
   }
 }
 
+@keyframes drift-mid {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  27% {
+    transform: translate(130px, -52px);
+  }
+  54% {
+    transform: translate(58px, 86px);
+  }
+  79% {
+    transform: translate(-86px, 30px);
+  }
+}
+
+@keyframes drift-core {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  31% {
+    transform: translate(-96px, 48px);
+  }
+  58% {
+    transform: translate(74px, -70px);
+  }
+  82% {
+    transform: translate(112px, 36px);
+  }
+}
+
 @keyframes bloom-mid {
   0%,
   100% {
-    opacity: 0.5;
+    opacity: 0.72;
   }
   50% {
     opacity: 1;
@@ -1821,9 +1871,9 @@
 @keyframes bloom-core {
   0%,
   100% {
-    opacity: 0.2;
+    opacity: 0.45;
   }
   50% {
-    opacity: 0.85;
+    opacity: 0.9;
   }
 }
