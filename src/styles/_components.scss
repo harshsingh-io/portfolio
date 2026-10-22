@@ -464,7 +464,6 @@
   --art-paper: #eeeae2;
   --art-paper-2: #f3f0e8;
   --art-dot: #d8d4c8;
-  --art-glow: rgba(26, 72, 196, 0.1);
   --art-paper-lit: #e4e3e6;
 }
 
@@ -475,7 +474,6 @@
     --art-paper: #4a463c;
     --art-paper-2: #4a463c;
     --art-dot: #6d6a60;
-    --art-glow: rgba(138, 167, 255, 0.14);
     --art-paper-lit: #51504a;
   }
 }
@@ -486,7 +484,6 @@
   --art-paper: #4a463c;
   --art-paper-2: #4a463c;
   --art-dot: #6d6a60;
-  --art-glow: rgba(138, 167, 255, 0.14);
   --art-paper-lit: #51504a;
 }
 
@@ -1704,9 +1701,19 @@
     stroke-dasharray: none;
     stroke-dashoffset: 0;
     opacity: 0;
-    animation:
-      art-arrive 400ms var(--ease) 900ms forwards,
-      art-pulse 7s ease-in-out 2.4s infinite;
+    animation: art-arrive 400ms var(--ease) 900ms forwards;
+  }
+
+  /* THE AMBIENT LIVES ON THE GRID. It was a radial glow behind the figure and
+     an occasional twitch on the markers; both are gone. One slow breath across
+     the dots is quieter and reads as the drawing being alive rather than as
+     something blinking at you.
+
+     The keyframe starts and ends at the resting opacity so there is no step
+     when the loop begins at 1.2s, and it is opacity-only, so it stays on the
+     compositor and off the main thread. */
+  .hero__art-grid {
+    animation: grid-breathe 7s ease-in-out 1.2s infinite;
   }
 
   .hero__art-orbit {
@@ -1725,18 +1732,6 @@
     animation: art-arrive 500ms var(--ease) 1350ms forwards;
   }
 
-  /* Ambient glow behind the figure. Compositor-only (opacity), so it costs no
-     main-thread time — verified against TBT. Deliberately slow and very low
-     contrast: this is the one continuously moving thing on the page. */
-  .hero__art::after {
-    content: '';
-    position: absolute;
-    inset: 6% 2% 0 22%;
-    background: radial-gradient(ellipse at 62% 42%, var(--art-glow), transparent 68%);
-    opacity: 0;
-    pointer-events: none;
-    animation: art-glow 7s ease-in-out 1.2s infinite;
-  }
 }
 
 @keyframes hero-rise {
@@ -1795,23 +1790,12 @@
   }
 }
 
-@keyframes art-pulse {
+@keyframes grid-breathe {
   0%,
-  72%,
   100% {
-    opacity: 0.7;
-  }
-  84% {
     opacity: 1;
-  }
-}
-
-@keyframes art-glow {
-  0%,
-  100% {
-    opacity: 0.35;
   }
   50% {
-    opacity: 1;
+    opacity: 0.62;
   }
 }

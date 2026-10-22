@@ -57,7 +57,13 @@ function Artwork() {
         <path d="M470 925 V 550 A 340 340 0 0 1 1150 550 V 925 Z" className="hero__art-arch" />
 
         {/* Grid over the arch, faded out before it reaches the heading. */}
-        <rect width="1200" height="925" fill="url(#ha-dots)" mask="url(#ha-mask)" />
+        <rect
+          width="1200"
+          height="925"
+          className="hero__art-grid"
+          fill="url(#ha-dots)"
+          mask="url(#ha-mask)"
+        />
 
         {/* FIG. 01, upper left, with its leader angling in toward the figure. */}
         <text x="175" y="215" className="hero__art-label">FIG. 01</text>
