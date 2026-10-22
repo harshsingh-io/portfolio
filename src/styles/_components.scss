@@ -40,14 +40,27 @@
   text-decoration: none;
   white-space: nowrap;
   transition:
-    background-color var(--dur-state) var(--ease),
-    border-color var(--dur-state) var(--ease),
-    color var(--dur-state) var(--ease);
+    background-color 200ms var(--ease),
+    border-color 200ms var(--ease),
+    color 200ms var(--ease),
+    filter 200ms var(--ease),
+    transform 120ms var(--ease);
 }
 
+/* Secondary: a restrained blue edge rather than a full ink border, so the two
+   CTA tiers stay visually distinct on hover instead of converging. */
 .btn:hover {
-  border-color: var(--ink);
+  border-color: var(--accent);
   background: var(--surface);
+}
+
+/* 1px down on press. Deliberately a transform and not a margin — a margin
+   would reflow the row and cost CLS on every click. Tendrils writes inline
+   transforms to these same buttons while the goo is active and inline wins,
+   so during a strand grab the press offset is suppressed. That is acceptable:
+   the goo is already giving far louder feedback than one pixel. */
+.btn:active {
+  transform: translateY(1px);
 }
 
 .btn--primary {
@@ -56,10 +69,14 @@
   color: var(--on-accent);
 }
 
+/* Primary brightens rather than inverting to ink. The old inversion made the
+   primary and secondary read as the same control on hover, which is the thing
+   a primary button exists not to do. */
 .btn--primary:hover {
-  background: var(--ink);
-  border-color: var(--ink);
-  color: var(--paper);
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+  filter: brightness(1.12);
 }
 
 .btn[disabled] {
@@ -447,6 +464,8 @@
   --art-paper: #eeeae2;
   --art-paper-2: #f3f0e8;
   --art-dot: #d8d4c8;
+  --art-glow: rgba(26, 72, 196, 0.1);
+  --art-paper-lit: #e4e3e6;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -456,6 +475,8 @@
     --art-paper: #4a463c;
     --art-paper-2: #4a463c;
     --art-dot: #6d6a60;
+    --art-glow: rgba(138, 167, 255, 0.14);
+    --art-paper-lit: #51504a;
   }
 }
 
@@ -465,6 +486,8 @@
   --art-paper: #4a463c;
   --art-paper-2: #4a463c;
   --art-dot: #6d6a60;
+  --art-glow: rgba(138, 167, 255, 0.14);
+  --art-paper-lit: #51504a;
 }
 
 /* The art layer. Wider and taller than the figure so the drawing has margins
@@ -535,6 +558,27 @@
 .hero__portrait img {
   position: relative;
   z-index: 1;
+}
+
+/* Hover: the figure lifts 4px and the arch takes a little blue light. The
+   colour reveal already on this element stays — it was asked for explicitly
+   and it is the stronger of the two signals; this only adds the lift.
+
+   Transition, not animation, so it reverses cleanly when the pointer leaves
+   mid-rise. 300ms sits in the brief's 250-350 band. */
+.hero__portrait img,
+.hero__art-arch {
+  transition:
+    transform 300ms var(--ease),
+    fill 300ms var(--ease);
+}
+
+.hero__portrait:hover img {
+  transform: translateY(-4px);
+}
+
+.hero__portrait:hover .hero__art-arch {
+  fill: var(--art-paper-lit);
 }
 
 /* Dark mode RESTORES the figure's blacks rather than dimming it, because
@@ -1591,4 +1635,183 @@
   flex-basis: 100%;
   font-size: var(--step--2);
   color: var(--ink-3);
+}
+
+/* ══ Hero choreography ════════════════════════════════════════════════════
+   First-visit entrance, blueprint draw, and the ambient loop.
+
+   EVERY RULE THAT HIDES ANYTHING LIVES INSIDE `no-preference`. That is the
+   same contract `.enter` follows and the reason is the same: `opacity: 0` plus
+   `animation-fill-mode: both` holds content invisible if the animation never
+   runs. Under `reduce` none of this applies, so the hero is simply there.
+
+   The hero is above the fold and is NOT part of the useReveal scroll system —
+   these fire on first paint, which for a CRA page is React's first mount.
+
+   Timings follow the brief: eyebrow and name at 0, copy and CTAs at 150ms,
+   portrait and arch at 200ms rising 18px, connectors drawing from 450ms,
+   endpoint nodes lighting after them, ambient from 1.2s. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero__eyebrow,
+  .hero__name {
+    animation: hero-rise 700ms var(--ease) both;
+  }
+
+  .hero__thesis {
+    animation: hero-rise 700ms var(--ease) 150ms both;
+  }
+
+  .hero__context {
+    animation: hero-rise 700ms var(--ease) 220ms both;
+  }
+
+  .hero__actions {
+    animation: hero-rise 700ms var(--ease) 280ms both;
+  }
+
+  .hero__facts,
+  .hero__proof {
+    animation: hero-rise 700ms var(--ease) 380ms both;
+  }
+
+  /* 18px rather than 12, per the brief — the portrait is the heaviest element
+     and a longer travel reads as slower without taking more time. */
+  .hero__portrait {
+    animation: hero-rise-far 900ms var(--ease) 200ms both;
+  }
+
+  /* The arch grows from its own base so it reads as being revealed rather than
+     fading. fill-box because the default SVG transform origin is the viewBox,
+     not the shape. */
+  .hero__art-arch {
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+    animation: arch-reveal 800ms var(--ease) 260ms both;
+  }
+
+  /* `pathLength="1"` makes one keyframe draw every connector at the same
+     apparent rate regardless of its real length — the orbit is 950 units and
+     the right-hand leader is 134. */
+  .hero__art-line {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: art-draw 900ms var(--ease) 450ms forwards;
+  }
+
+  /* The crosses are four separate strokes in one path, so drawing them looks
+     like a glitch. They arrive instead, then join the ambient pulse. */
+  .hero__art-line--cross {
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+    opacity: 0;
+    animation:
+      art-arrive 400ms var(--ease) 900ms forwards,
+      art-pulse 7s ease-in-out 2.4s infinite;
+  }
+
+  .hero__art-orbit {
+    opacity: 0;
+    animation: art-arrive 900ms var(--ease) 620ms forwards;
+  }
+
+  /* Endpoints light after their leader has reached them. */
+  .hero__art-node {
+    opacity: 0;
+    animation: node-light 320ms var(--ease) 1250ms forwards;
+  }
+
+  .hero__art-label {
+    opacity: 0;
+    animation: art-arrive 500ms var(--ease) 1350ms forwards;
+  }
+
+  /* Ambient glow behind the figure. Compositor-only (opacity), so it costs no
+     main-thread time — verified against TBT. Deliberately slow and very low
+     contrast: this is the one continuously moving thing on the page. */
+  .hero__art::after {
+    content: '';
+    position: absolute;
+    inset: 6% 2% 0 22%;
+    background: radial-gradient(ellipse at 62% 42%, var(--art-glow), transparent 68%);
+    opacity: 0;
+    pointer-events: none;
+    animation: art-glow 7s ease-in-out 1.2s infinite;
+  }
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes hero-rise-far {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes arch-reveal {
+  from {
+    opacity: 0;
+    transform: scaleY(0.82);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes art-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes art-arrive {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes node-light {
+  from {
+    opacity: 0;
+    r: 2;
+  }
+  to {
+    opacity: 0.8;
+    r: 5;
+  }
+}
+
+@keyframes art-pulse {
+  0%,
+  72%,
+  100% {
+    opacity: 0.7;
+  }
+  84% {
+    opacity: 1;
+  }
+}
+
+@keyframes art-glow {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
 }

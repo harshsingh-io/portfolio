@@ -61,12 +61,12 @@ function Artwork() {
 
         {/* FIG. 01, upper left, with its leader angling in toward the figure. */}
         <text x="175" y="215" className="hero__art-label">FIG. 01</text>
-        <path d="M175 238 H 390 L 452 308" className="hero__art-line" />
+        <path pathLength="1" d="M175 238 H 390 L 452 308" className="hero__art-line" />
         <circle cx="175" cy="238" r="5" className="hero__art-node" />
         <circle cx="452" cy="308" r="5" className="hero__art-node" />
 
         {/* Left bracket. */}
-        <path d="M268 390 V 788 M232 760 H 352" className="hero__art-line" />
+        <path pathLength="1" d="M268 390 V 788 M232 760 H 352" className="hero__art-line" />
         <circle cx="268" cy="390" r="5" className="hero__art-node" />
         <circle cx="232" cy="760" r="5" className="hero__art-node" />
 
@@ -77,15 +77,16 @@ function Artwork() {
         <text x="1185" y="375" textAnchor="end" className="hero__art-label">
           BENGALURU / IST
         </text>
-        <path d="M1046 400 H 1180" className="hero__art-line" />
+        <path pathLength="1" d="M1046 400 H 1180" className="hero__art-line" />
         <circle cx="1180" cy="400" r="5" className="hero__art-node" />
         <circle cx="1046" cy="400" r="5" className="hero__art-node" />
 
         {/* The arc, running behind the shoulder. */}
-        <path d="M1035 535 A 175 175 0 0 1 1062 872" className="hero__art-line" />
+        <path pathLength="1" d="M1035 535 A 175 175 0 0 1 1062 872" className="hero__art-line" />
 
         {/* Registration crosses. */}
         <path
+          pathLength="1"
           d="M344 173 h 22 M355 162 v 22
              M987 281 h 22 M998 270 v 22
              M234 630 h 22 M245 619 v 22
