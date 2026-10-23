@@ -83,10 +83,29 @@ export const facts = [
 
 // Three numbers, above the fold. Each is `strong` and each belongs to a different
 // piece of work, so they read as range rather than one project restated.
+//
+// CORRECTED 2026-10-23. All three used to point at work that had since been
+// demoted to Also shipped, so a reader stopped by the biggest number on the
+// page scrolled into four cases about none of it. The third slot now belongs
+// to a live case.
+//
+// 2,500+ videos under automated monitoring went, rather than either of the
+// other two: monitoring is upkeep, not an achievement, and it was the only one
+// of the three a reader could answer "so what?" to. 250K+ and 40→8 stay
+// because they are the most legible figures here and both are still true — the
+// hero's job is to stop a scanner, and the cases' job is depth.
+//
+// The 11% is deliberately the one that needs its label read. It is the single
+// most distinctive claim on the site and it is what "How I work" now closes
+// on, so hero, About and case 03 finally argue the same thing.
 export const proof = [
   { value: '250K+', unit: 'questions reclassified', factIds: ['MG-013'] },
   { value: '40→8', unit: 'hrs/week of manual work', factIds: ['MG-021'] },
-  { value: '2,500+', unit: 'videos under automated monitoring', factIds: ['MG-011'] },
+  {
+    value: '11%',
+    unit: 'of model scores corrected by a cap it could not override',
+    factIds: ['MG-041'],
+  },
 ]
 
 export const cases = [
