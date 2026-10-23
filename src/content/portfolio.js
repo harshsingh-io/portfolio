@@ -458,12 +458,17 @@ export const stack = [
 // most likely to be asked about, which is the point — MG-041 is graded strong
 // and the 11% is the evidence that the cap did real work.
 export const about = {
+  // Numbered 01-03 in the markup. Three positions, which is why the fourth
+  // paragraph moved out: it is biographical, not a position, and numbering it
+  // alongside the others claimed a weight it does not have.
   paragraphs: [
     'I work on both sides of the same platform: the services that answer a student\u2019s request, and the pipelines that decide what those services have to say. Which language depends on where the problem sits \u2014 Java and Spring Boot in the MARKS backend, Node and Python for most of what feeds it.',
     'Most of what I have built at MathonGo started as something a person was doing by hand every week: clearing caches, curating question lists, assembling a quality report. The interesting part is rarely the automation itself. It is working out what the manual process was actually protecting, and making sure the automated one still protects it.',
     'Several of them now have a model somewhere in the middle, which only moves that question rather than answering it. A model asked to score will rationalise, so the limits worth having live in code, where it cannot argue with them.',
-    'Outside work I have solved 300+ data structures and algorithms problems, and I build small distributed systems to understand them properly: a rate limiter and a job queue, both of which taught me more about Redis semantics than reading about them did.',
   ],
+  // Sits under the photograph, in the caption register.
+  aside:
+    'Outside work I have solved 300+ data structures and algorithms problems, and I build small distributed systems to understand them properly: a rate limiter and a job queue, both of which taught me more about Redis semantics than reading about them did.',
   factIds: ['ACH-001', 'MG-031', 'MG-040', 'MG-041', 'MG-030'],
 }
 

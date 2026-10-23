@@ -17,3 +17,19 @@ avifenc -q 64 -s 4
 
 Do not re-crop without re-measuring against `--paper` in dark mode. The whole
 reason this asset exists is that the previous one measured 1.29:1 and vanished.
+
+## about-source.webp → img/about-{430,860}.webp
+
+The About photograph. 1086x1448, which is already 3:4, so there is no crop —
+the previous asset was square and the square was a crop, not the picture.
+Regenerate with:
+
+```
+Lanczos resize to 430 and 860 wide    # the plate is 4 of 12 columns, ~330 CSS px
+cwebp -q 82                           # 24 KB / 95 KB, both loading="lazy"
+```
+
+Grayscale and the +4% contrast are CSS, not baked, so the hex in the file still
+matches what a colour treatment would need. Unlike the hero portrait this one
+has its own background and needs no shadow lift: mean luminance 109/255 against
+a `--surface` plate in either theme.

@@ -1437,43 +1437,111 @@
   align-items: start;
 }
 
-.about__body {
-  grid-column: 1 / 8;
+/* Both placed explicitly and on the same row, so the body can lead in the DOM
+   while the photograph leads in the composition. Column 5 is left empty: the
+   gutter between picture and text is a column wide, not a gap wide. */
+.about__side {
+  grid-column: 1 / 5;
+  grid-row: 1;
 }
 
-.about__prose {
+.about__body {
+  grid-column: 6 / -1;
+  grid-row: 1;
+}
+
+/* Three positions, numbered. The hairline above each is the same rule the rest
+   of the page uses to separate items; it is what turns four paragraphs into a
+   list you can count. */
+.about__points {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.about__point {
+  display: grid;
+  grid-template-columns: 2.25rem minmax(0, 1fr);
+  gap: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--rule);
+}
+
+.about__point + .about__point {
+  margin-top: var(--space-5);
+}
+
+.about__point p {
+  margin: 0;
   color: var(--ink-2);
 }
 
-.about__prose p + p {
-  margin-top: var(--space-4);
+/* Aligned to the first line of body text, not to the top of the box: body runs
+   at 1.6 on an 18px step, so its first baseline sits ~0.3em down. */
+.about__point-num {
+  font-size: var(--step--2);
+  line-height: 2.1;
+  letter-spacing: 0.04em;
+  color: var(--accent);
 }
 
+/* The drafting plate from .schematic. Two call sites is not an abstraction —
+   if a third appears, lift the six declarations into a placeholder. */
 .about__figure {
-  grid-column: 9 / 13;
+  margin: 0;
+  padding: var(--space-4);
+  border: 1px solid var(--rule);
+  background-color: var(--surface);
+  background-image:
+    linear-gradient(to right, var(--rule) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--rule) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-position: center center;
 }
 
 .about__figure img {
+  display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 1;
-  object-fit: cover;
   border-radius: 0;
   filter: grayscale(1) contrast(1.04);
+}
+
+.about__caption {
+  margin-top: var(--space-4);
+  font-size: var(--step--2);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-3); /* 4.77:1 on surface light · 5.04:1 dark */
+}
+
+.about__aside {
+  margin-top: var(--space-5);
+  font-size: var(--step--1);
+  color: var(--ink-3); /* 5.17:1 on paper light · 5.41:1 dark */
 }
 
 @media (max-width: 860px) {
   .about__inner {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-7) var(--space-5);
   }
 
   .about__body {
     grid-column: 1 / -1;
+    grid-row: auto;
+  }
+
+  /* Stacked, so it follows the body and keeps the heading first. Capped and
+     left-aligned: a picture floated to the right of a left-aligned column is
+     the thing that read as off in the hero. */
+  .about__side {
+    grid-column: 1 / -1;
+    grid-row: auto;
   }
 
   .about__figure {
-    grid-column: 1 / -1;
-    max-width: 220px;
+    max-width: 300px;
   }
 }
 
